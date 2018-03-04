@@ -1,42 +1,47 @@
 import './styles.css';
 import * as PIXI from 'pixi.js'
 import SKULL from './skull.png';
+import LOLPIXELS from './lolpixels.png';
+import Config from './config';
+import Components from './components';
 
-function runGame() {
-  class Dog {
-    bark() {
-      console.log("Woof, woof!");
-    }
-  }
+function loadResources() {
+  PIXI.loader.add('lolpixels', LOLPIXELS)
+  .add('skull', SKULL)
+  .on("progress", loadProgressHandler)
+  .load(afterResourcesLoad);
+}
 
-  console.log("IS IT EVEN WORK?");
-  const loltest = () => {
-    console.log("LOLTEST 123?");
+function loadProgressHandler(loader, resource) {
+    console.log("loading: " + resource.url);
+    console.log("progress: " + loader.progress + "%");
+}
+
+function afterResourcesLoad() {
+  const renderer_options = {
+    width: Config.WORLD_WIDTH,
+    height: Config.WORLD_HEIGHT,
+    backgroundColor: Config.BG_COLOR,
   };
-  loltest();
-  const dog = new Dog();
-  dog.bark();
+  const body_components = Components.bodies;
+  const position_components = Components.positions;
 
-  let app = new PIXI.Application({
-      width: 256,
-      height: 256,
-      antialias: true,
-      transparent: false,
-      resolution: 1
-    }
-  );
+  let app = new PIXI.Application(renderer_options);
 
-  document.body.appendChild(app.view);
+  document.getElementById('game_container').appendChild(app.view);
 
-  PIXI.loader
-    .add(SKULL)
-    .load(setup);
+  Object.keys(body_components).forEach(id => {
+    const sprite = new PIXI.Sprite(PIXI.loader.resources.lolpixels.texture);
+    sprite.x = position_components[id].x;
+    sprite.y = position_components[id].y;
+    sprite.width = body_components[id].width;
+    sprite.height = body_components[id].height;
+    sprite.anchor = new PIXI.ObservablePoint(null, null, 0.5, 0.5);
+    app.stage.addChild(sprite);
+  });
 
-  function setup() {
-    let skull = new PIXI.Sprite(PIXI.loader.resources[SKULL].texture);
-    app.stage.addChild(skull);
-  }
+  app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources.skull.texture));
 
 }
 
-window.addEventListener('load', runGame);
+window.addEventListener('load', loadResources);
