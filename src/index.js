@@ -1,5 +1,6 @@
 import './styles.css';
 import * as PIXI from 'pixi.js'
+import SKULL from './skull.png';
 
 function runGame() {
   class Dog {
@@ -28,11 +29,11 @@ function runGame() {
   document.body.appendChild(app.view);
 
   PIXI.loader
-    .add("skull.png")
+    .add(SKULL)
     .load(setup);
 
   function setup() {
-    let skull = new PIXI.Sprite(PIXI.loader.resources["skull.png"].texture);
+    let skull = new PIXI.Sprite(PIXI.loader.resources[SKULL].texture);
     app.stage.addChild(skull);
   }
 
