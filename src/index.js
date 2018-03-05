@@ -1,5 +1,4 @@
 import './styles.css';
-import * as PIXI from 'pixi.js'
 import SKULL from './skull.png';
 import LOLPIXELS from './lolpixels.png';
 import Config from './config';
@@ -17,13 +16,13 @@ class Game {
     this.position_components = Components.positions;
   }
 
-  update() {
+  update(delta) {
     Object.keys(this.order_components).forEach(id => {
-      if (this.order_components[id] === "left") {
-        this.position_components[id].x -= 4;
+      if (this.order_components[id].leftOrder === "start" && this.order_components[id].rightOrder === "stop") {
+        this.position_components[id].x -= Config.PLAYER_PADDLE_SPEED * delta;
       }
-      else if (this.order_components[id] === "right") {
-        this.position_components[id].x += 4;
+      else if (this.order_components[id].leftOrder === "stop" && this.order_components[id].rightOrder === "start") {
+        this.position_components[id].x += Config.PLAYER_PADDLE_SPEED * delta;
       }
     });
   }
@@ -47,6 +46,7 @@ function run() {
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
+  mainLoop.setSimulationTimestep(10);
   mainLoop.setDraw(renderer.render);
   mainLoop.setUpdate(game.update);
   mainLoop.start();
@@ -59,11 +59,11 @@ function run() {
     switch (event.keyCode) {
       case 37: //left
         console.log("LEFT");
-        Components.orders[2] = "left";
+        Components.orders[2].leftOrder = "start";
       break;
       case 39: //right
         console.log("RIGHT");
-        Components.orders[2] = "right";
+        Components.orders[2].rightOrder = "start";
       break;
     }
   });
@@ -71,11 +71,11 @@ function run() {
     switch (event.keyCode) {
       case 37: //left
         console.log("LEFT UP");
-        Components.orders[2] = "stop";
+        Components.orders[2].leftOrder = "stop";
       break;
       case 39: //right
         console.log("RIGHT UP");
-        Components.orders[2] = "stop";
+        Components.orders[2].rightOrder = "stop";
       break;
     }
   });

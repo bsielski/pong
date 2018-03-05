@@ -12,7 +12,7 @@ const Components = {
     3: {x: Config.BALL_POSITION.X, y: Config.BALL_POSITION.Y},
   },
   orders: {
-    2: {order: "stop"},
+    2: {leftOrder: "stop", rightOrder: "stop"},
   }
 }
 
