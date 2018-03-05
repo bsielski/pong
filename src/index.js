@@ -13,11 +13,19 @@ class Game {
     this.renderer = renderer;
     this.start = this.start.bind(this);
     this.update = this.update.bind(this);
-
+    this.order_components = Components.orders;
+    this.position_components = Components.positions;
   }
 
   update() {
-    this.renderer.render();
+    Object.keys(this.order_components).forEach(id => {
+      if (this.order_components[id] === "left") {
+        this.position_components[id].x -= 4;
+      }
+      else if (this.order_components[id] === "right") {
+        this.position_components[id].x += 4;
+      }
+    });
   }
 
   start() {
@@ -35,12 +43,14 @@ function run() {
   const renderer = new Renderer(Components.bodies, Components.positions, renderer_options);
   renderer.stop();
 
+  const game = new Game(renderer);
+
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
   mainLoop.setDraw(renderer.render);
+  mainLoop.setUpdate(game.update);
   mainLoop.start();
 
-  // const game = new Game(renderer);
   // game.start();
 
  // setInterval(game.update, 100);
@@ -49,13 +59,23 @@ function run() {
     switch (event.keyCode) {
       case 37: //left
         console.log("LEFT");
-        console.log(mainLoop.getFPS());
-        Components.positions[2].x -= 5;
+        Components.orders[2] = "left";
       break;
       case 39: //right
         console.log("RIGHT");
-        console.log(mainLoop.getFPS());
-        Components.positions[2].x += 5;
+        Components.orders[2] = "right";
+      break;
+    }
+  });
+  window.addEventListener('keyup', function(event) {
+    switch (event.keyCode) {
+      case 37: //left
+        console.log("LEFT UP");
+        Components.orders[2] = "stop";
+      break;
+      case 39: //right
+        console.log("RIGHT UP");
+        Components.orders[2] = "stop";
       break;
     }
   });

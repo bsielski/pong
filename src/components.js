@@ -11,6 +11,9 @@ const Components = {
     2: {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y},
     3: {x: Config.BALL_POSITION.X, y: Config.BALL_POSITION.Y},
   },
+  orders: {
+    2: {order: "stop"},
+  }
 }
 
 export default Components;
