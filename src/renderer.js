@@ -11,9 +11,6 @@ class Renderer {
     this.position_components = position_components;
     this.app = new PIXI.Application(this.renderer_options);
     document.body.appendChild(this.app.view);
-    this.update = this.update.bind(this);
-    this.stop = this.stop.bind(this);
-    this.start = this.start.bind(this);
     this.skull = new PIXI.Sprite(PIXI.Texture.fromImage(SKULL));
     this.skull.x = 150;
     this.skull.y = 150;
@@ -31,25 +28,26 @@ class Renderer {
       this.sprites[id] = sprite;
     });
 
-    // skull.cacheAsBitmap = true;
+    this.render = this.render.bind(this);
+    this.stop = this.stop.bind(this);
+    this.start = this.start.bind(this);
     this.app.stage.addChild(this.skull);
-    this.app.ticker.add(this.update);
   }
 
+  render() {
+    this.skull.rotation += 0.01;
+    Object.keys(this.sprites).forEach(id => {
+      this.sprites[id].x = this.position_components[id].x;
+      this.sprites[id].y = this.position_components[id].y;
+    });
+    this.app.render();
+  }
   start() {
     this.app.start();
   }
 
   stop() {
     this.app.stop();
-  }
-
-  update() {
-    this.skull.rotation += 0.01;
-    Object.keys(this.sprites).forEach(id => {
-      this.sprites[id].x = this.position_components[id].x;
-      this.sprites[id].y = this.position_components[id].y;
-    });
   }
 
 }

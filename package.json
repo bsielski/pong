@@ -31,6 +31,7 @@
     "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
+    "mainloop.js": "^1.0.4",
     "pixi.js": "^4.7.0"
   }
 }
