@@ -1,5 +1,5 @@
 const Config = {
-  MAX_FPS: 30,
+  MAX_FPS: 1000,
   BG_COLOR: 0x001100,
   WORLD_WIDTH: 600,
   WORLD_HEIGHT: 400,
