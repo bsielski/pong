@@ -11,7 +11,7 @@ class Renderer {
     this.body_components = body_components;
     this.position_components = position_components;
     this.app = new Application(this.renderer_options);
-    document.body.appendChild(this.app.view);
+    document.getElementById("game_container").appendChild(this.app.view);
     this.skull = new Sprite(Texture.fromImage(SKULL));
     this.skull.x = 100;
     this.skull.y = 100;

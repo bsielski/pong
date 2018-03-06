@@ -4,6 +4,7 @@ import LOLPIXELS from './lolpixels.png';
 import Config from './config';
 import Components from './components';
 import Renderer from './renderer';
+import Physics from './physics';
 import MainLoop from 'mainloop.js';
 
 class Game {
@@ -40,16 +41,39 @@ function run() {
     backgroundColor: Config.BG_COLOR,
   };
   const renderer = new Renderer(Components.bodies, Components.positions, renderer_options);
+  const physics = new Physics(Components.bodies, Components.positions);
   renderer.stop();
 
   const game = new Game(renderer);
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
-  mainLoop.setSimulationTimestep(10);
+  // const x = 1000 / 60;
+  // mainLoop.setSimulationTimestep();
   mainLoop.setDraw(renderer.render);
   mainLoop.setUpdate(game.update);
   mainLoop.start();
+
+
+
+
+  // let oldTime = new Date();
+  // let lag = 0.0;
+  // let gameLogicSpeed = 10;
+  // while (true) {
+  //     let newTime = new Date();
+  //     let passedTime = newTime - oldTime;
+  //     oldTime = newTime;
+  //     lag += passedTime
+  //
+  //     while (lag >= gameLogicSpeed) {
+  //         game.update();
+  //         lag -= gameLogicSpeed;
+  //     }
+  //     renderer.render();
+  // }
+
+
 
   // game.start();
 

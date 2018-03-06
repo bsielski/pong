@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "mainloop.js": "^1.0.4",
+    "matter-js": "^0.14.1",
     "pixi.js": "^4.7.0"
   }
 }
