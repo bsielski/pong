@@ -4,13 +4,21 @@ import LOLPIXELS from './lolpixels.png';
 import Config from './config';
 import Components from './components';
 import Renderer from './renderer';
-import Physics from './physics';
+// import Physics from './physics-matter';
+// import Physics from './physics-p2';
+// import Physics from './physics-planck';
+// import Physicsx from './physics-physicsjs';
+// import Physics from './physics-chipmunk';
+import Physics from './physics-collisions';
+
 import MainLoop from 'mainloop.js';
 
 class Game {
 
-  constructor(renderer) {
+  constructor(renderer, physics) {
+
     this.renderer = renderer;
+    this.physics = physics;
     this.start = this.start.bind(this);
     this.update = this.update.bind(this);
     this.order_components = Components.orders;
@@ -18,14 +26,15 @@ class Game {
   }
 
   update(delta) {
-    Object.keys(this.order_components).forEach(id => {
-      if (this.order_components[id].leftOrder === "start" && this.order_components[id].rightOrder === "stop") {
-        this.position_components[id].x -= Config.PLAYER_PADDLE_SPEED * delta;
-      }
-      else if (this.order_components[id].leftOrder === "stop" && this.order_components[id].rightOrder === "start") {
-        this.position_components[id].x += Config.PLAYER_PADDLE_SPEED * delta;
-      }
-    });
+    // Object.keys(this.order_components).forEach(id => {
+    //   if (this.order_components[id].leftOrder === "start" && this.order_components[id].rightOrder === "stop") {
+    //     this.position_components[id].x -= Config.PLAYER_PADDLE_SPEED * delta;
+    //   }
+    //   else if (this.order_components[id].leftOrder === "stop" && this.order_components[id].rightOrder === "start") {
+    //     this.position_components[id].x += Config.PLAYER_PADDLE_SPEED * delta;
+    //   }
+    // });
+    this.physics.update(delta);
   }
 
   start() {
@@ -41,10 +50,10 @@ function run() {
     backgroundColor: Config.BG_COLOR,
   };
   const renderer = new Renderer(Components.bodies, Components.positions, renderer_options);
-  const physics = new Physics(Components.bodies, Components.positions);
+  const physics = new Physics(Components.bodies, Components.positions, Components.orders);
   renderer.stop();
 
-  const game = new Game(renderer);
+  const game = new Game(renderer, physics);
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);

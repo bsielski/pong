@@ -27,6 +27,8 @@ class Renderer {
       sprite.anchor = new Point(0.5, 0.5);
       this.app.stage.addChild(sprite);
       this.sprites[id] = sprite;
+      // console.log("Render position: " + sprite.x + " " + sprite.y);
+
     });
     this.style = new TextStyle({
       fontFamily: "Arial",
