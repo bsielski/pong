@@ -1,7 +1,6 @@
 import {Sprite, Application, Texture, Point, TextStyle, Text} from 'pixi.js';
 import SKULL from './skull.png';
 import LOLPIXELS from './lolpixels.png';
-import MainLoop from 'mainloop.js';
 
 
 // this.skull = new Sprite(Texture.fromImage(SKULL));
@@ -15,9 +14,10 @@ import MainLoop from 'mainloop.js';
 
 class Renderer {
 
-  constructor(sprite_components, position_components, renderer_options) {
+  constructor(sprite_components, text_components, position_components, renderer_options) {
     this.renderer_options = renderer_options;
     this.sprite_components = sprite_components;
+    this.text_components = text_components;
     this.position_components = position_components;
     this.app = new Application(this.renderer_options);
     document.getElementById("game_container").appendChild(this.app.view);
@@ -33,9 +33,9 @@ class Renderer {
       this.app.stage.addChild(sprite);
       this.sprites[id] = sprite;
       // console.log("Render position: " + sprite.x + " " + sprite.y);
-
     });
-    this.style = new TextStyle({
+    this.texts = {};
+    this.textSstyle = new TextStyle({
       fontFamily: "Arial",
       fontSize: 36,
       fill: "white",
@@ -47,12 +47,17 @@ class Renderer {
       dropShadowAngle: Math.PI / 6,
       dropShadowDistance: 6,
     });
-    this.fpsCounter = new Text("00", this.style);
-    this.simCounter = new Text("00", this.style);
-    this.app.stage.addChild(this.fpsCounter);
-    this.app.stage.addChild(this.simCounter);
-    this.fpsCounter.position.set(200, 250);
-    this.simCounter.position.set(200, 300);
+    Object.keys(this.text_components).forEach(id => {
+      const style = Object.assign({}, this.textSstyle, {fontSize: this.text_components[id].size})
+      const text = new Text(this.text_components[id].content, style);
+      text.x = this.position_components[id].x;
+      text.y = this.position_components[id].y;
+      text.alpha = this.text_components[id].opacity;
+      text.anchor = new Point(0.5, 0.5);
+      this.app.stage.addChild(text);
+      this.texts[id] = text;
+      // console.log("Render position: " + sprite.x + " " + sprite.y);
+    });
 
     this.render = this.render.bind(this);
     this.stop = this.stop.bind(this);
@@ -60,9 +65,11 @@ class Renderer {
   }
 
   render() {
-    this.fpsCounter.text = MainLoop.getFPS();
-    this.simCounter.text = MainLoop.getSimulationTimestep();
+    // this.simCounter.text = MainLoop.getSimulationTimestep();
     // this.fpsCounter.text = "asd";
+    Object.keys(this.texts).forEach(id => {
+      this.texts[id].text = this.text_components[id].content;
+    });
     Object.keys(this.sprites).forEach(id => {
       this.sprites[id].x = this.position_components[id].x;
       this.sprites[id].y = this.position_components[id].y;

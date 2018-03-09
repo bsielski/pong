@@ -124,16 +124,15 @@ class Physics {
   }
 
   update(delta) {
-    Object.keys(this.position_components).forEach(id => {
-      if (this.body_components[id].type === "stopping") {
-        this.stopping[id].x = this.position_components[id].x;
-        this.stopping[id].y = this.position_components[id].y;
-      }
-      else if (this.body_components[id].type === "bouncing") {
-        this.bouncing[id].x = this.position_components[id].x;
-        this.bouncing[id].y = this.position_components[id].y;
-      }
+    Object.keys(this.stopping).forEach(id => {
+      this.stopping[id].x = this.position_components[id].x;
+      this.stopping[id].y = this.position_components[id].y;
     });
+    Object.keys(this.bouncing).forEach(id => {
+      this.bouncing[id].x = this.position_components[id].x;
+      this.bouncing[id].y = this.position_components[id].y;
+    });
+
 
     this.handleCollisions();
 

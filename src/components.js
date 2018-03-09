@@ -7,7 +7,9 @@ const Components = {
   sprites: {},
   positions: {},
   inputs: {},
-  movements: {}
+  movements: {},
+  texts: {},
+  rulesFps: {}
 }
 
 const enemyPaddle = 1;
@@ -17,7 +19,7 @@ Components.positions[enemyPaddle] = {x: Config.PADDLE_1_POSITION.X, y: Config.PA
 
 const playerPaddle = 2;
 Components.bodies[playerPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, static: true, type: "stopping"};
-Components.sprites[playerPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, opacity: 0.5};
+Components.sprites[playerPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, opacity: 1.0};
 Components.positions[playerPaddle] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
 Components.inputs[playerPaddle] = {leftArrow: false, rightArrow: false};
 
@@ -41,9 +43,23 @@ const toptWall = 6;
 Components.bodies[toptWall] = {width: Config.WORLD_WIDTH, height: 20, static: true, type: "immobile"};
 Components.sprites[toptWall] = {width: Config.WORLD_WIDTH, height: 20, image: LOLPIXELS, opacity: 1.0};
 Components.positions[toptWall] = {x: Config.WORLD_WIDTH/2, y: 10};
-//
-// const bottomWall = 7;
-// Components.bodies[bottomWall] = {width: Config.WORLD_WIDTH, height: 20, static: true, type: "immobile"};
-// Components.positions[bottomWall] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT - 10};
+
+const bottomWall = 7;
+Components.bodies[bottomWall] = {width: Config.WORLD_WIDTH, height: 20, static: true, type: "immobile"};
+Components.sprites[bottomWall] = {width: Config.WORLD_WIDTH, height: 20, image: LOLPIXELS, opacity: 1.0};
+Components.positions[bottomWall] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT - 10};
+
+const net = 8;
+Components.sprites[net] = {width: Config.WORLD_WIDTH, height: 10, image: LOLPIXELS, opacity: 0.2};
+Components.positions[net] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT/2};
+
+const fpsCounter = 9;
+Components.texts[fpsCounter] = {size: 12, content: "fps", opacity: 0.6};
+Components.positions[fpsCounter] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT/2 -40};
+Components.rulesFps[fpsCounter] = true;
+
+const invisibleObstacle = 10;
+Components.bodies[invisibleObstacle] = {width: 100, height: 10, static: true, type: "immobile"};
+Components.positions[invisibleObstacle] = {x: Config.WORLD_WIDTH/2 - 100, y: Config.WORLD_HEIGHT/2};
 
 export default Components;

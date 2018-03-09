@@ -1,8 +1,9 @@
 class Game {
 
-  constructor(renderer, physics, controller, movement) {
+  constructor(renderer, physics, controller, movement, rules) {
     this.controller = controller;
     this.renderer = renderer;
+    this.rules = rules;
     this.physics = physics;
     this.movement = movement;
     this.start = this.start.bind(this);
@@ -13,6 +14,7 @@ class Game {
     this.controller.update(delta);
     this.movement.update(delta);
     this.physics.update(delta);
+    this.rules.update();
   }
 
   start() {

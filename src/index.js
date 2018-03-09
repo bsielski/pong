@@ -3,6 +3,7 @@ import Config from './config';
 import Components from './components';
 import Game from './game';
 import Renderer from './renderer';
+import Rules from './rules';
 import Controller from './controller';
 import Movement from './movement';
 // import Physics from './physics-matter';
@@ -25,10 +26,11 @@ function run() {
   const movement = new Movement(Components.movements, Components.positions);
   const controller = new Controller(Components.positions, Components.inputs);
   const physics = new Physics(Components.bodies, Components.positions, Components.movements);
-  const renderer = new Renderer(Components.sprites, Components.positions, renderer_options);
+  const renderer = new Renderer(Components.sprites, Components.texts, Components.positions, renderer_options);
+  const rules = new Rules(Components.rulesFps, Components.texts);
   renderer.stop();
 
-  const game = new Game(renderer, physics, controller, movement);
+  const game = new Game(renderer, physics, controller, movement, rules);
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
