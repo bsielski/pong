@@ -1,9 +1,10 @@
-import {Collisions, Result, Circle, Polygon} from 'collisions';
+import {Collisions, Result, Circle, Polygon} from './collisions/Collisions';
 import Config from './config';
+import {Victor} from 'victor';
 
 class Physics {
 
-  constructor(body_components, position_components, order_components) {
+  constructor(body_components, position_components, movement_components) {
 
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute("width", Config.WORLD_WIDTH);
@@ -16,9 +17,10 @@ class Physics {
 
     this.body_components = body_components;
     this.position_components = position_components;
-    this.order_components = order_components;
+    this.movement_components = movement_components;
 
-    this.bodies = {};
+    this.bouncing = {};
+    this.stopping = {};
 
     Object.keys(this.body_components).forEach(id => {
 
@@ -29,8 +31,13 @@ class Physics {
       const verts = this.getAABBVerts(x, y, width, height);
       const body = new Polygon(x, y, verts);
       body.id = id;
-      this.bodies[id] = body;
-      console.log(body.id);
+      if (this.body_components[id].type === "stopping") {
+        this.stopping[id] = body;
+      }
+      else if (this.body_components[id].type === "bouncing") {
+        this.bouncing[id] = body;
+      }
+      // console.log(body.id);
       this.system.insert(body);
 
       this.context.beginPath();
@@ -41,14 +48,15 @@ class Physics {
       body.draw(this.context);
 
       if (parseInt(id, 10) === 4) {
-        console.log(body.x, body.y);
-        console.log(verts);
+        // console.log(body.x, body.y);
+        // console.log(verts);
       }
 
       this.context.stroke();
     });
     this.update = this.update.bind(this);
     this.render = this.render.bind(this);
+    this.handleCollisions = this.handleCollisions.bind(this);
   }
 
     render() {
@@ -71,23 +79,65 @@ class Physics {
     return [ [-width/2, -height/2,], [-width/2, height/2], [width/2, height/2], [width/2, -height/2] ];
   }
 
-  update(delta) {
-    Object.keys(this.order_components).forEach(id => {
-      if (this.order_components[id].leftOrder === "start" && this.order_components[id].rightOrder === "stop") {
-        this.bodies[id].x = this.position_components[id].x - Config.PLAYER_PADDLE_SPEED * delta;
-        console.log(this.bodies[id].x);
-      }
-      else if (this.order_components[id].leftOrder === "stop" && this.order_components[id].rightOrder === "start") {
-        this.bodies[id].x = this.position_components[id].x + Config.PLAYER_PADDLE_SPEED * delta;
-        console.log(this.bodies[id].x);
-      }
-    });
+  handleCollisions() {
     this.system.update();
 
-    Object.keys(this.bodies).forEach(id => {
-      this.position_components[id].x = this.bodies[id].x;
-      this.position_components[id].y = this.bodies[id].y;
+    Object.keys(this.bouncing).forEach(id => {
+      const body = this.bouncing[id];
+      const potentials = body.potentials();
+      potentials.forEach(obstacle => {
+        if(body.collides(obstacle, this.result)) {
+          // console.log("BEEEP");
+          // console.log(this.result);
+          if (this.result.overlap_x !== 0) {
+            this.movement_components[id].x *= -1;
+          }
+          if (this.result.overlap_y !== 0) {
+            this.movement_components[id].y *= -1;
+          }
+
+        }
+      });
     });
+
+    Object.keys(this.stopping).forEach(id => {
+      const body = this.stopping[id];
+      const potentials = body.potentials();
+
+      potentials.forEach(obstacle => {
+        if(body.collides(obstacle, this.result)) {
+          // console.log("BEEEP");
+          body.x -= this.result.overlap * this.result.overlap_x;
+          body.y -= this.result.overlap * this.result.overlap_y;
+        }
+      });
+    });
+
+  }
+
+  update(delta) {
+    Object.keys(this.position_components).forEach(id => {
+      if (this.body_components[id].type === "stopping") {
+        this.stopping[id].x = this.position_components[id].x;
+        this.stopping[id].y = this.position_components[id].y;
+      }
+      else if (this.body_components[id].type === "bouncing") {
+        this.bouncing[id].x = this.position_components[id].x;
+        this.bouncing[id].y = this.position_components[id].y;
+      }
+    });
+
+    this.handleCollisions();
+
+    Object.keys(this.stopping).forEach(id => {
+      this.position_components[id].x = this.stopping[id].x;
+      this.position_components[id].y = this.stopping[id].y;
+    });
+    Object.keys(this.bouncing).forEach(id => {
+      this.position_components[id].x = this.bouncing[id].x;
+      this.position_components[id].y = this.bouncing[id].y;
+    });
+
     this.render();
   }
 }

@@ -4,6 +4,8 @@ import LOLPIXELS from './lolpixels.png';
 import Config from './config';
 import Components from './components';
 import Renderer from './renderer';
+import Controller from './controller';
+import Movement from './movement';
 // import Physics from './physics-matter';
 // import Physics from './physics-p2';
 // import Physics from './physics-planck';
@@ -15,13 +17,14 @@ import MainLoop from 'mainloop.js';
 
 class Game {
 
-  constructor(renderer, physics) {
-
+  constructor(renderer, physics, controller, movement) {
+    this.controller = controller;
     this.renderer = renderer;
     this.physics = physics;
+    this.movement = movement;
     this.start = this.start.bind(this);
     this.update = this.update.bind(this);
-    this.order_components = Components.orders;
+    this.input_components = Components.inputs;
     this.position_components = Components.positions;
   }
 
@@ -34,6 +37,9 @@ class Game {
     //     this.position_components[id].x += Config.PLAYER_PADDLE_SPEED * delta;
     //   }
     // });
+    console.log(delta);
+    this.controller.update(delta);
+    this.movement.update(delta);
     this.physics.update(delta);
   }
 
@@ -49,11 +55,14 @@ function run() {
     height: Config.WORLD_HEIGHT,
     backgroundColor: Config.BG_COLOR,
   };
+
+  const movement = new Movement(Components.movements, Components.positions);
+  const controller = new Controller(Components.positions, Components.inputs);
   const renderer = new Renderer(Components.bodies, Components.positions, renderer_options);
-  const physics = new Physics(Components.bodies, Components.positions, Components.orders);
+  const physics = new Physics(Components.bodies, Components.positions, Components.movements);
   renderer.stop();
 
-  const game = new Game(renderer, physics);
+  const game = new Game(renderer, physics, controller, movement);
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
@@ -87,31 +96,7 @@ function run() {
   // game.start();
 
  // setInterval(game.update, 100);
-  console.log("lollolololololoo");
-  window.addEventListener('keydown', function(event) {
-    switch (event.keyCode) {
-      case 37: //left
-        console.log("LEFT");
-        Components.orders[2].leftOrder = "start";
-      break;
-      case 39: //right
-        console.log("RIGHT");
-        Components.orders[2].rightOrder = "start";
-      break;
-    }
-  });
-  window.addEventListener('keyup', function(event) {
-    switch (event.keyCode) {
-      case 37: //left
-        console.log("LEFT UP");
-        Components.orders[2].leftOrder = "stop";
-      break;
-      case 39: //right
-        console.log("RIGHT UP");
-        Components.orders[2].rightOrder = "stop";
-      break;
-    }
-  });
+  // console.log("lollolololololoo");
 
 }
 /*
