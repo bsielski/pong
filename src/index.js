@@ -3,6 +3,7 @@ import SKULL from './skull.png';
 import LOLPIXELS from './lolpixels.png';
 import Config from './config';
 import Components from './components';
+import Game from './game';
 import Renderer from './renderer';
 import Controller from './controller';
 import Movement from './movement';
@@ -15,39 +16,6 @@ import Physics from './physics-collisions';
 
 import MainLoop from 'mainloop.js';
 
-class Game {
-
-  constructor(renderer, physics, controller, movement) {
-    this.controller = controller;
-    this.renderer = renderer;
-    this.physics = physics;
-    this.movement = movement;
-    this.start = this.start.bind(this);
-    this.update = this.update.bind(this);
-    this.input_components = Components.inputs;
-    this.position_components = Components.positions;
-  }
-
-  update(delta) {
-    // Object.keys(this.order_components).forEach(id => {
-    //   if (this.order_components[id].leftOrder === "start" && this.order_components[id].rightOrder === "stop") {
-    //     this.position_components[id].x -= Config.PLAYER_PADDLE_SPEED * delta;
-    //   }
-    //   else if (this.order_components[id].leftOrder === "stop" && this.order_components[id].rightOrder === "start") {
-    //     this.position_components[id].x += Config.PLAYER_PADDLE_SPEED * delta;
-    //   }
-    // });
-    console.log(delta);
-    this.controller.update(delta);
-    this.movement.update(delta);
-    this.physics.update(delta);
-  }
-
-  start() {
-    this.renderer.start();
-  }
-
-}
 
 function run() {
   const renderer_options = {

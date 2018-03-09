@@ -19,7 +19,7 @@ Components.inputs[playerPaddle] = {leftArrow: false, rightArrow: false};
 const ball = 3;
 Components.bodies[ball] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, static: false, type: "bouncing"};
 Components.positions[ball] = {x: Config.BALL_POSITION.X, y: Config.BALL_POSITION.Y};
-Components.movements[ball] = {x: 0.0, y: 0.4};
+Components.movements[ball] = {x: 0.02, y: 0.2};
 
 const leftWall = 4;
 Components.bodies[leftWall] = {width: 20, height: Config.WORLD_HEIGHT, static: true, type: "immobile"};

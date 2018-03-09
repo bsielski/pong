@@ -33,9 +33,11 @@ class Physics {
       body.id = id;
       if (this.body_components[id].type === "stopping") {
         this.stopping[id] = body;
+        body.type = "stopping";
       }
       else if (this.body_components[id].type === "bouncing") {
         this.bouncing[id] = body;
+        body.type = "bouncing";
       }
       // console.log(body.id);
       this.system.insert(body);
@@ -83,8 +85,8 @@ class Physics {
     this.system.update();
 
     Object.keys(this.bouncing).forEach(id => {
-      const body = this.bouncing[id];
-      const potentials = body.potentials();
+      let body = this.bouncing[id];
+      let potentials = body.potentials();
       potentials.forEach(obstacle => {
         if(body.collides(obstacle, this.result)) {
           // console.log("BEEEP");
@@ -95,20 +97,21 @@ class Physics {
           if (this.result.overlap_y !== 0) {
             this.movement_components[id].y *= -1;
           }
-
         }
       });
     });
 
     Object.keys(this.stopping).forEach(id => {
-      const body = this.stopping[id];
-      const potentials = body.potentials();
+      let body = this.stopping[id];
+      let potentials = body.potentials();
 
       potentials.forEach(obstacle => {
         if(body.collides(obstacle, this.result)) {
           // console.log("BEEEP");
-          body.x -= this.result.overlap * this.result.overlap_x;
-          body.y -= this.result.overlap * this.result.overlap_y;
+          if (true) {
+            this.stopping[id].x -= this.result.overlap * this.result.overlap_x;
+            // this.position_components[id].y -= this.result.overlap * this.result.overlap_y;
+          }
         }
       });
     });
@@ -133,10 +136,10 @@ class Physics {
       this.position_components[id].x = this.stopping[id].x;
       this.position_components[id].y = this.stopping[id].y;
     });
-    Object.keys(this.bouncing).forEach(id => {
-      this.position_components[id].x = this.bouncing[id].x;
-      this.position_components[id].y = this.bouncing[id].y;
-    });
+    // Object.keys(this.bouncing).forEach(id => {
+    //   this.position_components[id].x = this.bouncing[id].x;
+    //   this.position_components[id].y = this.bouncing[id].y;
+    // });
 
     this.render();
   }
