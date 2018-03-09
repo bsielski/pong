@@ -3,7 +3,6 @@ import SKULL from './skull.png';
 import LOLPIXELS from './lolpixels.png';
 import MainLoop from 'mainloop.js';
 
-
 class Renderer {
 
   constructor(body_components, position_components, renderer_options) {

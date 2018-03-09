@@ -1,4 +1,3 @@
-
 class Game {
 
   constructor(renderer, physics, controller, movement) {
@@ -11,15 +10,6 @@ class Game {
   }
 
   update(delta) {
-    // Object.keys(this.order_components).forEach(id => {
-    //   if (this.order_components[id].leftOrder === "start" && this.order_components[id].rightOrder === "stop") {
-    //     this.position_components[id].x -= Config.PLAYER_PADDLE_SPEED * delta;
-    //   }
-    //   else if (this.order_components[id].leftOrder === "stop" && this.order_components[id].rightOrder === "start") {
-    //     this.position_components[id].x += Config.PLAYER_PADDLE_SPEED * delta;
-    //   }
-    // });
-    // console.log(delta);
     this.controller.update(delta);
     this.movement.update(delta);
     this.physics.update(delta);
@@ -30,6 +20,5 @@ class Game {
   }
 
 }
-
 
 export default Game;
