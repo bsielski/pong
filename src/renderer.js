@@ -3,26 +3,32 @@ import SKULL from './skull.png';
 import LOLPIXELS from './lolpixels.png';
 import MainLoop from 'mainloop.js';
 
+
+// this.skull = new Sprite(Texture.fromImage(SKULL));
+// this.skull.x = 100;
+// this.skull.y = 100;
+// this.skull.tint = 0xff00ee;
+// this.skull.anchor = new Point(0.5, 0.5);
+// this.app.stage.addChild(this.skull);
+// this.skull.rotation += 0.01;
+
+
 class Renderer {
 
-  constructor(body_components, position_components, renderer_options) {
+  constructor(sprite_components, position_components, renderer_options) {
     this.renderer_options = renderer_options;
-    this.body_components = body_components;
+    this.sprite_components = sprite_components;
     this.position_components = position_components;
     this.app = new Application(this.renderer_options);
     document.getElementById("game_container").appendChild(this.app.view);
-    this.skull = new Sprite(Texture.fromImage(SKULL));
-    this.skull.x = 100;
-    this.skull.y = 100;
-    this.skull.tint = 0xff00ee;
-    this.skull.anchor = new Point(0.5, 0.5);
     this.sprites = {};
-    Object.keys(this.body_components).forEach(id => {
-      const sprite = new Sprite(Texture.fromImage(LOLPIXELS));
+    Object.keys(this.sprite_components).forEach(id => {
+      const sprite = new Sprite(Texture.fromImage(sprite_components[id].image));
       sprite.x = this.position_components[id].x;
       sprite.y = this.position_components[id].y;
-      sprite.width = this.body_components[id].width;
-      sprite.height = this.body_components[id].height;
+      sprite.width = this.sprite_components[id].width;
+      sprite.height = this.sprite_components[id].height;
+      sprite.alpha = this.sprite_components[id].opacity;
       sprite.anchor = new Point(0.5, 0.5);
       this.app.stage.addChild(sprite);
       this.sprites[id] = sprite;
@@ -51,11 +57,9 @@ class Renderer {
     this.render = this.render.bind(this);
     this.stop = this.stop.bind(this);
     this.start = this.start.bind(this);
-    this.app.stage.addChild(this.skull);
   }
 
   render() {
-    this.skull.rotation += 0.01;
     this.fpsCounter.text = MainLoop.getFPS();
     this.simCounter.text = MainLoop.getSimulationTimestep();
     // this.fpsCounter.text = "asd";
