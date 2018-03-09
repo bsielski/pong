@@ -1,4 +1,5 @@
 import Config from './config';
+import Victor from 'victor';
 
 class Movement {
 

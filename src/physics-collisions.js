@@ -1,6 +1,6 @@
 import {Collisions, Result, Circle, Polygon} from './collisions/Collisions';
 import Config from './config';
-import {Victor} from 'victor';
+import Victor from 'victor';
 
 class Physics {
 
@@ -97,6 +97,11 @@ class Physics {
           if (this.result.overlap_y !== 0) {
             this.movement_components[id].y *= -1;
           }
+          const randomAngle = Math.floor(Math.random() * 13) - 6;
+          const vector = new Victor(this.movement_components[id].x, this.movement_components[id].y);
+          vector.rotateDeg(randomAngle)
+          this.movement_components[id].x = vector.x;
+          this.movement_components[id].y = vector.y;
         }
       });
     });
