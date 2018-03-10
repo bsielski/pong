@@ -60,8 +60,6 @@ class Renderer {
     });
 
     this.render = this.render.bind(this);
-    this.stop = this.stop.bind(this);
-    this.start = this.start.bind(this);
   }
 
   render() {
@@ -75,13 +73,6 @@ class Renderer {
       this.sprites[id].y = this.position_components[id].y;
     });
     this.app.render();
-  }
-  start() {
-    this.app.start();
-  }
-
-  stop() {
-    this.app.stop();
   }
 
 }

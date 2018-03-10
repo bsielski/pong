@@ -17,10 +17,4 @@ class Game {
     this.rules.update();
   }
 
-  start() {
-    this.renderer.start();
-  }
-
-}
-
 export default Game;
