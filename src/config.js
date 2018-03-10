@@ -1,5 +1,5 @@
 const Config = {
-  MAX_FPS: 30,
+  MAX_FPS: 60,
   PLAYER_PADDLE_SPEED: 0.5,
   BG_COLOR: 0x001100,
   WORLD_WIDTH: 600,
