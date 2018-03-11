@@ -4,7 +4,7 @@ import Victor from 'victor';
 
 class Physics {
 
-  constructor(body_components, position_components, movement_components) {
+  constructor(body_components, sensor_components, position_components, movement_components) {
 
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute("width", Config.WORLD_WIDTH);
@@ -16,11 +16,13 @@ class Physics {
     this.result = this.system.createResult();
 
     this.body_components = body_components;
+    this.sensor_components = sensor_components;
     this.position_components = position_components;
     this.movement_components = movement_components;
 
     this.bouncing = {};
     this.stopping = {};
+    this.zones = {};
 
     Object.keys(this.body_components).forEach(id => {
 
@@ -39,6 +41,11 @@ class Physics {
         this.bouncing[id] = body;
         body.type = "bouncing";
       }
+      else if (this.body_components[id].type === "zone") {
+        this.zones[id] = body;
+        body.type = "zone";
+      }
+
       // console.log(body.id);
       this.system.insert(body);
 
@@ -89,19 +96,23 @@ class Physics {
       let potentials = body.potentials();
       potentials.forEach(obstacle => {
         if(body.collides(obstacle, this.result)) {
-          // console.log("BEEEP");
-          // console.log(this.result);
-          if (this.result.overlap_x !== 0) {
-            this.movement_components[id].x *= -1;
+          if (this.result.b.type !== "zone") {
+            // console.log("BEEEP");
+            // console.log(this.result);
+            if (this.result.overlap_x !== 0) {
+              this.movement_components[id].x *= -1;
+            }
+            if (this.result.overlap_y !== 0) {
+              this.movement_components[id].y *= -1;
+            }
+            const randomAngle = Math.floor(Math.random() * 13) - 6;
+            const vector = new Victor(this.movement_components[id].x, this.movement_components[id].y);
+            vector.rotateDeg(randomAngle)
+            this.movement_components[id].x = vector.x;
+            this.movement_components[id].y = vector.y;
+            this.position_components[id].x -= this.result.overlap * this.result.overlap_x;
+            this.position_components[id].y -= this.result.overlap * this.result.overlap_y;
           }
-          if (this.result.overlap_y !== 0) {
-            this.movement_components[id].y *= -1;
-          }
-          const randomAngle = Math.floor(Math.random() * 13) - 6;
-          const vector = new Victor(this.movement_components[id].x, this.movement_components[id].y);
-          vector.rotateDeg(randomAngle)
-          this.movement_components[id].x = vector.x;
-          this.movement_components[id].y = vector.y;
         }
       });
     });
@@ -109,13 +120,27 @@ class Physics {
     Object.keys(this.stopping).forEach(id => {
       let body = this.stopping[id];
       let potentials = body.potentials();
-
       potentials.forEach(obstacle => {
         if(body.collides(obstacle, this.result)) {
-          // console.log("BEEEP");
-          if (true) {
+          if (this.result.b.type !== "zone") {
+            // console.log("BEEEP");
             this.stopping[id].x -= this.result.overlap * this.result.overlap_x;
+            // this.position_components[id].x -= this.result.overlap * this.result.overlap_x;
             // this.position_components[id].y -= this.result.overlap * this.result.overlap_y;
+          }
+        }
+      });
+    });
+
+    Object.keys(this.zones).forEach(id => {
+      let zone = this.zones[id];
+      let potentials = zone.potentials();
+      this.sensor_components[id].detected = false;
+      potentials.forEach(obstacle => {
+        if(zone.collides(obstacle, this.result)) {
+          if (this.sensor_components[id].seeking === parseInt(this.result.b.id, 10) ) {
+            console.log("DDD");
+            this.sensor_components[id].detected = true;
           }
         }
       });

@@ -6,7 +6,6 @@ class Game {
     this.rules = rules;
     this.physics = physics;
     this.movement = movement;
-    this.start = this.start.bind(this);
     this.update = this.update.bind(this);
   }
 
@@ -16,5 +15,7 @@ class Game {
     this.physics.update(delta);
     this.rules.update();
   }
+
+}
 
 export default Game;

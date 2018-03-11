@@ -3,12 +3,7 @@ import SKULL from './skull.png';
 import LOLPIXELS from './lolpixels.png';
 
 
-// this.skull = new Sprite(Texture.fromImage(SKULL));
-// this.skull.x = 100;
-// this.skull.y = 100;
 // this.skull.tint = 0xff00ee;
-// this.skull.anchor = new Point(0.5, 0.5);
-// this.app.stage.addChild(this.skull);
 // this.skull.rotation += 0.01;
 
 

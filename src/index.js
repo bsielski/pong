@@ -25,10 +25,10 @@ function run() {
 
   const movement = new Movement(Components.movements, Components.positions);
   const controller = new Controller(Components.positions, Components.inputs);
-  const physics = new Physics(Components.bodies, Components.positions, Components.movements);
+  const physics = new Physics(Components.bodies, Components.sensors, Components.positions, Components.movements);
   const renderer = new Renderer(Components.sprites, Components.texts, Components.positions, renderer_options);
-  const rules = new Rules(Components.rulesFps, Components.texts);
-  renderer.stop();
+  const rules = new Rules(Components.rulesDetectors, Components.rulesFps, Components.sensors, Components.texts);
+  // renderer.stop();
 
   const game = new Game(renderer, physics, controller, movement, rules);
 

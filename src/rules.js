@@ -1,18 +1,16 @@
-// this.skull = new Sprite(Texture.fromImage(SKULL));
-// this.skull.x = 100;
-// this.skull.y = 100;
-// this.skull.tint = 0xff00ee;
-// this.skull.anchor = new Point(0.5, 0.5);
-// this.app.stage.addChild(this.skull);
-// this.skull.rotation += 0.01;
-
 import MainLoop from 'mainloop.js';
 
 class Rules {
 
-  constructor(rulesFps_components, text_components,) {
+  constructor(rulesDetectors_components, rulesFps_components, sensor_components, text_components) {
+    this.rulesDetectors_components = rulesDetectors_components;
     this.rulesFps_components = rulesFps_components;
     this.text_components = text_components;
+    this.sensor_components = sensor_components;
+    this.sensor_states = {};
+    Object.keys(this.sensor_components).forEach(id => {
+      this.sensor_states[id] = {last: false, current: false, points: 0};
+    });
 
     this.update = this.update.bind(this);
   }
@@ -24,6 +22,15 @@ class Rules {
       this.text_components[id].content = fpsNumber + " fps";
     });
 
+    Object.keys(this.rulesDetectors_components).forEach(id => {
+      const sensor_state = this.sensor_states[this.rulesDetectors_components[id].zone];
+      sensor_state.last = sensor_state.current;
+      sensor_state.current = this.sensor_components[this.rulesDetectors_components[id].zone].detected;
+      if (sensor_state.last === false && sensor_state.current === true) {
+        sensor_state.points += 1;
+        this.text_components[this.rulesDetectors_components[id].counter].content = sensor_state.points ;
+      }
+    });
 
   }
 
