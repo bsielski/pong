@@ -26,7 +26,11 @@ class Physics {
       const y = this.position_components[id].y;
       const width = this.body_components[id].width;
       const height = this.body_components[id].height;
-      const body = Bodies.rectangle(x, y, width, height, { isStatic: this.body_components[id].static });
+      const isStatic = false;
+      if (this.body_components[id].type === "immobile" && this.body_components[id].type === "stopping") {
+        isStatic = true;
+      }
+      const body = Bodies.rectangle(x, y, width, height, { isStatic: isStatic});
       body.frictionAir = 0;
       body.id = id;
       body.friction = 0.5;
