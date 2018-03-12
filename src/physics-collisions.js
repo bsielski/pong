@@ -105,7 +105,8 @@ class Physics {
             if (this.result.overlap_y !== 0) {
               this.movement_components[id].y *= -1;
             }
-            const randomAngle = Math.floor(Math.random() * 13) - 6;
+            const spread = this.movement_components[id].randomAngle;
+            const randomAngle = Math.floor(Math.random() * spread * 2 + 1) - spread;
             const vector = new Victor(this.movement_components[id].x, this.movement_components[id].y);
             vector.rotateDeg(randomAngle)
             this.movement_components[id].x = vector.x;

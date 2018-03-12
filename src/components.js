@@ -29,7 +29,7 @@ const ball = 3;
 Components.bodies[ball] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, type: "bouncing"};
 Components.sprites[ball] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[ball] = {x: Config.BALL_POSITION.X, y: Config.BALL_POSITION.Y};
-Components.movements[ball] = {x: 0.1, y: 0.6};
+Components.movements[ball] = {x: 0.1, y: 0.6, randomAngle: 15};
 
 const leftWall = 4;
 Components.bodies[leftWall] = {width: 40, height: Config.WORLD_HEIGHT, type: "immobile"};
