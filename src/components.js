@@ -11,13 +11,18 @@ const Components = {
   movements: {},
   texts: {},
   rulesFps: {},
-  rulesDetectors: {}
+  rulesDetectors: {},
+  ai: {},
+  balls: {}
 }
 
 const enemyPaddle = 1;
 Components.bodies[enemyPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, type: "stopping"};
 Components.sprites[enemyPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
 Components.positions[enemyPaddle] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
+Components.inputs[enemyPaddle] = {leftArrow: false, rightArrow: false};
+Components.ai[enemyPaddle] = {};
+
 
 const playerPaddle = 2;
 Components.bodies[playerPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, type: "stopping"};
@@ -30,6 +35,7 @@ Components.bodies[ball] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT,
 Components.sprites[ball] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[ball] = {x: Config.BALL_POSITION.X, y: Config.BALL_POSITION.Y};
 Components.movements[ball] = {x: 0.0, y: 0.6, randomAngle: 15};
+Components.balls[ball] = {};
 
 const leftWall = 4;
 Components.bodies[leftWall] = {width: 40, height: Config.WORLD_HEIGHT, type: "immobile"};

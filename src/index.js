@@ -4,6 +4,7 @@ import Components from './components';
 import Game from './game';
 import Renderer from './renderer';
 import Rules from './rules';
+import AI from './ai';
 import Controller from './controller';
 import Movement from './movement';
 // import Physics from './physics-matter';
@@ -28,9 +29,10 @@ function run() {
   const physics = new Physics(Components.bodies, Components.sensors, Components.positions, Components.movements);
   const renderer = new Renderer(Components.sprites, Components.texts, Components.positions, renderer_options);
   const rules = new Rules(Components.rulesDetectors, Components.rulesFps, Components.sensors, Components.texts);
+  const ai = new AI(Components.balls, Components.ai, Components.positions, Components.movements, Components.inputs);
   // renderer.stop();
 
-  const game = new Game(renderer, physics, controller, movement, rules);
+  const game = new Game(renderer, physics, controller, movement, rules, ai);
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
