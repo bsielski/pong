@@ -24,6 +24,7 @@ class Renderer {
       sprite.width = this.sprite_components[id].width;
       sprite.height = this.sprite_components[id].height;
       sprite.alpha = this.sprite_components[id].opacity;
+      sprite.tint = this.sprite_components[id].color;
       sprite.anchor = new Point(0.5, 0.5);
       this.app.stage.addChild(sprite);
       this.sprites[id] = sprite;
@@ -34,16 +35,24 @@ class Renderer {
       fontFamily: "Arial",
       fontSize: 36,
       fill: "white",
-      stroke: '#ff3300',
+      stroke: '#000000',
       strokeThickness: 4,
       dropShadow: true,
       dropShadowColor: "#000000",
-      dropShadowBlur: 4,
+      dropShadowBlur: 3,
       dropShadowAngle: Math.PI / 6,
-      dropShadowDistance: 6,
+      dropShadowDistance: 5,
     });
     Object.keys(this.text_components).forEach(id => {
-      const style = Object.assign({}, this.textSstyle, {fontSize: this.text_components[id].size})
+      const style = Object.assign
+      (
+        {},
+        this.textSstyle,
+        {
+          fontSize: this.text_components[id].size,
+          fill: this.text_components[id].color,
+        }
+      )
       const text = new Text(this.text_components[id].content, style);
       text.x = this.position_components[id].x;
       text.y = this.position_components[id].y;
