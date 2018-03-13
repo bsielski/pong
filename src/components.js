@@ -39,7 +39,7 @@ const ballId = uuid();
 Components.bodies[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, type: "bouncing"};
 Components.sprites[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[ballId] = {x: Config.BALL_POSITION.X, y: Config.BALL_POSITION.Y};
-Components.movements[ballId] = {x: 0.1, y: 0.8, randomAngle: 20};
+Components.movements[ballId] = {x: 0.1, y: 0.8, randomAngle: 1};
 Components.balls[ballId] = {};
 
 const leftWallId = uuid();
@@ -71,9 +71,10 @@ Components.texts[fpsCounterId] = {size: 12, content: "fps", color: 0xffffff, opa
 Components.positions[fpsCounterId] = {x: Config.WORLD_WIDTH/6, y: Config.WORLD_HEIGHT/2};
 Components.rulesFps[fpsCounterId] = true;
 
-// const invisibleObstacle = 10;
-// Components.bodies[invisibleObstacle] = {width: 100, height: 10, type: "immobile"};
-// Components.positions[invisibleObstacle] = {x: Config.WORLD_WIDTH/2 - 100, y: Config.WORLD_HEIGHT/2};
+const obstacleId = uuid();
+Components.bodies[obstacleId] = {width: 100, height: 100, angle: 1, type: "immobile"};
+Components.sprites[obstacleId] = {width: 100, height: 100, angle: 1, image: LOLPIXELS, color: 0xf4f2f7f, opacity: 0.6};
+Components.positions[obstacleId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT/2};
 
 const skull1Id = uuid();
 Components.sprites[skull1Id] = {width: 110, height: 110, image: SKULL, color: 0xffffff, opacity: 0.4};

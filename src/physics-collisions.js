@@ -45,7 +45,7 @@ class Physics {
         this.zones[id] = body;
         body.type = "zone";
       }
-
+      if (this.body_components[id].angle) {body.angle = this.body_components[id].angle;}
       // console.log(body.id);
       this.system.insert(body);
 
@@ -109,6 +109,9 @@ class Physics {
             const randomAngle = Math.floor(Math.random() * spread * 2 + 1) - spread;
             const vector = new Victor(this.movement_components[id].x, this.movement_components[id].y);
             vector.rotateDeg(randomAngle);
+            if (this.body_components[this.result.b.id].angle) {
+              vector.rotate(this.body_components[this.result.b.id].angle);
+            }
             this.movement_components[id].x = vector.x;
             this.movement_components[id].y = vector.y;
             this.position_components[id].x -= this.result.overlap * this.result.overlap_x;

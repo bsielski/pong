@@ -24,6 +24,7 @@ class Renderer {
       sprite.width = this.sprite_components[id].width;
       sprite.height = this.sprite_components[id].height;
       sprite.alpha = this.sprite_components[id].opacity;
+      if (this.sprite_components[id].angle) {sprite.rotation = this.sprite_components[id].angle;}
       sprite.tint = this.sprite_components[id].color;
       sprite.anchor = new Point(0.5, 0.5);
       this.app.stage.addChild(sprite);
