@@ -139,7 +139,7 @@ class Physics {
       this.sensor_components[id].detected = false;
       potentials.forEach(obstacle => {
         if(zone.collides(obstacle, this.result)) {
-          if (this.sensor_components[id].seeking === parseInt(this.result.b.id, 10) ) {
+          if (this.sensor_components[id].seeking === this.result.b.id ) {
             console.log("DDD");
             this.sensor_components[id].detected = true;
           }

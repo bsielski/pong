@@ -1,6 +1,9 @@
 import Config from './config';
 import SKULL from './skull.png';
 import LOLPIXELS from './lolpixels.png';
+import {v4, v1} from 'uuid';
+
+const uuid = v4;
 
 const Components = {
   bodies: {},
@@ -16,90 +19,90 @@ const Components = {
   balls: {}
 }
 
-const enemyPaddle = 1;
-Components.bodies[enemyPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, type: "stopping"};
-Components.sprites[enemyPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
-Components.positions[enemyPaddle] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
-Components.inputs[enemyPaddle] = {leftArrow: false, rightArrow: false};
-Components.ai[enemyPaddle] = {};
+const enemyPaddleId = uuid();
+Components.bodies[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, type: "stopping"};
+Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
+Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
+Components.inputs[enemyPaddleId] = {leftArrow: false, rightArrow: false};
+Components.ai[enemyPaddleId] = {};
 
+const playerPaddleId = uuid();
+Components.bodies[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, type: "stopping"};
+Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
+Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
+Components.inputs[playerPaddleId] = {leftArrow: false, rightArrow: false};
+Components.ai[playerPaddleId] = {};
 
-const playerPaddle = 2;
-Components.bodies[playerPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, type: "stopping"};
-Components.sprites[playerPaddle] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
-Components.positions[playerPaddle] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
-Components.inputs[playerPaddle] = {leftArrow: false, rightArrow: false};
+const ballId = uuid();
+Components.bodies[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, type: "bouncing"};
+Components.sprites[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+Components.positions[ballId] = {x: Config.BALL_POSITION.X, y: Config.BALL_POSITION.Y};
+Components.movements[ballId] = {x: 0.1, y: 0.8, randomAngle: 20};
+Components.balls[ballId] = {};
 
-const ball = 3;
-Components.bodies[ball] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, type: "bouncing"};
-Components.sprites[ball] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-Components.positions[ball] = {x: Config.BALL_POSITION.X, y: Config.BALL_POSITION.Y};
-Components.movements[ball] = {x: 0.0, y: 0.6, randomAngle: 15};
-Components.balls[ball] = {};
+const leftWallId = uuid();
+Components.bodies[leftWallId] = {width: 40, height: Config.WORLD_HEIGHT, type: "immobile"};
+Components.sprites[leftWallId] = {width: 40, height: Config.WORLD_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+Components.positions[leftWallId] = {x: 0, y: Config.WORLD_HEIGHT/2};
 
-const leftWall = 4;
-Components.bodies[leftWall] = {width: 40, height: Config.WORLD_HEIGHT, type: "immobile"};
-Components.sprites[leftWall] = {width: 40, height: Config.WORLD_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-Components.positions[leftWall] = {x: 0, y: Config.WORLD_HEIGHT/2};
+const rightWallId = uuid();
+Components.bodies[rightWallId] = {width: 40, height: Config.WORLD_HEIGHT, type: "immobile"};
+Components.sprites[rightWallId] = {width: 40, height: Config.WORLD_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+Components.positions[rightWallId] = {x: Config.WORLD_WIDTH, y: Config.WORLD_HEIGHT/2};
 
-const rightWall = 5;
-Components.bodies[rightWall] = {width: 40, height: Config.WORLD_HEIGHT, type: "immobile"};
-Components.sprites[rightWall] = {width: 40, height: Config.WORLD_HEIGHT, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-Components.positions[rightWall] = {x: Config.WORLD_WIDTH, y: Config.WORLD_HEIGHT/2};
+const toptWallId = uuid();
+Components.bodies[toptWallId] = {width: Config.WORLD_WIDTH, height: 40, type: "immobile"};
+Components.sprites[toptWallId] = {width: Config.WORLD_WIDTH, height: 40, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+Components.positions[toptWallId] = {x: Config.WORLD_WIDTH/2, y: 0};
 
-const toptWall = 6;
-Components.bodies[toptWall] = {width: Config.WORLD_WIDTH, height: 40, type: "immobile"};
-Components.sprites[toptWall] = {width: Config.WORLD_WIDTH, height: 40, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-Components.positions[toptWall] = {x: Config.WORLD_WIDTH/2, y: 0};
+const bottomWallId = uuid();
+Components.bodies[bottomWallId] = {width: Config.WORLD_WIDTH, height: 40, type: "immobile"};
+Components.sprites[bottomWallId] = {width: Config.WORLD_WIDTH, height: 40, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+Components.positions[bottomWallId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT};
 
-const bottomWall = 7;
-Components.bodies[bottomWall] = {width: Config.WORLD_WIDTH, height: 40, type: "immobile"};
-Components.sprites[bottomWall] = {width: Config.WORLD_WIDTH, height: 40, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-Components.positions[bottomWall] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT};
+const netId = uuid();
+Components.sprites[netId] = {width: Config.WORLD_WIDTH, height: 10, image: LOLPIXELS, color: 0xffffff, opacity: 0.2};
+Components.positions[netId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT/2};
 
-const net = 8;
-Components.sprites[net] = {width: Config.WORLD_WIDTH, height: 10, image: LOLPIXELS, color: 0xffffff, opacity: 0.2};
-Components.positions[net] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT/2};
-
-const fpsCounter = 9;
-Components.texts[fpsCounter] = {size: 12, content: "fps", color: 0xffffff, opacity: 0.6};
-Components.positions[fpsCounter] = {x: Config.WORLD_WIDTH/6, y: Config.WORLD_HEIGHT/2};
-Components.rulesFps[fpsCounter] = true;
+const fpsCounterId = uuid();
+Components.texts[fpsCounterId] = {size: 12, content: "fps", color: 0xffffff, opacity: 0.6};
+Components.positions[fpsCounterId] = {x: Config.WORLD_WIDTH/6, y: Config.WORLD_HEIGHT/2};
+Components.rulesFps[fpsCounterId] = true;
 
 // const invisibleObstacle = 10;
 // Components.bodies[invisibleObstacle] = {width: 100, height: 10, type: "immobile"};
 // Components.positions[invisibleObstacle] = {x: Config.WORLD_WIDTH/2 - 100, y: Config.WORLD_HEIGHT/2};
 
-const skull1 = 11;
-Components.sprites[skull1] = {width: 110, height: 110, image: SKULL, color: 0xffffff, opacity: 0.4};
-Components.positions[skull1] = {x: 500, y: 140};
+const skull1Id = uuid();
+Components.sprites[skull1Id] = {width: 110, height: 110, image: SKULL, color: 0xffffff, opacity: 0.4};
+Components.positions[skull1Id] = {x: 500, y: 140};
 
-const skull2 = 12;
-Components.sprites[skull2] = {width: 110, height: 110, image: SKULL, color: 0xffffff, opacity: 0.4};
-Components.positions[skull2] = {x: 500, y: 360};
+const skull2Id = uuid();
+Components.sprites[skull2Id] = {width: 110, height: 110, image: SKULL, color: 0xffffff, opacity: 0.4};
+Components.positions[skull2Id] = {x: 500, y: 360};
 
-const bottomZone = 13;
-Components.bodies[bottomZone] = {width: Config.WORLD_WIDTH, height: 20, type: "zone"};
-Components.positions[bottomZone] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT - 25};
-Components.sensors[bottomZone] = {seeking: 3, detected: false};
+const topZoneId = uuid();
+Components.bodies[topZoneId] = {width: Config.WORLD_WIDTH, height: 20, type: "zone"};
+Components.positions[topZoneId] = {x: Config.WORLD_WIDTH/2, y: 25};
+Components.sensors[topZoneId] = {seeking: ballId, detected: false};
 
-const bottomCounter = 14;
-Components.positions[bottomCounter] = {x: 60, y: 280};
-Components.texts[bottomCounter] = {size: 26, content: "0", color: 0xffff77, opacity: 0.6};
+const bottomZoneId = uuid();
+Components.bodies[bottomZoneId] = {width: Config.WORLD_WIDTH, height: 20, type: "zone"};
+Components.positions[bottomZoneId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT - 25};
+Components.sensors[bottomZoneId] = {seeking: ballId, detected: false};
 
-const bottomDetector = 15;
-Components.rulesDetectors[bottomDetector] = {zone: 13, counter: 17};
+const topCounterId = uuid();
+Components.positions[topCounterId] = {x: 60, y: 220};
+Components.texts[topCounterId] = {size: 26, content: "0", color: 0xff7777, opacity: 0.6};
 
-const topZone = 16;
-Components.bodies[topZone] = {width: Config.WORLD_WIDTH, height: 20, type: "zone"};
-Components.positions[topZone] = {x: Config.WORLD_WIDTH/2, y: 25};
-Components.sensors[topZone] = {seeking: 3, detected: false};
+const bottomCounterId = uuid();
+Components.positions[bottomCounterId] = {x: 60, y: 280};
+Components.texts[bottomCounterId] = {size: 26, content: "0", color: 0xffff77, opacity: 0.6};
 
-const topCounter = 17;
-Components.positions[topCounter] = {x: 60, y: 220};
-Components.texts[topCounter] = {size: 26, content: "0", color: 0xff7777, opacity: 0.6};
+const topDetectorId = uuid();
+Components.rulesDetectors[topDetectorId] = {zone: topZoneId, counter: bottomCounterId};
 
-const topDetector = 18;
-Components.rulesDetectors[topDetector] = {zone: 16, counter: 14};
+const bottomDetectorId = uuid();
+Components.rulesDetectors[bottomDetectorId] = {zone: bottomZoneId, counter: topCounterId};
 
 export default Components;
