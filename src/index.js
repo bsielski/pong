@@ -7,6 +7,7 @@ import Rules from './rules';
 import AI from './ai';
 import Controller from './controller';
 import Movement from './movement';
+import Order from './order';
 // import Physics from './physics-matter';
 // import Physics from './physics-p2';
 // import Physics from './physics-planck';
@@ -25,14 +26,15 @@ function run() {
   };
 
   const movement = new Movement(Components.movements, Components.positions);
-  const controller = new Controller(Components.positions, Components.inputs);
+  const controller = new Controller(Components.orders, Components.inputs);
+  const order = new Order(Components.orders, Components.positions, Components.movements);
   const physics = new Physics(Components.bodies, Components.sensors, Components.positions, Components.movements);
   const renderer = new Renderer(Components.sprites, Components.texts, Components.positions, renderer_options);
   const rules = new Rules(Components.rulesDetectors, Components.rulesFps, Components.sensors, Components.texts);
-  const ai = new AI(Components.balls, Components.ai, Components.positions, Components.movements, Components.inputs);
+  const ai = new AI(Components.balls, Components.ai, Components.positions, Components.movements, Components.orders);
   // renderer.stop();
 
-  const game = new Game(renderer, physics, controller, movement, rules, ai);
+  const game = new Game(renderer, physics, controller, movement, rules, ai, order);
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);

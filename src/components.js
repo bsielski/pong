@@ -11,6 +11,7 @@ const Components = {
   sprites: {},
   positions: {},
   inputs: {},
+  orders: {},
   movements: {},
   texts: {},
   rulesFps: {},
@@ -23,15 +24,16 @@ const enemyPaddleId = uuid();
 Components.bodies[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, type: "stopping"};
 Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
 Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
-Components.inputs[enemyPaddleId] = {leftArrow: false, rightArrow: false};
+Components.orders[enemyPaddleId] = {movement: "stop"};
 Components.ai[enemyPaddleId] = {};
 
 const playerPaddleId = uuid();
 Components.bodies[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, type: "stopping"};
 Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
 Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
+Components.orders[playerPaddleId] = {movement: "stop"};
 Components.inputs[playerPaddleId] = {leftArrow: false, rightArrow: false};
-Components.ai[playerPaddleId] = {};
+// Components.ai[playerPaddleId] = {};
 
 const ballId = uuid();
 Components.bodies[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, type: "bouncing"};
