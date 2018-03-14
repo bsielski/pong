@@ -8,13 +8,7 @@ import AI from './ai';
 import Controller from './controller';
 import Movement from './movement';
 import Order from './order';
-// import Physics from './physics-matter';
-// import Physics from './physics-p2';
-// import Physics from './physics-planck';
-// import Physicsx from './physics-physicsjs';
-// import Physics from './physics-chipmunk';
 import Physics from './physics-collisions';
-// import Physics from './physics-sat';
 import MainLoop from 'mainloop.js';
 
 
