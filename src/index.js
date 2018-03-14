@@ -22,7 +22,7 @@ function run() {
 
   const movement = new Movement(Components.movements, Components.positions);
   const controller = new Controller(Components.orders, Components.inputs);
-  const order = new Order(Components.orders, Components.positions, Components.movements, Components.sprites, Components.bodies);
+  const order = new Order(Components.orders, Components.movements, Components.sprites, Components.bodies);
   const physics = new Physics(Components.bodies, Components.sensors, Components.positions, Components.movements);
   const renderer = new Renderer(Components.sprites, Components.texts, Components.positions, renderer_options);
   const rules = new Rules(Components.rulesDetectors, Components.rulesFps, Components.sensors, Components.texts);

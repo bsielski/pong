@@ -1,4 +1,4 @@
-import {Collisions, Result, Circle, Polygon} from './collisions/Collisions';
+import {Collisions, Result, Polygon} from './collisions/Collisions';
 import Config from './config';
 import Victor from 'victor';
 
