@@ -45,7 +45,7 @@ class Physics {
         this.zones[id] = body;
         body.type = "zone";
       }
-      if (this.body_components[id].angle) {body.angle = this.body_components[id].angle;}
+      body.angle = this.body_components[id].angle;
       // console.log(body.id);
       this.system.insert(body);
 
@@ -93,27 +93,24 @@ class Physics {
 
     Object.keys(this.bouncing).forEach(id => {
       let body = this.bouncing[id];
+      let body_speed = this.movement_components[id].speed;
+      let body_angle = this.movement_components[id].angle;
+      let body_vector = new Victor(body_speed, 0).rotate(body_angle);
       let potentials = body.potentials();
       potentials.forEach(obstacle => {
         if(body.collides(obstacle, this.result)) {
           if (this.result.b.type !== "zone") {
             // console.log("BEEEP");
             // console.log(this.result);
-            if (this.result.overlap_x !== 0) {
-              this.movement_components[id].x *= -1;
-            }
-            if (this.result.overlap_y !== 0) {
-              this.movement_components[id].y *= -1;
-            }
-            const spread = this.movement_components[id].randomAngle;
-            const randomAngle = Math.floor(Math.random() * spread * 2 + 1) - spread;
-            const vector = new Victor(this.movement_components[id].x, this.movement_components[id].y);
-            vector.rotateDeg(randomAngle);
-            if (this.body_components[this.result.b.id].angle) {
-              vector.rotate(this.body_components[this.result.b.id].angle);
-            }
-            this.movement_components[id].x = vector.x;
-            this.movement_components[id].y = vector.y;
+            let normal = new Victor(this.result.overlap * this.result.overlap_x, this.result.overlap * this.result.overlap_y).normalize();
+            let dot = body_vector.x * normal.x + body_vector.y * normal.y;
+            let newX = body_vector.x - 2.0 * dot * normal.x;
+            let newY = body_vector.y - 2.0 * dot * normal.y;
+            let newVector = new Victor(newX, newY);
+            let newAngle = newVector.angle();
+
+            this.movement_components[id].angle = newAngle;
+
             this.position_components[id].x -= this.result.overlap * this.result.overlap_x;
             this.position_components[id].y -= this.result.overlap * this.result.overlap_y;
           }
@@ -143,7 +140,7 @@ class Physics {
       potentials.forEach(obstacle => {
         if(zone.collides(obstacle, this.result)) {
           if (this.sensor_components[id].seeking === this.result.b.id ) {
-            console.log("DDD");
+            // console.log("DDD");
             this.sensor_components[id].detected = true;
           }
         }
@@ -156,10 +153,12 @@ class Physics {
     Object.keys(this.stopping).forEach(id => {
       this.stopping[id].x = this.position_components[id].x;
       this.stopping[id].y = this.position_components[id].y;
+      this.stopping[id].angle = this.body_components[id].angle;
     });
     Object.keys(this.bouncing).forEach(id => {
       this.bouncing[id].x = this.position_components[id].x;
       this.bouncing[id].y = this.position_components[id].y;
+      this.bouncing[id].angle = this.body_components[id].angle;
     });
 
 

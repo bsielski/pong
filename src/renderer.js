@@ -74,6 +74,7 @@ class Renderer {
       this.texts[id].text = this.text_components[id].content;
     });
     Object.keys(this.sprites).forEach(id => {
+      this.sprites[id].rotation = this.sprite_components[id].angle;
       this.sprites[id].x = this.position_components[id].x;
       this.sprites[id].y = this.position_components[id].y;
     });

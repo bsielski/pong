@@ -13,8 +13,9 @@ class Movement {
 
   update(delta) {
     Object.keys(this.movement_components).forEach(id => {
-      this.position_components[id].x += (this.movement_components[id].x * delta);
-      this.position_components[id].y += (this.movement_components[id].y * delta);
+      const vector = new Victor(this.movement_components[id].speed, 0).rotate(this.movement_components[id].angle);
+      this.position_components[id].x += (vector.x * delta);
+      this.position_components[id].y += (vector.y * delta);
       // console.log(this.position_components[id].x, this.position_components[id].y);
     });
   }
