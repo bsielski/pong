@@ -21,17 +21,19 @@ const Components = {
 }
 
 const enemyPaddleId = uuid();
-Components.bodies[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0.0, type: "stopping"};
-Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0.0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
+Components.bodies[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, type: "stopping"};
+Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
 Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
-Components.orders[enemyPaddleId] = {movement: "stop"};
+Components.movements[enemyPaddleId] = {speed: 0, angle: 0, x: 0.1, y: 0.1, randomAngle: 0};
+Components.orders[enemyPaddleId] = {movement: "stop", direction: -Math.PI/2};
 Components.ai[enemyPaddleId] = {};
 
 const playerPaddleId = uuid();
 Components.bodies[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, type: "stopping"};
 Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
 Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
-Components.orders[playerPaddleId] = {movement: "stop"};
+Components.movements[playerPaddleId] = {speed: 0, angle: 0, x: 0.1, y: 0.1, randomAngle: 0};
+Components.orders[playerPaddleId] = {movement: "stop", direction: Math.PI/2};
 Components.inputs[playerPaddleId] = {leftArrow: false, rightArrow: false};
 // Components.ai[playerPaddleId] = {};
 

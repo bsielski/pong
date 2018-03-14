@@ -16,10 +16,10 @@ class AI {
         nearestBall = ballId;
       });
       if (this.position_components[nearestBall].x - 45 > this.position_components[aiId].x) {
-        this.order_components[aiId].movement = "right";
+        this.order_components[aiId].movement = "left";
       }
       else if (this.position_components[nearestBall].x + 45 < this.position_components[aiId].x) {
-        this.order_components[aiId].movement = "left";
+        this.order_components[aiId].movement = "right";
       }
     });
   }
