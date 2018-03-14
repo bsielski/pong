@@ -46,21 +46,11 @@ class Physics {
         body.type = "zone";
       }
       body.angle = this.body_components[id].angle;
-      // console.log(body.id);
       this.system.insert(body);
 
       this.context.beginPath();
       this.context.strokeStyle = 'blue';
-      if (parseInt(id, 10) === 3) {
-        this.context.strokeStyle = 'red';
-      }
       body.draw(this.context);
-
-      if (parseInt(id, 10) === 4) {
-        // console.log(body.x, body.y);
-        // console.log(verts);
-      }
-
       this.context.stroke();
     });
     this.update = this.update.bind(this);
@@ -75,7 +65,6 @@ class Physics {
   		this.context.beginPath();
   		this.system.draw(this.context);
   		this.context.stroke();
-
   		if(false) {
   			this.context.strokeStyle = '#00FF00';
   			this.context.beginPath();
@@ -100,8 +89,6 @@ class Physics {
       potentials.forEach(obstacle => {
         if(body.collides(obstacle, this.result)) {
           if (this.result.b.type !== "zone") {
-
-            // console.log(this.result);
             let normal = new Victor(this.result.overlap * this.result.overlap_x, this.result.overlap * this.result.overlap_y).normalize();
             let dot = body_vector.x * normal.x + body_vector.y * normal.y;
             let newX = body_vector.x - 2.0 * dot * normal.x;
@@ -124,10 +111,7 @@ class Physics {
       potentials.forEach(obstacle => {
         if(body.collides(obstacle, this.result)) {
           if (this.result.b.type !== "zone") {
-            // console.log("BEEEP");
             this.stopping[id].x -= this.result.overlap * this.result.overlap_x;
-            // this.position_components[id].x -= this.result.overlap * this.result.overlap_x;
-            // this.position_components[id].y -= this.result.overlap * this.result.overlap_y;
           }
         }
       });
@@ -140,7 +124,6 @@ class Physics {
       potentials.forEach(obstacle => {
         if(zone.collides(obstacle, this.result)) {
           if (this.sensor_components[id].seeking === this.result.b.id ) {
-            // console.log("DDD");
             this.sensor_components[id].detected = true;
           }
         }
@@ -161,18 +144,12 @@ class Physics {
       this.bouncing[id].angle = this.body_components[id].angle;
     });
 
-
     this.handleCollisions();
 
     Object.keys(this.stopping).forEach(id => {
       this.position_components[id].x = this.stopping[id].x;
       this.position_components[id].y = this.stopping[id].y;
     });
-    // Object.keys(this.bouncing).forEach(id => {
-    //   this.position_components[id].x = this.bouncing[id].x;
-    //   this.position_components[id].y = this.bouncing[id].y;
-    // });
-
     this.render();
   }
 }
