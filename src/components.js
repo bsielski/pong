@@ -63,11 +63,11 @@ Components.sprites[bottomWallId] = {width: Config.WORLD_WIDTH, height: 40, angle
 Components.positions[bottomWallId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT};
 
 const netId = uuid();
-Components.sprites[netId] = {width: Config.WORLD_WIDTH, height: 10, image: LOLPIXELS, color: 0xffffff, opacity: 0.2};
+Components.sprites[netId] = {width: Config.WORLD_WIDTH, height: 10, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 0.2};
 Components.positions[netId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT/2};
 
 const fpsCounterId = uuid();
-Components.texts[fpsCounterId] = {size: 12, content: "fps", color: 0xffffff, opacity: 0.6};
+Components.texts[fpsCounterId] = {size: 12, content: "fps", color: 0xffffff, angle: 0, opacity: 0.6};
 Components.positions[fpsCounterId] = {x: Config.WORLD_WIDTH/6, y: Config.WORLD_HEIGHT/2};
 Components.rulesFps[fpsCounterId] = true;
 
@@ -87,11 +87,11 @@ Components.sprites[obstacle3Id] = {width: 100, height: 30, angle: 4, image: LOLP
 Components.positions[obstacle3Id] = {x: Config.WORLD_WIDTH-50, y: Config.WORLD_HEIGHT/3};
 
 const skull1Id = uuid();
-Components.sprites[skull1Id] = {width: 110, height: 110, image: SKULL, color: 0xffffff, opacity: 0.4};
+Components.sprites[skull1Id] = {width: 110, height: 110, angle: 0, image: SKULL, color: 0xffffff, opacity: 0.4};
 Components.positions[skull1Id] = {x: 500, y: 140};
 
 const skull2Id = uuid();
-Components.sprites[skull2Id] = {width: 110, height: 110, image: SKULL, color: 0xffffff, opacity: 0.4};
+Components.sprites[skull2Id] = {width: 110, height: 110, angle: 0, image: SKULL, color: 0xffffff, opacity: 0.4};
 Components.positions[skull2Id] = {x: 500, y: 360};
 
 const topZoneId = uuid();
@@ -106,11 +106,11 @@ Components.sensors[bottomZoneId] = {seeking: ballId, detected: false};
 
 const topCounterId = uuid();
 Components.positions[topCounterId] = {x: 60, y: 220};
-Components.texts[topCounterId] = {size: 26, content: "0", color: 0xff7777, opacity: 0.6};
+Components.texts[topCounterId] = {size: 26, content: "0", color: 0xff7777, angle: 0, opacity: 0.6};
 
 const bottomCounterId = uuid();
 Components.positions[bottomCounterId] = {x: 60, y: 280};
-Components.texts[bottomCounterId] = {size: 26, content: "0", color: 0xffff77, opacity: 0.6};
+Components.texts[bottomCounterId] = {size: 26, content: "0", color: 0xffff77, angle: 0, opacity: 0.6};
 
 const topDetectorId = uuid();
 Components.rulesDetectors[topDetectorId] = {zone: topZoneId, counter: bottomCounterId};
