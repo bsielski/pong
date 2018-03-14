@@ -100,7 +100,7 @@ class Physics {
       potentials.forEach(obstacle => {
         if(body.collides(obstacle, this.result)) {
           if (this.result.b.type !== "zone") {
-            // console.log("BEEEP");
+
             // console.log(this.result);
             let normal = new Victor(this.result.overlap * this.result.overlap_x, this.result.overlap * this.result.overlap_y).normalize();
             let dot = body_vector.x * normal.x + body_vector.y * normal.y;
