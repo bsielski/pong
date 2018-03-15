@@ -1,5 +1,3 @@
-import Config from './config';
-
 class Controller {
 
   constructor(order_components, input_components) {
