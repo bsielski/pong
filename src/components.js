@@ -26,7 +26,7 @@ Components.shapes[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.P
 Components.collisions[enemyPaddleId] = [];
 Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
 Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
-Components.movements[enemyPaddleId] = {speed: 0, angle: 0, randomAngle: 0};
+Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED, angle: 0, randomAngle: 0};
 Components.orders[enemyPaddleId] = {movement: "stop", direction: Math.PI * 3/2};
 Components.ai[enemyPaddleId] = {};
 
@@ -35,7 +35,7 @@ Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.
 Components.collisions[playerPaddleId] = [];
 Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
 Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
-Components.movements[playerPaddleId] = {speed: 0, angle: 0, randomAngle: 0};
+Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED, angle: 0, randomAngle: 0};
 Components.orders[playerPaddleId] = {movement: "stop", direction: Math.PI/2};
 Components.inputs[playerPaddleId] = {leftArrow: false, rightArrow: false};
 // Components.ai[playerPaddleId] = {};
@@ -45,7 +45,7 @@ Components.shapes[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGH
 Components.collisions[ballId] = [];
 Components.sprites[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[ballId] = {x: 300, y: 400};
-Components.movements[ballId] = {speed: 0.55, angle: 2, randomAngle: 1};
+Components.movements[ballId] = {minSpeed: 0.25, speed: 0.4, maxSpeed: 0.55, angle: 2, randomAngle: 1};
 Components.balls[ballId] = {};
 
 const leftWallId = uuid();
