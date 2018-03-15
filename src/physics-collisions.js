@@ -4,7 +4,7 @@ import Victor from 'victor';
 
 class Physics {
 
-  constructor(body_components, sensor_components, position_components, movement_components) {
+  constructor(shape_components, sensor_components, position_components, movement_components) {
 
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute("width", Config.WORLD_WIDTH);
@@ -15,7 +15,7 @@ class Physics {
     this.system = new Collisions();
     this.result = this.system.createResult();
 
-    this.body_components = body_components;
+    this.shape_components = shape_components;
     this.sensor_components = sensor_components;
     this.position_components = position_components;
     this.movement_components = movement_components;
@@ -24,33 +24,33 @@ class Physics {
     this.stopping = {};
     this.zones = {};
 
-    Object.keys(this.body_components).forEach(id => {
+    Object.keys(this.shape_components).forEach(id => {
 
       const x = this.position_components[id].x;
       const y = this.position_components[id].y;
-      const width = this.body_components[id].width;
-      const height = this.body_components[id].height;
+      const width = this.shape_components[id].width;
+      const height = this.shape_components[id].height;
       const verts = this.getAABBVerts(x, y, width, height);
-      const body = new Polygon(x, y, verts);
-      body.id = id;
-      if (this.body_components[id].type === "stopping") {
-        this.stopping[id] = body;
-        body.type = "stopping";
+      const shape = new Polygon(x, y, verts);
+      shape.id = id;
+      if (this.shape_components[id].type === "stopping") {
+        this.stopping[id] = shape;
+        shape.type = "stopping";
       }
-      else if (this.body_components[id].type === "bouncing") {
-        this.bouncing[id] = body;
-        body.type = "bouncing";
+      else if (this.shape_components[id].type === "bouncing") {
+        this.bouncing[id] = shape;
+        shape.type = "bouncing";
       }
-      else if (this.body_components[id].type === "zone") {
-        this.zones[id] = body;
-        body.type = "zone";
+      else if (this.shape_components[id].type === "zone") {
+        this.zones[id] = shape;
+        shape.type = "zone";
       }
-      body.angle = this.body_components[id].angle;
-      this.system.insert(body);
+      shape.angle = this.shape_components[id].angle;
+      this.system.insert(shape);
 
       this.context.beginPath();
       this.context.strokeStyle = 'blue';
-      body.draw(this.context);
+      shape.draw(this.context);
       this.context.stroke();
     });
     this.update = this.update.bind(this);
@@ -81,18 +81,18 @@ class Physics {
     this.system.update();
 
     Object.keys(this.bouncing).forEach(id => {
-      let body = this.bouncing[id];
-      let body_speed = this.movement_components[id].speed;
-      let body_angle = this.movement_components[id].angle;
-      let body_vector = new Victor(body_speed, 0).rotate(body_angle);
-      let potentials = body.potentials();
+      let shape = this.bouncing[id];
+      let shape_speed = this.movement_components[id].speed;
+      let shape_angle = this.movement_components[id].angle;
+      let shape_vector = new Victor(shape_speed, 0).rotate(shape_angle);
+      let potentials = shape.potentials();
       potentials.forEach(obstacle => {
-        if(body.collides(obstacle, this.result)) {
+        if(shape.collides(obstacle, this.result)) {
           if (this.result.b.type !== "zone") {
             let normal = new Victor(this.result.overlap * this.result.overlap_x, this.result.overlap * this.result.overlap_y).normalize();
-            let dot = body_vector.x * normal.x + body_vector.y * normal.y;
-            let newX = body_vector.x - 2.0 * dot * normal.x;
-            let newY = body_vector.y - 2.0 * dot * normal.y;
+            let dot = shape_vector.x * normal.x + shape_vector.y * normal.y;
+            let newX = shape_vector.x - 2.0 * dot * normal.x;
+            let newY = shape_vector.y - 2.0 * dot * normal.y;
             let newVector = new Victor(newX, newY);
             let newAngle = newVector.angle();
 
@@ -106,10 +106,10 @@ class Physics {
     });
 
     Object.keys(this.stopping).forEach(id => {
-      let body = this.stopping[id];
-      let potentials = body.potentials();
+      let shape = this.stopping[id];
+      let potentials = shape.potentials();
       potentials.forEach(obstacle => {
-        if(body.collides(obstacle, this.result)) {
+        if(shape.collides(obstacle, this.result)) {
           if (this.result.b.type !== "zone") {
             this.stopping[id].x -= this.result.overlap * this.result.overlap_x;
           }
@@ -136,12 +136,12 @@ class Physics {
     Object.keys(this.stopping).forEach(id => {
       this.stopping[id].x = this.position_components[id].x;
       this.stopping[id].y = this.position_components[id].y;
-      this.stopping[id].angle = this.body_components[id].angle;
+      this.stopping[id].angle = this.shape_components[id].angle;
     });
     Object.keys(this.bouncing).forEach(id => {
       this.bouncing[id].x = this.position_components[id].x;
       this.bouncing[id].y = this.position_components[id].y;
-      this.bouncing[id].angle = this.body_components[id].angle;
+      this.bouncing[id].angle = this.shape_components[id].angle;
     });
 
     this.handleCollisions();

@@ -3,7 +3,7 @@ import Config from './config';
 
 class CollisionDetector {
 
-  constructor(body_components, position_components, collisions_components) {
+  constructor(shape_components, position_components, collisions_components) {
 
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute("width", Config.WORLD_WIDTH);
@@ -14,22 +14,22 @@ class CollisionDetector {
     this.system = new Collisions();
     this.result = this.system.createResult();
 
-    this.body_components = body_components;
+    this.shape_components = shape_components;
     this.position_components = position_components;
     this.collisions_components = collisions_components;
 
-    this.bodies = {};
+    this.shapes = {};
 
-    Object.keys(this.body_components).forEach(id => {
+    Object.keys(this.shape_components).forEach(id => {
       const x = this.position_components[id].x;
       const y = this.position_components[id].y;
-      const width = this.body_components[id].width;
-      const height = this.body_components[id].height;
+      const width = this.shape_components[id].width;
+      const height = this.shape_components[id].height;
       const verts = this.getAABBVerts(x, y, width, height);
       const body = new Polygon(x, y, verts);
       body.id = id;
-      this.bodies[id] = body;
-      body.angle = this.body_components[id].angle;
+      this.shapes[id] = body;
+      body.angle = this.shape_components[id].angle;
       this.system.insert(body);
 
       this.context.beginPath();
@@ -62,16 +62,16 @@ class CollisionDetector {
   }
 
   update() {
-    Object.keys(this.bodies).forEach(id => {
-      this.bodies[id].x = this.position_components[id].x;
-      this.bodies[id].y = this.position_components[id].y;
-      this.bodies[id].angle = this.body_components[id].angle;
+    Object.keys(this.shapes).forEach(id => {
+      this.shapes[id].x = this.position_components[id].x;
+      this.shapes[id].y = this.position_components[id].y;
+      this.shapes[id].angle = this.shape_components[id].angle;
     });
 
     this.system.update();
 
-    Object.keys(this.bodies).forEach(id => {
-      let body = this.bodies[id];
+    Object.keys(this.shapes).forEach(id => {
+      let body = this.shapes[id];
       this.collisions_components[id] = [];
       let potentials = body.potentials();
       potentials.forEach(obstacle => {
