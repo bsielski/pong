@@ -70,7 +70,7 @@ class CollisionDetector {
 
     this.system.update();
 
-    Object.keys(this.shapes).forEach(id => {
+    Object.keys(this.collisions_components).forEach(id => {
       let body = this.shapes[id];
       this.collisions_components[id] = [];
       let potentials = body.potentials();
