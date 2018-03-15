@@ -7,6 +7,8 @@ const uuid = v4;
 
 const Components = {
   shapes: {},
+  bodies: {},
+  bouncing: {},
   collisions: {},
   sensors: {},
   sprites: {},
@@ -23,6 +25,7 @@ const Components = {
 
 const enemyPaddleId = uuid();
 Components.shapes[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, type: "stopping"};
+Components.bodies[enemyPaddleId] = {};
 Components.collisions[enemyPaddleId] = [];
 Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
 Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
@@ -32,6 +35,7 @@ Components.ai[enemyPaddleId] = {};
 
 const playerPaddleId = uuid();
 Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, type: "stopping"};
+Components.bodies[playerPaddleId] = {};
 Components.collisions[playerPaddleId] = [];
 Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
 Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
@@ -42,6 +46,8 @@ Components.inputs[playerPaddleId] = {leftArrow: false, rightArrow: false};
 
 const ballId = uuid();
 Components.shapes[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, angle: 0, type: "bouncing"};
+Components.bodies[ballId] = {};
+Components.bouncing[ballId] = {};
 Components.collisions[ballId] = [];
 Components.sprites[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[ballId] = {x: 300, y: 400};
@@ -50,12 +56,14 @@ Components.balls[ballId] = {};
 
 const leftWallId = uuid();
 Components.shapes[leftWallId] = {width: 40, height: Config.WORLD_HEIGHT, angle: 0, type: "immobile"};
+Components.bodies[leftWallId] = {};
 Components.collisions[leftWallId] = [];
 Components.sprites[leftWallId] = {width: 40, height: Config.WORLD_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[leftWallId] = {x: 0, y: Config.WORLD_HEIGHT/2};
 
 const rightWallId = uuid();
 Components.shapes[rightWallId] = {width: 40, height: Config.WORLD_HEIGHT, angle: 0, type: "immobile"};
+Components.bodies[rightWallId] = {};
 Components.collisions[rightWallId] = [];
 Components.sprites[rightWallId] = {width: 40, height: Config.WORLD_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[rightWallId] = {x: Config.WORLD_WIDTH, y: Config.WORLD_HEIGHT/2};
@@ -68,6 +76,7 @@ Components.positions[toptWallId] = {x: Config.WORLD_WIDTH/2, y: 0};
 
 const bottomWallId = uuid();
 Components.shapes[bottomWallId] = {width: Config.WORLD_WIDTH, height: 40, angle: 0, type: "immobile"};
+Components.bodies[bottomWallId] = {};
 Components.collisions[bottomWallId] = [];
 Components.sprites[bottomWallId] = {width: Config.WORLD_WIDTH, height: 40, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[bottomWallId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT};
