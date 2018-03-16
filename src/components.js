@@ -6,22 +6,22 @@ import {v4, v1} from 'uuid';
 const uuid = v4;
 
 const Components = {
+  positions: {},
   shapes: {},
   bodies: {},
+  collisions: {},
   bouncing: {},
   stopping: {},
-  collisions: {},
-  sensors: {},
+  touchSensors: {},
+  movements: {},
   sprites: {},
-  positions: {},
   inputs: {},
   orders: {},
-  movements: {},
   texts: {},
   rulesFps: {},
-  rulesDetectors: {},
   ai: {},
-  balls: {}
+  balls: {},
+  variables: {},
 }
 
 const enemyPaddleId = uuid();
@@ -31,7 +31,7 @@ Components.stopping[enemyPaddleId] = {};
 Components.collisions[enemyPaddleId] = [];
 Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
 Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
-Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED, angle: 0, randomAngle: 0};
+Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED/2, angle: 0, randomAngle: 0};
 Components.orders[enemyPaddleId] = {movement: "stop", direction: Math.PI * 3/2};
 Components.ai[enemyPaddleId] = {};
 
@@ -73,6 +73,7 @@ Components.positions[rightWallId] = {x: Config.WORLD_WIDTH, y: Config.WORLD_HEIG
 
 const toptWallId = uuid();
 Components.shapes[toptWallId] = {width: Config.WORLD_WIDTH, height: 40, angle: 0, type: "immobile"};
+Components.bodies[toptWallId] = {};
 Components.collisions[toptWallId] = [];
 Components.sprites[toptWallId] = {width: Config.WORLD_WIDTH, height: 40, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
 Components.positions[toptWallId] = {x: Config.WORLD_WIDTH/2, y: 0};
@@ -122,30 +123,31 @@ const skull2Id = uuid();
 Components.sprites[skull2Id] = {width: 110, height: 110, angle: 0, image: SKULL, color: 0xffffff, opacity: 0.4};
 Components.positions[skull2Id] = {x: 500, y: 360};
 
-const topZoneId = uuid();
-Components.shapes[topZoneId] = {width: Config.WORLD_WIDTH, height: 20, angle: 0, type: "zone"};
-Components.collisions[topZoneId] = [];
-Components.positions[topZoneId] = {x: Config.WORLD_WIDTH/2, y: 25};
-Components.sensors[topZoneId] = {seeking: ballId, detected: false};
+const enemyPointsId = uuid();
+Components.variables[enemyPointsId] = {value: 0};
 
 const bottomZoneId = uuid();
 Components.shapes[bottomZoneId] = {width: Config.WORLD_WIDTH, height: 20, angle: 0, type: "zone"};
 Components.collisions[bottomZoneId] = [];
 Components.positions[bottomZoneId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT - 25};
-Components.sensors[bottomZoneId] = {seeking: ballId, detected: false};
+Components.touchSensors[bottomZoneId] = {seeking: ballId, last: false, current: false, variable: enemyPointsId, operation: +1};
 
 const topCounterId = uuid();
 Components.positions[topCounterId] = {x: 60, y: 220};
-Components.texts[topCounterId] = {size: 26, content: "0", color: 0xff7777, angle: 0, opacity: 0.6};
+Components.texts[topCounterId] = {size: 26, variable: enemyPointsId, color: 0xff7777, angle: 0, opacity: 0.6};
+
+const playerPointsId = uuid();
+Components.variables[playerPointsId] = {value: 0};
+
+const topZoneId = uuid();
+Components.shapes[topZoneId] = {width: Config.WORLD_WIDTH, height: 20, angle: 0, type: "zone"};
+Components.collisions[topZoneId] = [];
+Components.positions[topZoneId] = {x: Config.WORLD_WIDTH/2, y: 25};
+Components.touchSensors[topZoneId] = {seeking: ballId, last: false, current: false, variable: playerPointsId, operation: +1};
 
 const bottomCounterId = uuid();
 Components.positions[bottomCounterId] = {x: 60, y: 280};
-Components.texts[bottomCounterId] = {size: 26, content: "0", color: 0xffff77, angle: 0, opacity: 0.6};
+Components.texts[bottomCounterId] = {size: 26, variable: playerPointsId, color: 0xffff77, angle: 0, opacity: 0.6};
 
-const topDetectorId = uuid();
-Components.rulesDetectors[topDetectorId] = {zone: topZoneId, counter: bottomCounterId};
-
-const bottomDetectorId = uuid();
-Components.rulesDetectors[bottomDetectorId] = {zone: bottomZoneId, counter: topCounterId};
 
 export default Components;

@@ -9,10 +9,11 @@ import LOLPIXELS from './lolpixels.png';
 
 class Renderer {
 
-  constructor(sprite_components, text_components, position_components, renderer_options) {
+  constructor(sprite_components, text_components, position_components, renderer_options, variable_components) {
     this.renderer_options = renderer_options;
     this.sprite_components = sprite_components;
     this.text_components = text_components;
+    this.variable_components = variable_components;
     this.position_components = position_components;
     this.app = new Application(this.renderer_options);
     document.getElementById("game_container").appendChild(this.app.view);
@@ -54,7 +55,7 @@ class Renderer {
           fill: this.text_components[id].color,
         }
       )
-      const text = new Text(this.text_components[id].content, style);
+      const text = new Text(this.variable_components[this.text_components[id].variable].value, style);
       text.x = this.position_components[id].x;
       text.y = this.position_components[id].y;
       text.alpha = this.text_components[id].opacity;
@@ -71,7 +72,7 @@ class Renderer {
     // this.simCounter.text = MainLoop.getSimulationTimestep();
     // this.fpsCounter.text = "asd";
     Object.keys(this.texts).forEach(id => {
-      this.texts[id].text = this.text_components[id].content;
+      this.texts[id].text = this.variable_components[this.text_components[id].variable].value;
     });
     Object.keys(this.sprites).forEach(id => {
       this.sprites[id].rotation = this.sprite_components[id].angle;
