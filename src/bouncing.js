@@ -19,17 +19,20 @@ class Bouncing {
       let bouncingBody_vector = new Victor(bouncingBody_speed, 0).rotate(bouncingBody_angle);
 
       this.collision_components[id].forEach(collision => {
-        let normal = Victor.fromArray(collision.overlapV).normalize();
-        let dot = bouncingBody_vector.x * normal.x + bouncingBody_vector.y * normal.y;
-        let newX = bouncingBody_vector.x - 2.0 * dot * normal.x;
-        let newY = bouncingBody_vector.y - 2.0 * dot * normal.y;
-        let newVector = new Victor(newX, newY);
-        let newAngle = newVector.angle();
+        if (this.body_components[collision.bId]) {
 
-        this.movement_components[id].angle = newAngle;
+          let normal = Victor.fromArray(collision.overlapV).normalize();
+          let dot = bouncingBody_vector.x * normal.x + bouncingBody_vector.y * normal.y;
+          let newX = bouncingBody_vector.x - 2.0 * dot * normal.x;
+          let newY = bouncingBody_vector.y - 2.0 * dot * normal.y;
+          let newVector = new Victor(newX, newY);
+          let newAngle = newVector.angle();
 
-        this.position_components[id].x -= collision.overlapV[0];
-        this.position_components[id].y -= collision.overlapV[1];
+          this.movement_components[id].angle = newAngle;
+
+          this.position_components[id].x -= collision.overlapV[0];
+          this.position_components[id].y -= collision.overlapV[1];
+        }
       });
     });
   }
