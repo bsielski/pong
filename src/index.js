@@ -3,7 +3,7 @@ import Config from './config';
 import Components from './components';
 import Game from './game';
 import Renderer from './renderer';
-import Rules from './rules';
+import FpsCounter from './fpsCounter';
 import AI from './ai';
 import Controller from './controller';
 import Movement from './movement';
@@ -33,11 +33,11 @@ function run() {
   const stopping = new Stopping(Components.stopping, Components.bouncing, Components.collisions, Components.bodies, Components.positions);
   const touchSensor = new TouchSensor(Components.touchSensors, Components.collisions,Components.variables);
   const renderer = new Renderer(Components.sprites, Components.texts, Components.positions, renderer_options, Components.variables);
-  const rules = new Rules(Components.rulesDetectors, Components.rulesFps, Components.sensors, Components.texts);
+  const fpsCounter = new FpsCounter(Components.fpsCounters, Components.variables);
   const ai = new AI(Components.balls, Components.ai, Components.positions, Components.movements, Components.orders);
   // renderer.stop();
 
-  const game = new Game(renderer, collisionDetector, bouncing, stopping, touchSensor,/*physics,*/ controller, movement, rules, ai, order);
+  const game = new Game(renderer, collisionDetector, bouncing, stopping, touchSensor,/*physics,*/ controller, movement, fpsCounter, ai, order);
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);

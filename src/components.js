@@ -18,7 +18,7 @@ const Components = {
   inputs: {},
   orders: {},
   texts: {},
-  rulesFps: {},
+  fpsCounters: {},
   ai: {},
   balls: {},
   variables: {},
@@ -89,10 +89,15 @@ const netId = uuid();
 Components.sprites[netId] = {width: Config.WORLD_WIDTH, height: 10, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 0.2};
 Components.positions[netId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT/2};
 
+const fpsNumberId = uuid();
+Components.variables[fpsNumberId] = {value: 0};
+
+const fpsTextId = uuid();
+Components.texts[fpsTextId] = {size: 12, variable: fpsNumberId, color: 0xffffff, angle: 0, opacity: 0.6};
+Components.positions[fpsTextId] = {x: Config.WORLD_WIDTH/6, y: Config.WORLD_HEIGHT/2};
+
 const fpsCounterId = uuid();
-Components.texts[fpsCounterId] = {size: 12, content: "fps", color: 0xffffff, angle: 0, opacity: 0.6};
-Components.positions[fpsCounterId] = {x: Config.WORLD_WIDTH/6, y: Config.WORLD_HEIGHT/2};
-Components.rulesFps[fpsCounterId] = true;
+Components.fpsCounters[fpsCounterId] = {variable: fpsNumberId};
 
 const obstacle1Id = uuid();
 Components.shapes[obstacle1Id] = {width: 60, height: 80, angle: 1, type: "immobile"};

@@ -1,10 +1,10 @@
 class Game {
 
-  constructor(renderer, collisionDetector, bouncing, stopping, touchSensor, /*physics,*/ controller, movement, rules, ai, order) {
+  constructor(renderer, collisionDetector, bouncing, stopping, touchSensor, /*physics,*/ controller, movement, fpsCounter, ai, order) {
     this.controller = controller;
     this.order = order;
     this.renderer = renderer;
-    this.rules = rules;
+    this.fpsCounter = fpsCounter;
     this.collisionDetector = collisionDetector;
     this.bouncing = bouncing;
     this.stopping = stopping;
@@ -25,7 +25,7 @@ class Game {
     this.stopping.update();
     this.touchSensor.update();
     // this.physics.update(delta);
-    this.rules.update();
+    this.fpsCounter.update();
   }
 
 }
