@@ -9,6 +9,7 @@ const Components = {
   shapes: {},
   bodies: {},
   bouncing: {},
+  stopping: {},
   collisions: {},
   sensors: {},
   sprites: {},
@@ -26,6 +27,7 @@ const Components = {
 const enemyPaddleId = uuid();
 Components.shapes[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, type: "stopping"};
 Components.bodies[enemyPaddleId] = {};
+Components.stopping[enemyPaddleId] = {};
 Components.collisions[enemyPaddleId] = [];
 Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
 Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
@@ -36,6 +38,7 @@ Components.ai[enemyPaddleId] = {};
 const playerPaddleId = uuid();
 Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, type: "stopping"};
 Components.bodies[playerPaddleId] = {};
+Components.stopping[playerPaddleId] = {};
 Components.collisions[playerPaddleId] = [];
 Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
 Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
