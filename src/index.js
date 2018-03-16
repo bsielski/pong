@@ -20,6 +20,7 @@ function run() {
     width: Config.WORLD_WIDTH,
     height: Config.WORLD_HEIGHT,
     backgroundColor: Config.BG_COLOR,
+    antialias: false
   };
 
   const movement = new Movement(Components.movements, Components.positions);
