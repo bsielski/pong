@@ -24,25 +24,27 @@ function getLevel01() {
     ai: {},
     balls: {},
     variables: {},
+    conditions: {},
+    victoryConditions: {}
   }
 
   const enemyPaddleId = uuid();
-  Components.shapes[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0};
+  Components.shapes[enemyPaddleId] = {width: Config.PADDLE_WIDTH-10, height: Config.PADDLE_HEIGHT, angle: 0};
   Components.bodies[enemyPaddleId] = {};
   Components.stopping[enemyPaddleId] = {};
   Components.collisions[enemyPaddleId] = [];
-  Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
+  Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH-10, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
   Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y};
-  Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED/2, angle: 0, randomAngle: 0};
+  Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED/3, angle: 0, randomAngle: 0};
   Components.orders[enemyPaddleId] = {movement: "stop", direction: Math.PI * 3/2};
   Components.ai[enemyPaddleId] = {};
 
   const playerPaddleId = uuid();
-  Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0};
+  Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH+10, height: Config.PADDLE_HEIGHT, angle: 0};
   Components.bodies[playerPaddleId] = {};
   Components.stopping[playerPaddleId] = {};
   Components.collisions[playerPaddleId] = [];
-  Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
+  Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH+10, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
   Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y};
   Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED, angle: 0, randomAngle: 0};
   Components.orders[playerPaddleId] = {movement: "stop", direction: Math.PI/2};
@@ -101,35 +103,6 @@ function getLevel01() {
   const fpsCounterId = uuid();
   Components.fpsCounters[fpsCounterId] = {variable: fpsNumberId};
 
-  const obstacle1Id = uuid();
-  Components.shapes[obstacle1Id] = {width: 60, height: 80, angle: 1};
-  Components.bodies[obstacle1Id] = {};
-  Components.collisions[obstacle1Id] = [];
-  Components.sprites[obstacle1Id] = {width: 60, height: 80, angle: 1, image: LOLPIXELS, color: 0xf42222, opacity: 0.6};
-  Components.positions[obstacle1Id] = {x: 20, y: Config.WORLD_HEIGHT/4};
-
-  const obstacle2Id = uuid();
-  Components.shapes[obstacle2Id] = {width: 80, height: 80, angle: 0.4};
-  Components.bodies[obstacle2Id] = {};
-  Components.collisions[obstacle2Id] = [];
-  Components.sprites[obstacle2Id] = {width: 80, height: 80, angle: 0.4, image: LOLPIXELS, color: 0xf4f2f7f, opacity: 0.6};
-  Components.positions[obstacle2Id] = {x: Config.WORLD_WIDTH/2+70, y: Config.WORLD_HEIGHT/3+20};
-
-  const obstacle3Id = uuid();
-  Components.shapes[obstacle3Id] = {width: 60, height: 30, angle: 2};
-  Components.bodies[obstacle3Id] = {};
-  Components.collisions[obstacle3Id] = [];
-  Components.sprites[obstacle3Id] = {width: 60, height: 30, angle: 2, image: LOLPIXELS, color: 0x11f2f7f, opacity: 0.6};
-  Components.positions[obstacle3Id] = {x: Config.WORLD_WIDTH-50, y: Config.WORLD_HEIGHT/3};
-
-  const skull1Id = uuid();
-  Components.sprites[skull1Id] = {width: 110, height: 110, angle: 0, image: SKULL, color: 0xffffff, opacity: 0.4};
-  Components.positions[skull1Id] = {x: 500, y: 140};
-
-  const skull2Id = uuid();
-  Components.sprites[skull2Id] = {width: 110, height: 110, angle: 0, image: SKULL, color: 0xffffff, opacity: 0.4};
-  Components.positions[skull2Id] = {x: 500, y: 360};
-
   const enemyPointsId = uuid();
   Components.variables[enemyPointsId] = {value: 0};
 
@@ -155,6 +128,15 @@ function getLevel01() {
   const bottomCounterId = uuid();
   Components.positions[bottomCounterId] = {x: 60, y: 280};
   Components.texts[bottomCounterId] = {size: 26, variable: playerPointsId, color: 0xffff77, angle: 0, opacity: 0.6};
+
+  const pointsNeededByPlayerId = uuid();
+  Components.variables[pointsNeededByPlayerId] = {value: 10};
+
+  const have10pointsId = uuid();
+  Components.conditions[have10pointsId] = {leftVariable: playerPointsId, operator: ">=", rightVariable: pointsNeededByPlayerId};
+
+  const victoryConditionsId = uuid();
+  Components.victoryConditions[victoryConditionsId] = [have10pointsId];
 
   return JSON.parse(JSON.stringify(Components));
 }
