@@ -1,42 +1,45 @@
 import getLevel01 from './levels/level01';
+import getLevel02 from './levels/level02';
 
 
 class Game {
 
-  constructor(renderer, collisionDetector, bouncing, stopping, touchSensor, controller, movement, fpsCounter, ai, order) {
-    this.level01 = getLevel01()
+  constructor(mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor, controller, movement, fpsCounter, ai, order, victory) {
+    this.levels = [getLevel01(), getLevel02()];
+    this.currentLevelNumber = 0;
 
+    this.mainloop = mainloop;
     this.renderer = renderer;
-    this.renderer.loadLevel(this.level01);
-
     this.controller = controller;
-    this.controller.loadLevel(this.level01);
-
     this.order = order;
-    this.order.loadLevel(this.level01);
-
     this.fpsCounter = fpsCounter;
-    this.fpsCounter.loadLevel(this.level01);
-
     this.collisionDetector = collisionDetector;
-    this.collisionDetector.loadLevel(this.level01);
-
     this.bouncing = bouncing;
-    this.bouncing.loadLevel(this.level01);
-
     this.stopping = stopping;
-    this.stopping.loadLevel(this.level01);
-
     this.touchSensor = touchSensor;
-    this.touchSensor.loadLevel(this.level01);
-
-    this.movement = movement;
-    this.movement.loadLevel(this.level01);
-
+    this.victory = victory;
     this.ai = ai;
-    this.ai.loadLevel(this.level01);
+    this.movement = movement;
 
+    this.loadLevel = this.loadLevel.bind(this);
+    this.loadLevel(this.levels[this.currentLevelNumber]);
     this.update = this.update.bind(this);
+  }
+
+  loadLevel(level) {
+    // this.mainloop.stop();
+    this.touchSensor.loadLevel(level);
+    this.stopping.loadLevel(level);
+    this.order.loadLevel(level);
+    this.renderer.loadLevel(level);
+    this.controller.loadLevel(level);
+    this.fpsCounter.loadLevel(level);
+    this.collisionDetector.loadLevel(level);
+    this.bouncing.loadLevel(level);
+    this.movement.loadLevel(level);
+    this.ai.loadLevel(level);
+    this.victory.loadLevel(level);
+    // this.mainloop.start();
   }
 
   update(delta) {
@@ -49,6 +52,10 @@ class Game {
     this.stopping.update();
     this.touchSensor.update();
     this.fpsCounter.update();
+    if (this.victory.update()) {
+      this.currentLevelNumber += 1;
+      this.loadLevel(this.levels[this.currentLevelNumber]);
+    }
   }
 
 }

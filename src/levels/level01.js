@@ -130,7 +130,7 @@ function getLevel01() {
   Components.texts[bottomCounterId] = {size: 26, variable: playerPointsId, color: 0xffff77, angle: 0, opacity: 0.6};
 
   const pointsNeededByPlayerId = uuid();
-  Components.variables[pointsNeededByPlayerId] = {value: 10};
+  Components.variables[pointsNeededByPlayerId] = {value: 5};
 
   const have10pointsId = uuid();
   Components.conditions[have10pointsId] = {leftVariable: playerPointsId, operator: ">=", rightVariable: pointsNeededByPlayerId};

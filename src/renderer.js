@@ -11,14 +11,16 @@ class Renderer {
 
   constructor(renderer_options) {
     this.renderer_options = renderer_options;
+    this.app = new Application(this.renderer_options);
+    document.getElementById("game_container").appendChild(this.app.view);
 
     this.loadLevel = this.loadLevel.bind(this);
     this.render = this.render.bind(this);
   }
 
   loadLevel(components) {
-    this.app = new Application(this.renderer_options);
-    document.getElementById("game_container").appendChild(this.app.view);
+    // this.app.stop();
+    this.app.stage.removeChildren();
     this.sprite_components = components.sprites;
     this.text_components = components.texts;
     this.variable_components = components.variables;

@@ -11,6 +11,7 @@ import CollisionDetector from './collisionDetector';
 import Bouncing from './bouncing';
 import Stopping from './stopping';
 import TouchSensor from './touchSensor';
+import Victory from './victory';
 import MainLoop from 'mainloop.js';
 
 function run() {
@@ -30,14 +31,15 @@ function run() {
   const bouncing = new Bouncing();
   const stopping = new Stopping();
   const touchSensor = new TouchSensor();
+  const victory = new Victory();
   const renderer = new Renderer(renderer_options);
   const fpsCounter = new FpsCounter();
   const ai = new AI();
   // renderer.stop();
 
-  const game = new Game(renderer, collisionDetector, bouncing, stopping, touchSensor, controller, movement, fpsCounter, ai, order);
-
   const mainLoop = MainLoop;
+  const game = new Game(mainLoop, renderer, collisionDetector, bouncing, stopping, touchSensor, controller, movement, fpsCounter, ai, order, victory);
+
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
   mainLoop.setUpdate(game.update);
   mainLoop.setDraw(renderer.render);

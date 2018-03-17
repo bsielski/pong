@@ -24,6 +24,8 @@ function getLevel02() {
     ai: {},
     balls: {},
     variables: {},
+    conditions: {},
+    victoryConditions: {}
   }
 
   const enemyPaddleId = uuid();
@@ -106,7 +108,7 @@ function getLevel02() {
   Components.bodies[obstacle1Id] = {};
   Components.collisions[obstacle1Id] = [];
   Components.sprites[obstacle1Id] = {width: 60, height: 80, angle: 1, image: LOLPIXELS, color: 0xf42222, opacity: 0.6};
-  Components.positions[obstacle1Id] = {x: 20, y: Config.WORLD_HEIGHT/4};
+  Components.positions[obstacle1Id] = {x: 15, y: 200};
 
   const obstacle2Id = uuid();
   Components.shapes[obstacle2Id] = {width: 80, height: 80, angle: 0.4};

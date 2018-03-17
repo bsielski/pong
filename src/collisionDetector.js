@@ -4,15 +4,12 @@ import Config from './config';
 class CollisionDetector {
 
   constructor() {
-
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute("width", Config.WORLD_WIDTH);
     this.canvas.setAttribute("height", Config.WORLD_HEIGHT);
     document.getElementById("physics_container").appendChild(this.canvas);
     this.context = this.canvas.getContext('2d');
 
-    this.system = new Collisions();
-    this.result = this.system.createResult();
 
     this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
@@ -20,6 +17,8 @@ class CollisionDetector {
   }
 
   loadLevel(components) {
+    this.system = new Collisions();
+    this.result = this.system.createResult();
     this.shape_components = components.shapes;
     this.position_components = components.positions;
     this.collisions_components = components.collisions;
@@ -38,6 +37,8 @@ class CollisionDetector {
       body.angle = this.shape_components[id].angle;
       this.system.insert(body);
 
+      this.context.fillStyle = '#000000';
+      this.context.fillRect(0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
       this.context.beginPath();
       this.context.strokeStyle = 'blue';
       body.draw(this.context);
