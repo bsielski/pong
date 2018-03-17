@@ -2,13 +2,18 @@ import Victor from 'victor';
 
 class Bouncing {
 
-  constructor(bouncing_components, collision_components, body_components, position_components, movement_components) {
-    this.bouncing_components = bouncing_components;
-    this.collision_components = collision_components;
-    this.body_components = body_components;
-    this.position_components = position_components;
-    this.movement_components = movement_components;
+  constructor() {
+    this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
+  }
+
+  loadLevel(components) {
+    this.bouncing_components = components.bouncing;
+    this.collision_components = components.collisions;
+    this.body_components = components.bodies;
+    this.position_components = components.positions;
+    this.movement_components = components.movements;
+
   }
 
   update() {

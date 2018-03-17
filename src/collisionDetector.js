@@ -3,7 +3,7 @@ import Config from './config';
 
 class CollisionDetector {
 
-  constructor(shape_components, position_components, collisions_components) {
+  constructor() {
 
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute("width", Config.WORLD_WIDTH);
@@ -14,9 +14,15 @@ class CollisionDetector {
     this.system = new Collisions();
     this.result = this.system.createResult();
 
-    this.shape_components = shape_components;
-    this.position_components = position_components;
-    this.collisions_components = collisions_components;
+    this.loadLevel = this.loadLevel.bind(this);
+    this.update = this.update.bind(this);
+    this.render = this.render.bind(this);
+  }
+
+  loadLevel(components) {
+    this.shape_components = components.shapes;
+    this.position_components = components.positions;
+    this.collisions_components = components.collisions;
 
     this.shapes = {};
 
@@ -36,10 +42,8 @@ class CollisionDetector {
       this.context.strokeStyle = 'blue';
       body.draw(this.context);
       this.context.stroke();
-
     });
-    this.update = this.update.bind(this);
-    this.render = this.render.bind(this);
+
   }
 
   render() {

@@ -1,12 +1,16 @@
 class AI {
 
-  constructor(ball_components, ai_components, position_components, movement_components, order_components) {
-    this.ball_components = ball_components;
-    this.ai_components = ai_components;
-    this.position_components = position_components;
-    this.movement_components = movement_components;
-    this.order_components = order_components;
+  constructor() {
+    this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
+  }
+
+  loadLevel(components) {
+    this.ball_components = components.balls;
+    this.ai_components = components.ai;
+    this.position_components = components.positions;
+    this.movement_components = components.movements;
+    this.order_components = components.orders;
   }
 
   update(delta) {

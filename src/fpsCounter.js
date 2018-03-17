@@ -2,10 +2,14 @@ import MainLoop from 'mainloop.js';
 
 class FpsCounter {
 
-  constructor(fpsCounter_components, variable_components) {
-    this.fpsCounter_components = fpsCounter_components;
-    this.variable_components = variable_components;
+  constructor() {
+    this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
+  }
+
+  loadLevel(components) {
+    this.fpsCounter_components = components.fpsCounters;
+    this.variable_components = components.variables;
   }
 
   update() {

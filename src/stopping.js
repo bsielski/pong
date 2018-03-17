@@ -1,12 +1,16 @@
 class Stopping {
 
-  constructor(stopping_components, bouncing_components, collision_components, body_components, position_components) {
-    this.stopping_components = stopping_components;
-    this.bouncing_components = bouncing_components;
-    this.collision_components = collision_components;
-    this.body_components = body_components;
-    this.position_components = position_components;
+  constructor() {
+    this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
+  }
+
+  loadLevel(components) {
+    this.stopping_components = components.stopping;
+    this.bouncing_components = components.bouncing;
+    this.collision_components = components.collisions;
+    this.body_components = components.bodies;
+    this.position_components = components.positions;
   }
 
   update() {

@@ -1,12 +1,15 @@
 class TouchSensor {
 
-  constructor(touchSensor_components, collision_components, variable_components) {
-    this.touchSensor_components = touchSensor_components;
-    this.variable_components = variable_components;
-    this.collision_components = collision_components;
+  constructor() {
+    this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
   }
 
+  loadLevel(components) {
+    this.touchSensor_components = components.touchSensors;
+    this.variable_components = components.variables;
+    this.collision_components = components.collisions;
+  }
   update() {
     Object.keys(this.touchSensor_components).forEach(id => {
       const sensor = this.touchSensor_components[id];

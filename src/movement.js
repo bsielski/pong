@@ -2,12 +2,14 @@ import Victor from 'victor';
 
 class Movement {
 
-  constructor(movement_components, position_components) {
-
-    this.movement_components = movement_components;
-    this.position_components = position_components;
-
+  constructor() {
+    this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
+  }
+
+  loadLevel(components) {
+    this.movement_components = components.movements;
+    this.position_components = components.positions;
   }
 
   update(delta) {

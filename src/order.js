@@ -1,12 +1,16 @@
 class Order {
 
-  constructor(order_components, movement_components, shape_components, sprite_components) {
+  constructor() {
 
-    this.sprite_components = sprite_components;
-    this.shape_components = shape_components;
-    this.order_components = order_components;
-    this.movement_components = movement_components;
+    this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
+  }
+
+  loadLevel(components) {
+    this.order_components = components.orders;
+    this.movement_components = components.movements;
+    this.shape_components = components.shapes;
+    this.sprite_components = components.sprites;
   }
 
   update(delta) {

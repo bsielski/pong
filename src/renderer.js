@@ -1,6 +1,6 @@
 import {Sprite, Application, Texture, Point, TextStyle, Text} from 'pixi.js';
-import SKULL from './skull.png';
-import LOLPIXELS from './lolpixels.png';
+// import SKULL from './skull.png';
+// import LOLPIXELS from './lolpixels.png';
 
 
 // this.skull.tint = 0xff00ee;
@@ -9,17 +9,23 @@ import LOLPIXELS from './lolpixels.png';
 
 class Renderer {
 
-  constructor(sprite_components, text_components, position_components, renderer_options, variable_components) {
+  constructor(renderer_options) {
     this.renderer_options = renderer_options;
-    this.sprite_components = sprite_components;
-    this.text_components = text_components;
-    this.variable_components = variable_components;
-    this.position_components = position_components;
+
+    this.loadLevel = this.loadLevel.bind(this);
+    this.render = this.render.bind(this);
+  }
+
+  loadLevel(components) {
     this.app = new Application(this.renderer_options);
     document.getElementById("game_container").appendChild(this.app.view);
+    this.sprite_components = components.sprites;
+    this.text_components = components.texts;
+    this.variable_components = components.variables;
+    this.position_components = components.positions;
     this.sprites = {};
     Object.keys(this.sprite_components).forEach(id => {
-      const sprite = new Sprite(Texture.fromImage(sprite_components[id].image));
+      const sprite = new Sprite(Texture.fromImage(this.sprite_components[id].image));
       sprite.x = this.position_components[id].x;
       sprite.y = this.position_components[id].y;
       sprite.width = this.sprite_components[id].width;
@@ -65,7 +71,6 @@ class Renderer {
       // console.log("Render position: " + sprite.x + " " + sprite.y);
     });
 
-    this.render = this.render.bind(this);
   }
 
   render() {
