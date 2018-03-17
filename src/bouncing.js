@@ -21,12 +21,9 @@ class Bouncing {
       this.collision_components[id].forEach(collision => {
         if (this.body_components[collision.bId]) {
 
-          let normal = Victor.fromArray(collision.overlapV).normalize();
-          let dot = bouncingBody_vector.x * normal.x + bouncingBody_vector.y * normal.y;
-          let newX = bouncingBody_vector.x - 2.0 * dot * normal.x;
-          let newY = bouncingBody_vector.y - 2.0 * dot * normal.y;
-          let newVector = new Victor(newX, newY);
-          let newAngle = newVector.angle();
+          const normal = Victor.fromArray(collision.overlapV).normalize();
+          const newVector = this.bouncingVector(bouncingBody_vector, normal);
+          const newAngle = newVector.angle();
 
           this.movement_components[id].angle = newAngle;
 
@@ -36,6 +33,14 @@ class Bouncing {
       });
     });
   }
+
+  bouncingVector(approachingVector, normalVector) {
+    const dot = approachingVector.x * normalVector.x + approachingVector.y * normalVector.y;
+    const newX = approachingVector.x - 2.0 * dot * normalVector.x;
+    const newY = approachingVector.y - 2.0 * dot * normalVector.y;
+    return new Victor(newX, newY);
+  }
+
 }
 
 export default Bouncing;
