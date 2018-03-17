@@ -8,7 +8,6 @@ import AI from './ai';
 import Controller from './controller';
 import Movement from './movement';
 import Order from './order';
-import Physics from './physics-collisions';
 import CollisionDetector from './collisionDetector';
 import Bouncing from './bouncing';
 import Stopping from './stopping';
@@ -27,7 +26,6 @@ function run() {
   const movement = new Movement(Components.movements, Components.positions);
   const controller = new Controller(Components.orders, Components.inputs);
   const order = new Order(Components.orders, Components.movements, Components.sprites, Components.shapes);
-  // const physics = new Physics(Components.shapes, Components.sensors, Components.positions, Components.movements);
   const collisionDetector = new CollisionDetector(Components.shapes, Components.positions, Components.collisions);
   const bouncing = new Bouncing(Components.bouncing, Components.collisions, Components.bodies, Components.positions, Components.movements);
   const stopping = new Stopping(Components.stopping, Components.bouncing, Components.collisions, Components.bodies, Components.positions);
@@ -37,7 +35,7 @@ function run() {
   const ai = new AI(Components.balls, Components.ai, Components.positions, Components.movements, Components.orders);
   // renderer.stop();
 
-  const game = new Game(renderer, collisionDetector, bouncing, stopping, touchSensor,/*physics,*/ controller, movement, fpsCounter, ai, order);
+  const game = new Game(renderer, collisionDetector, bouncing, stopping, touchSensor, controller, movement, fpsCounter, ai, order);
 
   const mainLoop = MainLoop;
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
