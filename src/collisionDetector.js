@@ -34,7 +34,7 @@ class CollisionDetector {
       const body = new Polygon(x, y, verts);
       body.id = id;
       this.shapes[id] = body;
-      body.angle = this.shape_components[id].angle;
+      body.angle = this.position_components[id].angle + this.shape_components[id].angle;
       this.system.insert(body);
 
       this.context.fillStyle = '#000000';
@@ -70,7 +70,7 @@ class CollisionDetector {
     Object.keys(this.shapes).forEach(id => {
       this.shapes[id].x = this.position_components[id].x;
       this.shapes[id].y = this.position_components[id].y;
-      this.shapes[id].angle = this.shape_components[id].angle;
+      this.shapes[id].angle = this.position_components[id].angle + this.shape_components[id].angle;
     });
 
     this.system.update();
