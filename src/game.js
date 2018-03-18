@@ -1,11 +1,13 @@
+import getLevel01intro from './levels/level01intro';
 import getLevel01 from './levels/level01';
+import getLevel02intro from './levels/level02intro';
 import getLevel02 from './levels/level02';
 
 
 class Game {
 
   constructor(mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor, controller, movement, fpsCounter, ai, order, victory) {
-    this.levels = [getLevel01(), getLevel02()];
+    this.levels = [getLevel01intro(), getLevel01(), getLevel02intro(), getLevel02()];
     this.currentLevelNumber = 0;
 
     this.mainloop = mainloop;
