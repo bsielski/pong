@@ -1,3 +1,4 @@
+import getLevel00titleScreen from './levels/level00titleScreen';
 import getLevel01intro from './levels/level01intro';
 import getLevel01 from './levels/level01';
 import getLevel02intro from './levels/level02intro';
@@ -12,7 +13,7 @@ class Game {
     friction, rotator, springPivot, pivotLimiter
   )
   {
-    this.levels = [getLevel01intro(), getLevel01(), getLevel02intro(), getLevel02()];
+    this.levels = [getLevel00titleScreen(), getLevel01intro(), getLevel01(), getLevel02intro(), getLevel02()];
     this.currentLevelNumber = 0;
 
     this.mainloop = mainloop;

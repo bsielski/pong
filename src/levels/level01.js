@@ -16,12 +16,12 @@ function getLevel01() {
   Components.stopping[enemyPaddleId] = {};
   Components.collisions[enemyPaddleId] = [];
   Components.sprites[enemyPaddleId] = {width: Const.PADDLE_WIDTH-10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
-  Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: 0.6, angle: 0, randomAngle: 0};
+  Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED * 0.6, angle: 0, randomAngle: 0};
   Components.frictions[enemyPaddleId] = {value: 0.003};
   Components.springPivots[enemyPaddleId] = {power: 0.09};
   Components.pivotLimiters[enemyPaddleId] = {minAngle: -0.15, maxAngle: 0.15};
-  Components.accelerators[enemyPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: 0.3},
-                                              rightAccelerator: {angle: 0, acceleration: 0.3} };
+  Components.accelerators[enemyPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION},
+                                              rightAccelerator: {angle: 0, acceleration: Const.PADDLE_ACCELERATION} };
   Components.rotators[enemyPaddleId] = { rightRotator: {speed: 0.3, direction: 1}, leftRotator: {speed: 0.3, direction: -1} };
   Components.orders[enemyPaddleId] = {playerPaddleLeft: false, playerPaddleRight: false};
   Components.interpreters[enemyPaddleId] = { leftAccelerator: ["playerPaddleLeft", "confirm"],
@@ -38,12 +38,12 @@ function getLevel01() {
   Components.stopping[playerPaddleId] = {};
   Components.collisions[playerPaddleId] = [];
   Components.sprites[playerPaddleId] = {width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
-  Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: 1, angle: 0, randomAngle: 0};
+  Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0};
   Components.frictions[playerPaddleId] = {value: 0.001};
   Components.springPivots[playerPaddleId] = {power: 0.09};
   Components.pivotLimiters[playerPaddleId] = {minAngle: -0.15, maxAngle: 0.15};
-  Components.accelerators[playerPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: 0.05},
-                                              rightAccelerator: {angle: 0, acceleration: 0.05} }
+  Components.accelerators[playerPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION},
+                                              rightAccelerator: {angle: 0, acceleration: Const.PADDLE_ACCELERATION} }
   Components.rotators[playerPaddleId] = { rightRotator: {speed: 0.3, direction: 1}, leftRotator: {speed: 0.3, direction: -1} };
   Components.orders[playerPaddleId] = {playerPaddleLeft: false, playerPaddleRight: false};
   Components.interpreters[playerPaddleId] = { leftAccelerator: ["playerPaddleLeft", "confirm"],

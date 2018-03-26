@@ -16,12 +16,12 @@ function getLevel02intro() {
   Components.collisions[playerPaddleId] = [];
   Components.sprites[playerPaddleId] = {width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1};
   Components.positions[playerPaddleId] = {x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0};
-  Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: 1, angle: 0, randomAngle: 0};
+  Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0};
   Components.frictions[playerPaddleId] = {value: 0.003};
   Components.springPivots[playerPaddleId] = {power: 0.09};
   Components.pivotLimiters[playerPaddleId] = {minAngle: -0.15, maxAngle: 0.15};
-  Components.accelerators[playerPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: 0.3},
-                                              rightAccelerator: {angle: 0, acceleration: 0.3} };
+  Components.accelerators[playerPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION},
+                                              rightAccelerator: {angle: 0, acceleration: Const.PADDLE_ACCELERATION} };
   Components.rotators[playerPaddleId] = { rightRotator: {speed: 0.3, direction: 1}, leftRotator: {speed: 0.3, direction: -1} };
   Components.orders[playerPaddleId] = {playerPaddleLeft: false, confirm: false, playerPaddleRight: false};
   Components.interpreters[playerPaddleId] = { leftAccelerator: ["playerPaddleLeft", "confirm"],
