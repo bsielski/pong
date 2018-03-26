@@ -1,55 +1,55 @@
 import Config from './config';
+import getEmptyComponents from './getEmptyComponents';
 import SKULL from './skull.png';
 import LOLPIXELS from './lolpixels.png';
-import {v4, v1} from 'uuid';
+import {v4} from 'uuid';
 
 function getLevel02() {
 
   const uuid = v4;
-
-  const Components = {
-    positions: {},
-    shapes: {},
-    bodies: {},
-    collisions: {},
-    bouncing: {},
-    stopping: {},
-    touchSensors: {},
-    movements: {},
-    sprites: {},
-    inputs: {},
-    orders: {},
-    texts: {},
-    fpsCounters: {},
-    ai: {},
-    balls: {},
-    variables: {},
-    conditions: {},
-    victoryConditions: {}
-  }
+  const Components = getEmptyComponents();
 
   const enemyPaddleId = uuid();
-  Components.shapes[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0};
+  Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y, angle: Math.PI};
+  Components.shapes[enemyPaddleId] = {width: Config.PADDLE_WIDTH-10, height: Config.PADDLE_HEIGHT, angle: 0};
   Components.bodies[enemyPaddleId] = {};
   Components.stopping[enemyPaddleId] = {};
   Components.collisions[enemyPaddleId] = [];
-  Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
-  Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y, angle: 0};
-  Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED/2, angle: 0, randomAngle: 0};
-  Components.orders[enemyPaddleId] = {movement: "stop", direction: Math.PI * 3/2};
+  Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH-10, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
+  Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: 0.6, angle: 0, randomAngle: 0};
+  Components.frictions[enemyPaddleId] = {value: 0.001};
+  Components.springPivots[enemyPaddleId] = {power: 0.09};
+  Components.pivotLimiters[enemyPaddleId] = {minAngle: -0.15, maxAngle: 0.15};
+  Components.accelerators[enemyPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: 0.05},
+                                              rightAccelerator: {angle: 0, acceleration: 0.05} }
+  Components.rotators[enemyPaddleId] = { rightRotator: {speed: 0.3, direction: 1}, leftRotator: {speed: 0.3, direction: -1} };
+  Components.orders[enemyPaddleId] = {playerPaddleLeft: false, playerPaddleRight: false};
+  Components.interpreters[enemyPaddleId] = { leftAccelerator: ["playerPaddleLeft", "confirm"],
+                                              rightAccelerator: ["playerPaddleRight"],
+                                              leftRotator: ["playerPaddleLeft", "confirm"],
+                                              rightRotator: ["playerPaddleRight"] };
+
   Components.ai[enemyPaddleId] = {};
 
   const playerPaddleId = uuid();
-  Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0};
+  Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH+10, height: Config.PADDLE_HEIGHT, angle: 0};
   Components.bodies[playerPaddleId] = {};
   Components.stopping[playerPaddleId] = {};
   Components.collisions[playerPaddleId] = [];
-  Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
+  Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH+10, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
   Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y, angle: 0};
-  Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Config.PLAYER_PADDLE_SPEED, angle: 0, randomAngle: 0};
-  Components.orders[playerPaddleId] = {movement: "stop", direction: Math.PI/2};
-  Components.inputs[playerPaddleId] = {leftArrow: false, rightArrow: false};
-  // Components.ai[playerPaddleId] = {};
+  Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: 0.7, angle: 0, randomAngle: 0};
+  Components.frictions[playerPaddleId] = {value: 0.001};
+  Components.springPivots[playerPaddleId] = {power: 0.09};
+  Components.pivotLimiters[playerPaddleId] = {minAngle: -0.15, maxAngle: 0.15};
+  Components.accelerators[playerPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: 0.05},
+                                              rightAccelerator: {angle: 0, acceleration: 0.05} }
+  Components.rotators[playerPaddleId] = { rightRotator: {speed: 0.3, direction: 1}, leftRotator: {speed: 0.3, direction: -1} };
+  Components.orders[playerPaddleId] = {playerPaddleLeft: false, playerPaddleRight: false};
+  Components.interpreters[playerPaddleId] = { leftAccelerator: ["playerPaddleLeft", "confirm"],
+                                              rightAccelerator: ["playerPaddleRight"],
+                                              leftRotator: ["playerPaddleLeft", "confirm"],
+                                              rightRotator: ["playerPaddleRight"] };
 
   const ballId = uuid();
   Components.shapes[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, angle: 0};

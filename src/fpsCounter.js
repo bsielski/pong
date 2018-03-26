@@ -15,7 +15,6 @@ class FpsCounter {
   update() {
     Object.keys(this.fpsCounter_components).forEach(id => {
       const fpsNumber = Math.round(MainLoop.getFPS());
-      // console.log(fpsNumber);
       this.variable_components[this.fpsCounter_components[id].variable].value = fpsNumber + " fps";
     });
 

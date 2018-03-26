@@ -10,7 +10,6 @@ class CollisionDetector {
     document.getElementById("physics_container").appendChild(this.canvas);
     this.context = this.canvas.getContext('2d');
 
-
     this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
     this.render = this.render.bind(this);
@@ -35,6 +34,7 @@ class CollisionDetector {
       body.id = id;
       this.shapes[id] = body;
       body.angle = this.position_components[id].angle + this.shape_components[id].angle;
+      body.angle = 1;
       this.system.insert(body);
 
       this.context.fillStyle = '#000000';

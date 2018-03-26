@@ -1,11 +1,4 @@
 import {Sprite, Application, Texture, Point, TextStyle, Text} from 'pixi.js';
-// import SKULL from './skull.png';
-// import LOLPIXELS from './lolpixels.png';
-
-
-// this.skull.tint = 0xff00ee;
-// this.skull.rotation += 0.01;
-
 
 class Renderer {
 
@@ -19,12 +12,12 @@ class Renderer {
   }
 
   loadLevel(components) {
-    // this.app.stop();
     this.app.stage.removeChildren();
     this.sprite_components = components.sprites;
     this.text_components = components.texts;
     this.variable_components = components.variables;
     this.position_components = components.positions;
+    this.shape_components = components.shapes;
     this.sprites = {};
     Object.keys(this.sprite_components).forEach(id => {
       const sprite = new Sprite(Texture.fromImage(this.sprite_components[id].image));
@@ -34,11 +27,11 @@ class Renderer {
       sprite.height = this.sprite_components[id].height;
       sprite.alpha = this.sprite_components[id].opacity;
       sprite.rotation = this.position_components[id].angle + this.sprite_components[id].angle;
+      if (this.shape_components[id]) { sprite.rotation += this.shape_components[id].angle }
       sprite.tint = this.sprite_components[id].color;
       sprite.anchor = new Point(0.5, 0.5);
       this.app.stage.addChild(sprite);
       this.sprites[id] = sprite;
-      // console.log("Render position: " + sprite.x + " " + sprite.y);
     });
     this.texts = {};
     this.textSstyle = new TextStyle({
@@ -70,23 +63,20 @@ class Renderer {
       text.anchor = new Point(0.5, 0.5);
       this.app.stage.addChild(text);
       this.texts[id] = text;
-      // console.log("Render position: " + sprite.x + " " + sprite.y);
     });
 
   }
 
   render() {
-    // this.simCounter.text = MainLoop.getSimulationTimestep();
-    // this.fpsCounter.text = "asd";
+
     Object.keys(this.texts).forEach(id => {
       this.texts[id].text = this.variable_components[this.text_components[id].variable].value;
     });
     Object.keys(this.sprites).forEach(id => {
-      this.sprites[id].rotation = this.sprite_components[id].angle;
       this.sprites[id].x = this.position_components[id].x;
       this.sprites[id].y = this.position_components[id].y;
       this.sprites[id].rotation = this.position_components[id].angle + this.sprite_components[id].angle;
-
+      if (this.shape_components[id]) { this.sprites[id].rotation += this.shape_components[id].angle }
     });
     this.app.render();
   }

@@ -6,14 +6,18 @@ import getLevel02 from './levels/level02';
 
 class Game {
 
-  constructor(mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor, controller, movement, fpsCounter, ai, order, victory) {
+  constructor(
+    mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor,
+    controller, movement, fpsCounter, ai, victory, accelerator,
+    friction, rotator, springPivot, pivotLimiter
+  )
+  {
     this.levels = [getLevel01intro(), getLevel01(), getLevel02intro(), getLevel02()];
     this.currentLevelNumber = 0;
 
     this.mainloop = mainloop;
     this.renderer = renderer;
     this.controller = controller;
-    this.order = order;
     this.fpsCounter = fpsCounter;
     this.collisionDetector = collisionDetector;
     this.bouncing = bouncing;
@@ -22,6 +26,11 @@ class Game {
     this.victory = victory;
     this.ai = ai;
     this.movement = movement;
+    this.friction = friction;
+    this.springPivot = springPivot;
+    this.pivotLimiter = pivotLimiter;
+    this.accelerator = accelerator;
+    this.rotator = rotator;
 
     this.loadLevel = this.loadLevel.bind(this);
     this.loadLevel(this.levels[this.currentLevelNumber]);
@@ -29,30 +38,38 @@ class Game {
   }
 
   loadLevel(level) {
-    // this.mainloop.stop();
     this.touchSensor.loadLevel(level);
     this.stopping.loadLevel(level);
-    this.order.loadLevel(level);
     this.renderer.loadLevel(level);
     this.controller.loadLevel(level);
     this.fpsCounter.loadLevel(level);
     this.collisionDetector.loadLevel(level);
     this.bouncing.loadLevel(level);
     this.movement.loadLevel(level);
+    this.friction.loadLevel(level);
+    this.springPivot.loadLevel(level);
+    this.pivotLimiter.loadLevel(level);
+    this.accelerator.loadLevel(level);
+    this.rotator.loadLevel(level);
     this.ai.loadLevel(level);
     this.victory.loadLevel(level);
-    // this.mainloop.start();
   }
 
   update(delta) {
     this.controller.update(delta);
     this.ai.update();
-    this.order.update(delta);
+    this.accelerator.update(delta);
+    this.rotator.update(delta);
+    this.pivotLimiter.update(delta);
+    this.springPivot.update(delta);
     this.movement.update(delta);
+
+    this.friction.update(delta);
     this.collisionDetector.update();
     this.bouncing.update();
     this.stopping.update();
     this.touchSensor.update();
+
     this.fpsCounter.update();
     if (this.victory.update()) {
       this.currentLevelNumber += 1;
