@@ -1,4 +1,4 @@
-const Config = {
+const Const = {
   MAX_FPS: 60,
   PLAYER_PADDLE_SPEED: 0.45,
   BG_COLOR: 0x001100,
@@ -13,4 +13,4 @@ const Config = {
   BALL_POSITION: {X: 300, Y: 200},
 }
 
-export default Config;
+export default Const;

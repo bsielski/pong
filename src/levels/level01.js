@@ -1,7 +1,7 @@
-import Config from './config';
+import Const from './constants';
 import getEmptyComponents from './getEmptyComponents';
-import SKULL from './skull.png';
-import LOLPIXELS from './lolpixels.png';
+import SKULL from './images/skull.png';
+import LOLPIXELS from './images/lolpixels.png';
 import {v4} from 'uuid';
 
 function getLevel01() {
@@ -10,12 +10,12 @@ function getLevel01() {
   const Components = getEmptyComponents();
 
   const enemyPaddleId = uuid();
-  Components.positions[enemyPaddleId] = {x: Config.PADDLE_1_POSITION.X, y: Config.PADDLE_1_POSITION.Y, angle: Math.PI};
-  Components.shapes[enemyPaddleId] = {width: Config.PADDLE_WIDTH-10, height: Config.PADDLE_HEIGHT, angle: 0};
+  Components.positions[enemyPaddleId] = {x: Const.PADDLE_1_POSITION.X, y: Const.PADDLE_1_POSITION.Y, angle: Math.PI};
+  Components.shapes[enemyPaddleId] = {width: Const.PADDLE_WIDTH-10, height: Const.PADDLE_HEIGHT, angle: 0};
   Components.bodies[enemyPaddleId] = {};
   Components.stopping[enemyPaddleId] = {};
   Components.collisions[enemyPaddleId] = [];
-  Components.sprites[enemyPaddleId] = {width: Config.PADDLE_WIDTH-10, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
+  Components.sprites[enemyPaddleId] = {width: Const.PADDLE_WIDTH-10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0};
   Components.movements[enemyPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: 0.6, angle: 0, randomAngle: 0};
   Components.frictions[enemyPaddleId] = {value: 0.003};
   Components.springPivots[enemyPaddleId] = {power: 0.09};
@@ -32,12 +32,12 @@ function getLevel01() {
   Components.ai[enemyPaddleId] = {};
 
   const playerPaddleId = uuid();
-  Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y, angle: 0};
-  Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH+10, height: Config.PADDLE_HEIGHT, angle: 0};
+  Components.positions[playerPaddleId] = {x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0};
+  Components.shapes[playerPaddleId] = {width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0};
   Components.bodies[playerPaddleId] = {};
   Components.stopping[playerPaddleId] = {};
   Components.collisions[playerPaddleId] = [];
-  Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH+10, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
+  Components.sprites[playerPaddleId] = {width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0};
   Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: 1, angle: 0, randomAngle: 0};
   Components.frictions[playerPaddleId] = {value: 0.001};
   Components.springPivots[playerPaddleId] = {power: 0.09};
@@ -52,53 +52,53 @@ function getLevel01() {
                                               rightRotator: ["playerPaddleRight"] };
 
   const ballId = uuid();
-  Components.shapes[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, angle: 0};
+  Components.shapes[ballId] = {width: Const.BALL_WIDTH, height: Const.BALL_HEIGHT, angle: 0};
   Components.bodies[ballId] = {};
   Components.bouncing[ballId] = {};
   Components.collisions[ballId] = [];
-  Components.sprites[ballId] = {width: Config.BALL_WIDTH, height: Config.BALL_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+  Components.sprites[ballId] = {width: Const.BALL_WIDTH, height: Const.BALL_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
   Components.positions[ballId] = {x: 300, y: 400, angle: 0};
   Components.movements[ballId] = {minSpeed: 0.15, speed: 0.7, maxSpeed: 0.8, angle: 2, randomAngle: 1};
   Components.balls[ballId] = {};
 
   const leftWallId = uuid();
-  Components.shapes[leftWallId] = {width: 40, height: Config.WORLD_HEIGHT, angle: 0};
+  Components.shapes[leftWallId] = {width: 40, height: Const.WORLD_HEIGHT, angle: 0};
   Components.bodies[leftWallId] = {};
   Components.collisions[leftWallId] = [];
-  Components.sprites[leftWallId] = {width: 40, height: Config.WORLD_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-  Components.positions[leftWallId] = {x: 0, y: Config.WORLD_HEIGHT/2, angle: 0};
+  Components.sprites[leftWallId] = {width: 40, height: Const.WORLD_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+  Components.positions[leftWallId] = {x: 0, y: Const.WORLD_HEIGHT/2, angle: 0};
 
   const rightWallId = uuid();
-  Components.shapes[rightWallId] = {width: 40, height: Config.WORLD_HEIGHT, angle: 0};
+  Components.shapes[rightWallId] = {width: 40, height: Const.WORLD_HEIGHT, angle: 0};
   Components.bodies[rightWallId] = {};
   Components.collisions[rightWallId] = [];
-  Components.sprites[rightWallId] = {width: 40, height: Config.WORLD_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-  Components.positions[rightWallId] = {x: Config.WORLD_WIDTH, y: Config.WORLD_HEIGHT/2, angle: 0};
+  Components.sprites[rightWallId] = {width: 40, height: Const.WORLD_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+  Components.positions[rightWallId] = {x: Const.WORLD_WIDTH, y: Const.WORLD_HEIGHT/2, angle: 0};
 
   const toptWallId = uuid();
-  Components.shapes[toptWallId] = {width: Config.WORLD_WIDTH, height: 40, angle: 0};
+  Components.shapes[toptWallId] = {width: Const.WORLD_WIDTH, height: 40, angle: 0};
   Components.bodies[toptWallId] = {};
   Components.collisions[toptWallId] = [];
-  Components.sprites[toptWallId] = {width: Config.WORLD_WIDTH, height: 40, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-  Components.positions[toptWallId] = {x: Config.WORLD_WIDTH/2, y: 0, angle: 0};
+  Components.sprites[toptWallId] = {width: Const.WORLD_WIDTH, height: 40, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+  Components.positions[toptWallId] = {x: Const.WORLD_WIDTH/2, y: 0, angle: 0};
 
   const bottomWallId = uuid();
-  Components.shapes[bottomWallId] = {width: Config.WORLD_WIDTH, height: 40, angle: 0};
+  Components.shapes[bottomWallId] = {width: Const.WORLD_WIDTH, height: 40, angle: 0};
   Components.bodies[bottomWallId] = {};
   Components.collisions[bottomWallId] = [];
-  Components.sprites[bottomWallId] = {width: Config.WORLD_WIDTH, height: 40, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
-  Components.positions[bottomWallId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT, angle: 0};
+  Components.sprites[bottomWallId] = {width: Const.WORLD_WIDTH, height: 40, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0};
+  Components.positions[bottomWallId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT, angle: 0};
 
   const netId = uuid();
-  Components.sprites[netId] = {width: Config.WORLD_WIDTH, height: 10, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 0.2};
-  Components.positions[netId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT/2, angle: 0};
+  Components.sprites[netId] = {width: Const.WORLD_WIDTH, height: 10, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 0.2};
+  Components.positions[netId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/2, angle: 0};
 
   const fpsNumberId = uuid();
   Components.variables[fpsNumberId] = {value: 0};
 
   const fpsTextId = uuid();
   Components.texts[fpsTextId] = {size: 12, variable: fpsNumberId, color: 0xffffff, angle: 0, opacity: 0.6};
-  Components.positions[fpsTextId] = {x: Config.WORLD_WIDTH/6, y: Config.WORLD_HEIGHT/2, angle: 0};
+  Components.positions[fpsTextId] = {x: Const.WORLD_WIDTH/6, y: Const.WORLD_HEIGHT/2, angle: 0};
 
   const fpsCounterId = uuid();
   Components.fpsCounters[fpsCounterId] = {variable: fpsNumberId};
@@ -107,9 +107,9 @@ function getLevel01() {
   Components.variables[enemyPointsId] = {value: 0};
 
   const bottomZoneId = uuid();
-  Components.shapes[bottomZoneId] = {width: Config.WORLD_WIDTH, height: 20, angle: 0};
+  Components.shapes[bottomZoneId] = {width: Const.WORLD_WIDTH, height: 20, angle: 0};
   Components.collisions[bottomZoneId] = [];
-  Components.positions[bottomZoneId] = {x: Config.WORLD_WIDTH/2, y: Config.WORLD_HEIGHT - 25, angle: 0};
+  Components.positions[bottomZoneId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT - 25, angle: 0};
   Components.touchSensors[bottomZoneId] = {seeking: ballId, last: false, current: false, variable: enemyPointsId, operation: +1};
 
   const topCounterId = uuid();
@@ -120,9 +120,9 @@ function getLevel01() {
   Components.variables[playerPointsId] = {value: 0};
 
   const topZoneId = uuid();
-  Components.shapes[topZoneId] = {width: Config.WORLD_WIDTH, height: 20, angle: 0};
+  Components.shapes[topZoneId] = {width: Const.WORLD_WIDTH, height: 20, angle: 0};
   Components.collisions[topZoneId] = [];
-  Components.positions[topZoneId] = {x: Config.WORLD_WIDTH/2, y: 25, angle: 0};
+  Components.positions[topZoneId] = {x: Const.WORLD_WIDTH/2, y: 25, angle: 0};
   Components.touchSensors[topZoneId] = {seeking: ballId, last: false, current: false, variable: playerPointsId, operation: +1};
 
   const bottomCounterId = uuid();

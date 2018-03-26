@@ -1,21 +1,21 @@
 import './styles.css';
 import Config from './config';
 import Game from './game';
-import Renderer from './renderer';
-import FpsCounter from './fpsCounter';
-import AI from './ai';
-import Controller from './controller';
-import Movement from './movement';
-import Friction from './friction';
-import SpringPivot from './springPivot';
-import PivotLimiter from './pivotLimiter';
-import Accelerator from './accelerator';
-import Rotator from './rotator';
-import CollisionDetector from './collisionDetector';
-import Bouncing from './bouncing';
-import Stopping from './stopping';
-import TouchSensor from './touchSensor';
-import Victory from './victory';
+import Renderer from './systems/renderer';
+import FpsCounter from './systems/fpsCounter';
+import AI from './systems/ai';
+import Controller from './systems/controller';
+import Movement from './systems/movement';
+import Friction from './systems/friction';
+import SpringPivot from './systems/springPivot';
+import PivotLimiter from './systems/pivotLimiter';
+import Accelerator from './systems/accelerator';
+import Rotator from './systems/rotator';
+import CollisionDetector from './systems/collisionDetector';
+import Bouncing from './systems/bouncing';
+import Stopping from './systems/stopping';
+import TouchSensor from './systems/touchSensor';
+import Victory from './systems/victory';
 import MainLoop from 'mainloop.js';
 
 function run() {

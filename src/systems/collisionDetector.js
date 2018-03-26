@@ -1,5 +1,5 @@
-import {Collisions, Result, Polygon} from './collisions/Collisions';
-import Config from './config';
+import {Collisions, Result, Polygon} from '../collisions/Collisions';
+import Config from '../config';
 
 class CollisionDetector {
 

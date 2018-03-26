@@ -1,4 +1,4 @@
-import getKeyBinding from './keyBinding';
+import getKeyBinding from '../keyBinding';
 
 class Controller {
 

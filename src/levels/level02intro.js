@@ -1,7 +1,7 @@
-import Config from './config';
+import Const from './constants';
 import getEmptyComponents from './getEmptyComponents';
-import SKULL from './skull.png';
-import LOLPIXELS from './lolpixels.png';
+import SKULL from './images/skull.png';
+import LOLPIXELS from './images/lolpixels.png';
 import {v4} from 'uuid';
 
 function getLevel02intro() {
@@ -10,12 +10,12 @@ function getLevel02intro() {
   const Components = getEmptyComponents();
 
   const playerPaddleId = uuid();
-  Components.shapes[playerPaddleId] = {width: Config.PADDLE_WIDTH+10, height: Config.PADDLE_HEIGHT, angle: 0};
+  Components.shapes[playerPaddleId] = {width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0};
   Components.bodies[playerPaddleId] = {};
   Components.stopping[playerPaddleId] = {};
   Components.collisions[playerPaddleId] = [];
-  Components.sprites[playerPaddleId] = {width: Config.PADDLE_WIDTH+10, height: Config.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1};
-  Components.positions[playerPaddleId] = {x: Config.PADDLE_2_POSITION.X, y: Config.PADDLE_2_POSITION.Y, angle: 0};
+  Components.sprites[playerPaddleId] = {width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1};
+  Components.positions[playerPaddleId] = {x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0};
   Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: 1, angle: 0, randomAngle: 0};
   Components.frictions[playerPaddleId] = {value: 0.003};
   Components.springPivots[playerPaddleId] = {power: 0.09};
@@ -34,15 +34,15 @@ function getLevel02intro() {
   Components.variables[playerPointsId] = {value: 0};
 
   const leftZoneId = uuid();
-  Components.shapes[leftZoneId] = {width: Config.WORLD_WIDTH/4, height: 20, angle: 0};
+  Components.shapes[leftZoneId] = {width: Const.WORLD_WIDTH/4, height: 20, angle: 0};
   Components.collisions[leftZoneId] = [];
-  Components.positions[leftZoneId] = {x: 0 /*Config.WORLD_WIDTH/4*/, y: Config.WORLD_HEIGHT - 25, angle: 0};
+  Components.positions[leftZoneId] = {x: 0 /*Const.WORLD_WIDTH/4*/, y: Const.WORLD_HEIGHT - 25, angle: 0};
   Components.touchSensors[leftZoneId] = {seeking: playerPaddleId, last: false, current: false, variable: playerPointsId, operation: +1};
 
   const rightZoneId = uuid();
-  Components.shapes[rightZoneId] = {width: Config.WORLD_WIDTH/4, height: 20, angle: 0};
+  Components.shapes[rightZoneId] = {width: Const.WORLD_WIDTH/4, height: 20, angle: 0};
   Components.collisions[rightZoneId] = [];
-  Components.positions[rightZoneId] = {x: Config.WORLD_WIDTH/*Config.WORLD_WIDTH/4*3*/, y: Config.WORLD_HEIGHT - 25, angle: 0};
+  Components.positions[rightZoneId] = {x: Const.WORLD_WIDTH/*Const.WORLD_WIDTH/4*3*/, y: Const.WORLD_HEIGHT - 25, angle: 0};
   Components.touchSensors[rightZoneId] = {seeking: playerPaddleId, last: false, current: false, variable: playerPointsId, operation: +1};
 
   const pointsNeededByPlayerId = uuid();
