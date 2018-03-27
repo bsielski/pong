@@ -58,7 +58,7 @@ function getLevel00titleScreen() {
 
     const manualMessageTextId = uuid();
     Components.texts[manualMessageTextId] = {size: 17, variable: manualMessageId, color: 0xffffff, angle: 0, opacity: 0.6};
-    Components.positions[manualMessageTextId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/4 + 180, angle: 0};
+    Components.positions[manualMessageTextId] = {x: Const.WORLD_WIDTH/2, y: 40 + 350, angle: 0};
 
 
     return JSON.parse(JSON.stringify(Components));

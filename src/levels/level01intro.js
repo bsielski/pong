@@ -42,23 +42,25 @@ function getLevel01intro() {
   Components.variables[levelTitleId] = {value: "Level 1: Regular Pong"};
 
   const gameTitleTextId = uuid();
-  Components.texts[gameTitleTextId] = {size: 42, variable: levelTitleId, color: 0xffffff, angle: 0, opacity: 0.6};
-  Components.positions[gameTitleTextId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/4, angle: 0};
+  Components.texts[gameTitleTextId] = {size: 32, variable: levelTitleId, color: 0xffffff, angle: 0, opacity: 0.6};
+  Components.positions[gameTitleTextId] = {x: Const.WORLD_WIDTH/2, y: 40, angle: 0};
 
   const levelManualId = uuid();
-  Components.variables[levelManualId] = {value: "Left arrow - go left\nRight arrow - go right\n\nGood luck."};
+  Components.variables[levelManualId] = {value: "You are on the bottom of the screen,\n\
+on the opposite side of the screen is you enemy (the AI).\n\n\
+Whoever scores 5 points first wins.\n\nKeys:\nLeft arrow - go left\nRight arrow - go right\
+  \n\nGood luck."};
 
   const gameSubTitleTextId = uuid();
   Components.texts[gameSubTitleTextId] = {size: 20, variable: levelManualId, color: 0xffffff, angle: 0, opacity: 0.6};
-  Components.positions[gameSubTitleTextId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/4 + 70, angle: 0};
+  Components.positions[gameSubTitleTextId] = {x: Const.WORLD_WIDTH/2, y: 40 + 170, angle: 0};
 
   const clickEnterMessageId = uuid();
   Components.variables[clickEnterMessageId] = {value: "Press Enter to continue"};
 
   const manualMessageTextId = uuid();
   Components.texts[manualMessageTextId] = {size: 17, variable: clickEnterMessageId, color: 0xffffff, angle: 0, opacity: 0.6};
-  Components.positions[manualMessageTextId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/4 + 180, angle: 0};
-
+  Components.positions[manualMessageTextId] = {x: Const.WORLD_WIDTH/2, y: 40 + 350, angle: 0};
 
   return JSON.parse(JSON.stringify(Components));
 }

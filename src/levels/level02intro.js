@@ -38,6 +38,32 @@ function getLevel02intro() {
   const victoryConditionsId = uuid();
   Components.victoryConditions[victoryConditionsId] = [have10pointsId];
 
+  const levelTitleId = uuid();
+  Components.variables[levelTitleId] = {value: "Level 2: Bitcoin trader"};
+
+  const gameTitleTextId = uuid();
+  Components.texts[gameTitleTextId] = {size: 32, variable: levelTitleId, color: 0xffffff, angle: 0, opacity: 0.6};
+  Components.positions[gameTitleTextId] = {x: Const.WORLD_WIDTH/2, y: 40, angle: 0};
+
+  const levelManualId = uuid();
+  Components.variables[levelManualId] = {value: "You want to make money by trade Bitcoins.\n\
+But it is not easy.\n\n\
+If the ball touch red object the price is down.\n\
+Green objects rise price up.\n\n\
+You will win if the price hits $12k and loose if it hits $0.\n\n\
+Good luck."};
+
+  const gameSubTitleTextId = uuid();
+  Components.texts[gameSubTitleTextId] = {size: 20, variable: levelManualId, color: 0xffffff, angle: 0, opacity: 0.6};
+  Components.positions[gameSubTitleTextId] = {x: Const.WORLD_WIDTH/2, y: 40 + 170, angle: 0};
+
+  const clickEnterMessageId = uuid();
+  Components.variables[clickEnterMessageId] = {value: "Press Enter to continue"};
+
+  const manualMessageTextId = uuid();
+  Components.texts[manualMessageTextId] = {size: 17, variable: clickEnterMessageId, color: 0xffffff, angle: 0, opacity: 0.6};
+  Components.positions[manualMessageTextId] = {x: Const.WORLD_WIDTH/2, y: 40 + 350, angle: 0};
+
   return JSON.parse(JSON.stringify(Components));
 }
 
