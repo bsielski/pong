@@ -27,14 +27,18 @@ function run() {
     antialias: false,
     autoStart: false
   };
-
+  const keyState = {
+    leftArrow: {state: false, previousState: false},
+    rightArrow: {state: false, previousState: false},
+    enter: {state: false, previousState: false}
+  };
   const movement = new Movement();
   const friction = new Friction();
   const springPivot = new SpringPivot();
   const pivotLimiter = new PivotLimiter();
   const accelerator = new Accelerator();
   const rotator = new Rotator();
-  const controller = new Controller();
+  const controller = new Controller(keyState);
   const collisionDetector = new CollisionDetector();
   const bouncing = new Bouncing();
   const stopping = new Stopping();

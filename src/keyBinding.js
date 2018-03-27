@@ -7,7 +7,7 @@ function getKeyBinding() {
   const keyBinding = {
     playerPaddleLeft: [{key: "leftArrow", mode: "pressed"}],
     playerPaddleRight: [{key: "rightArrow", mode: "pressed"}],
-    confirm: [{key: "enter", mode: "pressed"}] // do to single
+    confirm: [{key: "enter", mode: "single"}] // do to single
   }
 
   return JSON.parse(JSON.stringify(keyBinding));

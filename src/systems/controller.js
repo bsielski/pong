@@ -2,39 +2,20 @@ import getKeyBinding from '../keyBinding';
 
 class Controller {
 
-  constructor() {
+  constructor(keyState) {
     this.binding = getKeyBinding();
-    this.keyState = {
-      leftArrow: false,
-      rightArrow: false,
-      enter: false
+    this.keyState = keyState;
+    this.codes = {
+      37: "leftArrow",
+      39: "rightArrow",
+      13: "enter",
     };
 
     window.addEventListener('keydown', event => {
-      switch (event.keyCode) {
-        case 37: //left
-          this.keyState.leftArrow = true;
-        break;
-        case 39: //right
-          this.keyState.rightArrow = true;
-        break;
-        case 13: //enter
-          this.keyState.enter = true;
-        break;
-      }
+      this.keyState[this.codes[event.keyCode]].lastAction = "down";
     });
     window.addEventListener('keyup', event => {
-      switch (event.keyCode) {
-        case 37: //left
-          this.keyState.leftArrow = false;
-        break;
-        case 39: //right
-          this.keyState.rightArrow = false;
-        break;
-        case 13: //enter
-          this.keyState.enter = false;
-        break;
-      }
+      this.keyState[this.codes[event.keyCode]].lastAction = "up";
     });
 
     this.loadLevel = this.loadLevel.bind(this);
@@ -56,8 +37,23 @@ class Controller {
       Object.keys(orders).forEach(order => {
         const commands = this.binding[order];
         commands.forEach(command => {
+          this.keyState[command.key].previousState = this.keyState[command.key].state;
+          if (this.keyState[command.key].lastAction === "down") {
+            this.keyState[command.key].state = true;
+          }
+          else {
+            this.keyState[command.key].state = false;
+          }
           if (command.mode === "pressed") {
-            orders[order] = this.keyState[command.key];
+            orders[order] = this.keyState[command.key].state;
+          }
+          else if (command.mode === "single") {
+            if (this.keyState[command.key].state === true && this.keyState[command.key].previousState === false) {
+              orders[order] = true;
+            }
+            else {
+              orders[order] = false;
+            }
           }
         });
       });
