@@ -16,6 +16,7 @@ import Bouncing from './systems/bouncing';
 import Stopping from './systems/stopping';
 import TouchSensor from './systems/touchSensor';
 import Victory from './systems/victory';
+import ShapeRenderer from './systems/shapeRenderer';
 import MainLoop from 'mainloop.js';
 
 function run() {
@@ -46,13 +47,14 @@ function run() {
   const victory = new Victory();
   const renderer = new Renderer(renderer_options);
   const fpsCounter = new FpsCounter();
+  const shapeRenderer = new ShapeRenderer();
   const ai = new AI();
 
   const mainLoop = MainLoop;
   const game = new Game(
     mainLoop, renderer, collisionDetector, bouncing, stopping, touchSensor,
     controller, movement, fpsCounter, ai, victory, accelerator, friction,
-    rotator, springPivot, pivotLimiter);
+    rotator, springPivot, pivotLimiter, shapeRenderer);
 
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
   mainLoop.setUpdate(game.update);

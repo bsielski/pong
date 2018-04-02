@@ -1,19 +1,24 @@
 import {Collisions, Result, Polygon} from '../collisions/Collisions';
 import Config from '../config';
 
-class CollisionDetector {
+class ShapeRenderer {
 
   constructor() {
+    this.canvas = document.createElement('canvas');
+    this.canvas.setAttribute("width", Config.WORLD_WIDTH);
+    this.canvas.setAttribute("height", Config.WORLD_HEIGHT);
+    document.getElementById("physics_container").appendChild(this.canvas);
+    this.context = this.canvas.getContext('2d');
+
     this.loadLevel = this.loadLevel.bind(this);
     this.update = this.update.bind(this);
+    this.render = this.render.bind(this);
   }
 
   loadLevel(components) {
     this.system = new Collisions();
-    this.result = this.system.createResult();
     this.shape_components = components.shapes;
     this.position_components = components.positions;
-    this.collisions_components = components.collisions;
 
     this.shapes = {};
 
@@ -29,8 +34,30 @@ class CollisionDetector {
       body.angle = this.position_components[id].angle + this.shape_components[id].angle;
       body.angle = 1;
       this.system.insert(body);
+
+      this.context.fillStyle = '#000000';
+      this.context.fillRect(0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
+      this.context.beginPath();
+      this.context.strokeStyle = 'blue';
+      body.draw(this.context);
+      this.context.stroke();
     });
 
+  }
+
+  render() {
+    this.context.fillStyle = '#000000';
+		this.context.strokeStyle = '#FFFFFF';
+    this.context.fillRect(0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
+		this.context.beginPath();
+		this.system.draw(this.context);
+		this.context.stroke();
+		if(false) {
+			this.context.strokeStyle = '#00FF00';
+			this.context.beginPath();
+			this.system.drawBVH(this.context);
+			this.context.stroke();
+		}
   }
 
   getAABBVerts(x, y, width, height) {
@@ -44,29 +71,8 @@ class CollisionDetector {
       this.shapes[id].angle = this.position_components[id].angle + this.shape_components[id].angle;
     });
 
-    this.system.update();
-
-    Object.keys(this.collisions_components).forEach(id => {
-      let body = this.shapes[id];
-      this.collisions_components[id] = [];
-      let potentials = body.potentials();
-      potentials.forEach(obstacle => {
-        if (body.collides(obstacle, this.result)) {
-          this.collisions_components[id].push(
-            {
-              bId: this.result.b.id,
-              aInB: this.result.a_in_b,
-              overlapV: [
-                this.result.overlap * this.result.overlap_x,
-                this.result.overlap * this.result.overlap_y
-              ]
-            }
-          );
-        }
-      });
-    });
-
+    this.render();
   }
 }
 
-export default CollisionDetector;
+export default ShapeRenderer;

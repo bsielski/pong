@@ -11,7 +11,7 @@ class Game {
   constructor(
     mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor,
     controller, movement, fpsCounter, ai, victory, accelerator,
-    friction, rotator, springPivot, pivotLimiter
+    friction, rotator, springPivot, pivotLimiter, shapeRenderer
   )
   {
     this.levels = [getLevel00titleScreen(), getLevel01intro(), getLevel01(), getLevel02intro(), getLevel02()];
@@ -33,6 +33,7 @@ class Game {
     this.pivotLimiter = pivotLimiter;
     this.accelerator = accelerator;
     this.rotator = rotator;
+    this.shapeRenderer = shapeRenderer;
 
     this.loadLevel = this.loadLevel.bind(this);
     this.loadLevel(this.levels[this.currentLevelNumber]);
@@ -46,6 +47,7 @@ class Game {
     this.controller.loadLevel(level);
     this.fpsCounter.loadLevel(level);
     this.collisionDetector.loadLevel(level);
+    this.shapeRenderer.loadLevel(level);
     this.bouncing.loadLevel(level);
     this.movement.loadLevel(level);
     this.friction.loadLevel(level);
@@ -71,6 +73,7 @@ class Game {
     this.bouncing.update();
     this.stopping.update();
     this.touchSensor.update();
+    this.shapeRenderer.update();
 
     this.fpsCounter.update();
     if (this.victory.update()) {
