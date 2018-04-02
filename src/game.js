@@ -3,6 +3,7 @@ import getLevel01intro from './levels/level01intro';
 import getLevel01 from './levels/level01';
 import getLevel02intro from './levels/level02intro';
 import getLevel02 from './levels/level02';
+import getTestLevel from './levels/testLevel';
 
 
 class Game {

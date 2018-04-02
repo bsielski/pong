@@ -1,70 +1,81 @@
 import Const from './constants';
-import getEmptyComponents from './getEmptyComponents';
+import LevelGenerator from './levelGenerator';
 import SKULL from './images/skull.png';
 import LOLPIXELS from './images/lolpixels.png';
-import {v4} from 'uuid';
 
 function getLevel02intro() {
 
-  const uuid = v4;
-  const Components = getEmptyComponents();
+    const level = new LevelGenerator();
 
-  const playerPaddleId = uuid();
-  Components.shapes[playerPaddleId] = {width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0};
-  Components.bodies[playerPaddleId] = {};
-  Components.stopping[playerPaddleId] = {};
-  Components.collisions[playerPaddleId] = [];
-  Components.positions[playerPaddleId] = {x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0};
-  Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0};
-  Components.accelerators[playerPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} };
-  Components.orders[playerPaddleId] = {confirm: false};
-  Components.interpreters[playerPaddleId] = { leftAccelerator: ["confirm"] };
 
-  const playerPointsId = uuid();
-  Components.variables[playerPointsId] = {value: 0};
+    const playerPaddle = level.newEntity()
+	  .add("shapes", { width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0})
+	  .add("bodies", { })
+	  .add("stopping", { })
+	  .add("collisions", [ ])
+	  .add("positions", { x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0})
+	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
+	  .add("accelerators", {  leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} })
+	  .add("orders", { confirm: false})
+	  .add("interpreters", {  leftAccelerator: ["confirm"] })
+	  .getUuid();
 
-  const leftZoneId = uuid();
-  Components.shapes[leftZoneId] = {width: Const.WORLD_WIDTH/4, height: 20, angle: 0};
-  Components.collisions[leftZoneId] = [];
-  Components.positions[leftZoneId] = {x: 155 /*Const.WORLD_WIDTH/4*/, y: Const.WORLD_HEIGHT - 25, angle: 0};
-  Components.touchSensors[leftZoneId] = {seeking: playerPaddleId, last: false, current: false, variable: playerPointsId, operation: +1};
+    const playerPoints = level.newEntity()
+	  .add("variables", { value: 0})
+	  .getUuid();
 
-  const pointsNeededByPlayerId = uuid();
-  Components.variables[pointsNeededByPlayerId] = {value: 1};
+    const leftZone = level.newEntity()
+	  .add("shapes", { width: Const.WORLD_WIDTH/4, height: 20, angle: 0})
+	  .add("collisions", [ ])
+	  .add("positions", { x: 155 /*Const.WORLD_WIDTH/4*/, y: Const.WORLD_HEIGHT - 25, angle: 0})
+	  .add("touchSensors", { seeking: playerPaddle, last: false, current: false, variable: playerPoints, operation: +1})
+	  .getUuid();
 
-  const have10pointsId = uuid();
-  Components.conditions[have10pointsId] = {leftVariable: playerPointsId, operator: ">=", rightVariable: pointsNeededByPlayerId};
+    const pointsNeededByPlayer = level.newEntity()
+	  .add("variables", { value: 1})
+	  .getUuid();
 
-  const victoryConditionsId = uuid();
-  Components.victoryConditions[victoryConditionsId] = [have10pointsId];
+    const have10points = level.newEntity()
+	  .add("conditions", { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
+	  .getUuid();
 
-  const levelTitleId = uuid();
-  Components.variables[levelTitleId] = {value: "Level 2: Bitcoin trader"};
+    const victoryConditions = level.newEntity()
+	  .add("victoryConditions", [ have10points])
+	  .getUuid();
 
-  const gameTitleTextId = uuid();
-  Components.texts[gameTitleTextId] = {size: 32, variable: levelTitleId, color: 0xffffff, angle: 0, opacity: 0.6};
-  Components.positions[gameTitleTextId] = {x: Const.WORLD_WIDTH/2, y: 40, angle: 0};
+    const levelTitle = level.newEntity()
+	  .add("variables", { value: "Level 2: Bitcoin trader"})
+	  .getUuid();
 
-  const levelManualId = uuid();
-  Components.variables[levelManualId] = {value: "You want to make money by trade Bitcoins.\n\
+    const gameTitleText = level.newEntity()
+	  .add("texts", { size: 32, variable: levelTitle, color: 0xffffff, angle: 0, opacity: 0.6})
+	  .add("positions", { x: Const.WORLD_WIDTH/2, y: 40, angle: 0})
+	  .getUuid();
+
+    const levelManual = level.newEntity()
+	  .add("variables", { value: "You want to make money by trade Bitcoins.\n\
 But it is not easy.\n\n\
 If the ball touch red object the price is down.\n\
 Green objects rise price up.\n\n\
 You will win if the price hits $12k and loose if it hits $0.\n\n\
-Good luck."};
+Good luck."})
+	  .getUuid();
 
-  const gameSubTitleTextId = uuid();
-  Components.texts[gameSubTitleTextId] = {size: 20, variable: levelManualId, color: 0xffffff, angle: 0, opacity: 0.6};
-  Components.positions[gameSubTitleTextId] = {x: Const.WORLD_WIDTH/2, y: 40 + 170, angle: 0};
+    const gameSubTitleText = level.newEntity()
+	  .add("texts", { size: 20, variable: levelManual, color: 0xffffff, angle: 0, opacity: 0.6})
+	  .add("positions", { x: Const.WORLD_WIDTH/2, y: 40 + 170, angle: 0})
+	  .getUuid();
 
-  const clickEnterMessageId = uuid();
-  Components.variables[clickEnterMessageId] = {value: "Press Enter to continue"};
+    const clickEnterMessage = level.newEntity()
+	  .add("variables", { value: "Press Enter to continue"})
+	  .getUuid();
 
-  const manualMessageTextId = uuid();
-  Components.texts[manualMessageTextId] = {size: 17, variable: clickEnterMessageId, color: 0xffffff, angle: 0, opacity: 0.6};
-  Components.positions[manualMessageTextId] = {x: Const.WORLD_WIDTH/2, y: 40 + 350, angle: 0};
+    const manualMessageText = level.newEntity()
+	  .add("texts", { size: 17, variable: clickEnterMessage, color: 0xffffff, angle: 0, opacity: 0.6})
+	  .add("positions", { x: Const.WORLD_WIDTH/2, y: 40 + 350, angle: 0})
+	  .getUuid();
 
-  return JSON.parse(JSON.stringify(Components));
+    return level.getComponents();
 }
 
 export default getLevel02intro;

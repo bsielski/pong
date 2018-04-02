@@ -1,10 +1,9 @@
-
 import Const from './constants';
 import LevelGenerator from './levelGenerator';
 import SKULL from './images/skull.png';
 import LOLPIXELS from './images/lolpixels.png';
 
-function getLevel01() {
+function getTestLevel() {
 
   const level = new LevelGenerator();
 
@@ -161,4 +160,4 @@ function getLevel01() {
   return level.getComponents();
 }
 
-export default getLevel01;
+export default getTestLevel;

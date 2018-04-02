@@ -1,67 +1,76 @@
 import Const from './constants';
-import getEmptyComponents from './getEmptyComponents';
+import LevelGenerator from './levelGenerator';
 import SKULL from './images/skull.png';
 import LOLPIXELS from './images/lolpixels.png';
 import {v4} from 'uuid';
 
 function getLevel00titleScreen() {
 
-  const uuid = v4;
-  const Components = getEmptyComponents();
+  const level = new LevelGenerator();
 
 
-    const playerPaddleId = uuid();
-    Components.shapes[playerPaddleId] = {width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0};
-    Components.bodies[playerPaddleId] = {};
-    Components.stopping[playerPaddleId] = {};
-    Components.collisions[playerPaddleId] = [];
-    Components.positions[playerPaddleId] = {x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0};
-    Components.movements[playerPaddleId] = {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0};
-    Components.accelerators[playerPaddleId] = { leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} };
-    Components.orders[playerPaddleId] = {confirm: false};
-    Components.interpreters[playerPaddleId] = { leftAccelerator: ["confirm"] };
+  const paddle = level.newEntity()
+  .add("shapes",       { width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0})
+  .add("bodies",       { })
+  .add("stopping",     { })
+  .add("collisions",   [ ])
+  .add("positions",    { x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0})
+  .add("movements",    { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
+  .add("accelerators", {  leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} })
+  .add("orders",       { confirm: false})
+  .add("interpreters", { leftAccelerator: ["confirm"] })
+  .getUuid();
 
-    const playerPointsId = uuid();
-    Components.variables[playerPointsId] = {value: 0};
+  const playerPoints = level.newEntity()
+  .add("variables", { value: 0})
+  .getUuid();
 
-    const leftZoneId = uuid();
-    Components.shapes[leftZoneId] = {width: Const.WORLD_WIDTH/4, height: 20, angle: 0};
-    Components.collisions[leftZoneId] = [];
-    Components.positions[leftZoneId] = {x: 155 /*Const.WORLD_WIDTH/4*/, y: Const.WORLD_HEIGHT - 25, angle: 0};
-    Components.touchSensors[leftZoneId] = {seeking: playerPaddleId, last: false, current: false, variable: playerPointsId, operation: +1};
+  level.newEntity()
+  .add("shapes",       { width: Const.WORLD_WIDTH/4, height: 20, angle: 0})
+  .add("collisions",   [ ])
+  .add("positions",    { x: 155 /*Const.WORLD_WIDTH/4*/, y: Const.WORLD_HEIGHT - 25, angle: 0})
+  .add("touchSensors", { seeking: paddle, last: false, current: false, variable: playerPoints, operation: +1})
 
-    const pointsNeededByPlayerId = uuid();
-    Components.variables[pointsNeededByPlayerId] = {value: 1};
+  const pointsNeededByPlayer = level.newEntity()
+  .add("variables", { value: 1})
+  .getUuid();
 
-    const have10pointsId = uuid();
-    Components.conditions[have10pointsId] = {leftVariable: playerPointsId, operator: ">=", rightVariable: pointsNeededByPlayerId};
+  const have10points = level.newEntity()
+  .add("conditions", { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
+  .getUuid();
 
-    const victoryConditionsId = uuid();
-    Components.victoryConditions[victoryConditionsId] = [have10pointsId];
+  const victoryConditionsId = level.newEntity()
+  .add("victoryConditions", [have10points])
+  .getUuid();
 
-    const gameTitleId = uuid();
-    Components.variables[gameTitleId] = {value: "The Stupid Pong"};
+  const gameTitle = level.newEntity()
+  .add("variables", { value: "The Stupid Pong"})
+  .getUuid();
 
-    const gameTitleTextId = uuid();
-    Components.texts[gameTitleTextId] = {size: 52, variable: gameTitleId, color: 0xffffff, angle: 0, opacity: 0.6};
-    Components.positions[gameTitleTextId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/4, angle: 0};
+  const gameTitleTextId = level.newEntity()
+  .add("texts",     { size: 52, variable: gameTitle, color: 0xffffff, angle: 0, opacity: 0.6})
+  .add("positions", { x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/4, angle: 0})
+  .getUuid();
 
-    const gameSubTitleId = uuid();
-    Components.variables[gameSubTitleId] = {value: "The Game"};
+  const gameSubTitle = level.newEntity()
+  .add("variables", { value: "The Game"})
+  .getUuid();
 
-    const gameSubTitleTextId = uuid();
-    Components.texts[gameSubTitleTextId] = {size: 35, variable: gameSubTitleId, color: 0xffffff, angle: 0, opacity: 0.6};
-    Components.positions[gameSubTitleTextId] = {x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/4 + 70, angle: 0};
+  const gameSubTitleTextId = level.newEntity()
+  .add("texts",     { size: 35, variable: gameSubTitle, color: 0xffffff, angle: 0, opacity: 0.6})
+  .add("positions", { x: Const.WORLD_WIDTH/2, y: Const.WORLD_HEIGHT/4 + 70, angle: 0})
+  .getUuid();
 
-    const manualMessageId = uuid();
-    Components.variables[manualMessageId] = {value: "Press Enter to continue"};
+  const manualMessage = level.newEntity()
+  .add("variables", { value: "Press Enter to continue"})
+  .getUuid();
 
-    const manualMessageTextId = uuid();
-    Components.texts[manualMessageTextId] = {size: 17, variable: manualMessageId, color: 0xffffff, angle: 0, opacity: 0.6};
-    Components.positions[manualMessageTextId] = {x: Const.WORLD_WIDTH/2, y: 40 + 350, angle: 0};
+  const manualMessageTextId = level.newEntity()
+  .add("texts",     { size: 17, variable: manualMessage, color: 0xffffff, angle: 0, opacity: 0.6})
+  .add("positions", { x: Const.WORLD_WIDTH/2, y: 40 + 350, angle: 0})
+  .getUuid();
 
-
-    return JSON.parse(JSON.stringify(Components));
-  }
+  return level.getComponents();
+}
 
 export default getLevel00titleScreen;
