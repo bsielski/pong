@@ -29,6 +29,13 @@ class LevelGenerator {
   }
 
   add(kind, component) {
+    let verts = [];
+    if (kind === "shapes" && !component.verts) {
+      const width = component.width;
+      const height = component.height;
+      verts = [ [-width/2, -height/2,], [-width/2, height/2], [width/2, height/2], [width/2, -height/2] ];
+      component.verts = verts;
+    }
     this.components[kind][this.lastUuid] = component;
     return this;
   }

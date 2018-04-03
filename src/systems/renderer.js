@@ -1,10 +1,11 @@
-import {Sprite, Application, Texture, Point, TextStyle, Text} from 'pixi.js';
+import {Sprite, Application, Texture, Graphics, Point, TextStyle, Text} from 'pixi.js';
 
 class Renderer {
 
   constructor(renderer_options) {
     this.renderer_options = renderer_options;
     this.app = new Application(this.renderer_options);
+
     document.getElementById("game_container").appendChild(this.app.view);
 
     this.loadLevel = this.loadLevel.bind(this);
@@ -20,18 +21,44 @@ class Renderer {
     this.shape_components = components.shapes;
     this.sprites = {};
     Object.keys(this.sprite_components).forEach(id => {
-      const sprite = new Sprite(Texture.fromImage(this.sprite_components[id].image));
+      let sprite = null;
+      if (this.sprite_components[id].image) {
+        sprite = new Sprite(Texture.fromImage(this.sprite_components[id].image));
+        sprite.width = this.sprite_components[id].width;
+        sprite.height = this.sprite_components[id].height;
+      }
+      else {
+        const graphics = new Graphics();
+        graphics.x = this.position_components[id].x;
+        graphics.y = this.position_components[id].y;
+        graphics.pivot = new Point(graphics.x, graphics.y);
+        const Ax = this.sprite_components[id].verts[0][0] + this.position_components[id].x;
+        const Ay = this.sprite_components[id].verts[0][1] + this.position_components[id].y;
+        const Bx = this.sprite_components[id].verts[1][0] + this.position_components[id].x;
+        const By = this.sprite_components[id].verts[1][1] + this.position_components[id].y;
+        const Cx = this.sprite_components[id].verts[2][0] + this.position_components[id].x;
+        const Cy = this.sprite_components[id].verts[2][1] + this.position_components[id].y;
+        graphics.beginFill(0xffffff);
+        graphics.lineStyle(4, 0xffffff, 1);
+        graphics.moveTo(Cx, Cy);
+        graphics.lineTo(Ax, Ay);
+        graphics.lineTo(Bx, By);
+        graphics.lineTo(Cx, Cy);
+        graphics.endFill();
+        const texture = this.app.renderer.generateTexture(graphics);
+
+        sprite = new Sprite(texture);
+      }
+      sprite.tint = this.sprite_components[id].color;
       sprite.x = this.position_components[id].x;
       sprite.y = this.position_components[id].y;
-      sprite.width = this.sprite_components[id].width;
-      sprite.height = this.sprite_components[id].height;
       sprite.alpha = this.sprite_components[id].opacity;
       sprite.rotation = this.position_components[id].angle + this.sprite_components[id].angle;
       if (this.shape_components[id]) { sprite.rotation += this.shape_components[id].angle }
-      sprite.tint = this.sprite_components[id].color;
       sprite.anchor = new Point(0.5, 0.5);
       this.app.stage.addChild(sprite);
       this.sprites[id] = sprite;
+
     });
     this.texts = {};
     this.textSstyle = new TextStyle({
@@ -66,6 +93,7 @@ class Renderer {
     });
 
   }
+
 
   render() {
 

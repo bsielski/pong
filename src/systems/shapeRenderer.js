@@ -25,10 +25,7 @@ class ShapeRenderer {
     Object.keys(this.shape_components).forEach(id => {
       const x = this.position_components[id].x;
       const y = this.position_components[id].y;
-      const width = this.shape_components[id].width;
-      const height = this.shape_components[id].height;
-      const verts = this.getAABBVerts(x, y, width, height);
-      const body = new Polygon(x, y, verts);
+      const body = new Polygon(x, y, this.shape_components[id].verts);
       body.id = id;
       this.shapes[id] = body;
       body.angle = this.position_components[id].angle + this.shape_components[id].angle;
@@ -58,10 +55,6 @@ class ShapeRenderer {
 			this.system.drawBVH(this.context);
 			this.context.stroke();
 		}
-  }
-
-  getAABBVerts(x, y, width, height) {
-    return [ [-width/2, -height/2,], [-width/2, height/2], [width/2, height/2], [width/2, -height/2] ];
   }
 
   update() {
