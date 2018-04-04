@@ -55,8 +55,8 @@ function getLevel02intro() {
     const levelManual = level.newEntity()
 	  .add("variables", { value: "You want to make money by trade Bitcoins.\n\
 But it is not easy.\n\n\
-If the ball touch red object the price is down.\n\
-Green objects rise price up.\n\n\
+If the ball hits red object the price is -1000.\n\
+Green objects rise price by 1000.\n\n\
 You will win if the price hits $12k and loose if it hits $0.\n\n\
 Good luck."})
 	  .getUuid();
