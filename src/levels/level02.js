@@ -18,7 +18,7 @@ function getLevel02() {
 	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED * 0.4, angle: 0, randomAngle: 0})
 	  .add("frictions", { value: Const.PADDLE_FRICTION})
 	  .add("springPivots", { power: 0.09})
-	  .add("pivotLimiters", { minAngle: -0.15, maxAngle: 0.15})
+	  .add("pivotLimiters", { minAngle: -0.25, maxAngle: 0.25})
 	  .add("accelerators", {  leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION},
                                   rightAccelerator: {angle: 0, acceleration: Const.PADDLE_ACCELERATION} })
 	  .add("rotators", {  rightRotator: {speed: 0.3, direction: 1}, leftRotator: {speed: 0.3, direction: -1} })
@@ -40,7 +40,7 @@ function getLevel02() {
 	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
 	  .add("frictions", { value: Const.PADDLE_FRICTION})
 	  .add("springPivots", { power: 0.09})
-	  .add("pivotLimiters", { minAngle: -0.15, maxAngle: 0.15})
+	  .add("pivotLimiters", { minAngle: -0.25, maxAngle: 0.25})
 	  .add("accelerators", {  leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION},
                                   rightAccelerator: {angle: 0, acceleration: Const.PADDLE_ACCELERATION} })
 	  .add("rotators", {  rightRotator: {speed: 0.3, direction: 1}, leftRotator: {speed: 0.3, direction: -1} })
