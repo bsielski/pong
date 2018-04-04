@@ -39,7 +39,7 @@ class Renderer {
         const Cx = this.sprite_components[id].verts[2][0] + this.position_components[id].x;
         const Cy = this.sprite_components[id].verts[2][1] + this.position_components[id].y;
         graphics.beginFill(0xffffff);
-        graphics.lineStyle(4, 0xffffff, 1);
+        graphics.lineStyle(0, 0xffffff, 1);
         graphics.moveTo(Cx, Cy);
         graphics.lineTo(Ax, Ay);
         graphics.lineTo(Bx, By);

@@ -3,8 +3,7 @@ import getLevel01intro from './levels/level01intro';
 import getLevel01 from './levels/level01';
 import getLevel02intro from './levels/level02intro';
 import getLevel02 from './levels/level02';
-import getTestLevel from './levels/testLevel';
-
+import getLevel9999congratulationsScreen from './levels/level9999congratulationsScreen';
 
 class Game {
 
@@ -14,7 +13,7 @@ class Game {
     friction, rotator, springPivot, pivotLimiter, shapeRenderer
   )
   {
-    this.levels = [getLevel00titleScreen(), getLevel01intro(), getLevel01(), getLevel02intro(), getLevel02()];
+    this.levels = [getLevel00titleScreen(), getLevel01intro(), getLevel01(), getLevel02intro(), getLevel02(), getLevel9999congratulationsScreen()];
     this.currentLevelNumber = 0;
 
     this.mainloop = mainloop;

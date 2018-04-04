@@ -60,20 +60,10 @@ function getLevel01() {
   .add("bodies",     { })
   .add("bouncing",   { })
   .add("collisions", [ ])
-  // .add("sprites",    { width: Const.BALL_WIDTH, height: Const.BALL_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0})
-  .add("sprites", { verts: [[60/2, 80/2], [-60/2, -80/2], [-60/2, 80/2]], angle: 0, color: 0xf42222, opacity: 0.6})
+  .add("sprites",    { width: Const.BALL_WIDTH, height: Const.BALL_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0})
   .add("positions",  { x: 300, y: 400, angle: 0})
   .add("movements",  { minSpeed: 0.15, speed: 0.7, maxSpeed: 0.8, angle: 2, randomAngle: 1})
   .add("balls",      { })
-  .getUuid();
-
-  const obstacle1 = level.newEntity()
-  .add("positions", { x: 155, y: 200, angle: 1})
-  .add("shapes", { verts: [[60/2, 80/2], [-60/2, -80/2], [-60/2, 80/2]], width: 60, height: 80, angle: 0})
-  // .add("bodies", { })
-  // .add("collisions", [ ])
-  // .add("sprites", { width: 60, height: 80, angle: 0, image: LOLPIXELS, color: 0xf42222, opacity: 0.6})
-  .add("sprites", { verts: [[60/2, 80/2], [-60/2, -80/2], [-60/2, 80/2]], angle: 0, color: 0xf42222, opacity: 0.6})
   .getUuid();
 
   level.newEntity()

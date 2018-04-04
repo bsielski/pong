@@ -112,43 +112,27 @@ function getLevel02() {
 	  .add("fpsCounters", { variable: fpsNumber})
 	  .getUuid();
 
-    const obstacle1 = level.newEntity()
-	  .add("shapes", { width: 60, height: 80, angle: 0})
-	  .add("bodies", { })
-	  .add("collisions", [ ])
-	  .add("sprites", { width: 60, height: 80, angle: 0, image: LOLPIXELS, color: 0xf42222, opacity: 0.6})
-	  .add("positions", { x: 15, y: 200, angle: 1})
-	  .getUuid();
-
-    const obstacle2 = level.newEntity()
-	  .add("shapes", { width: 80, height: 80, angle: 0})
-	  .add("bodies", { })
-	  .add("collisions", [ ])
-	  .add("sprites", { width: 80, height: 80, angle: 0, image: LOLPIXELS, color: 0xf4f2f7f, opacity: 0.6})
-	  .add("positions", { x: Const.WORLD_WIDTH/2+70, y: Const.WORLD_HEIGHT/3+20, angle: 0.4})
-	  .getUuid();
-
-    const obstacle3 = level.newEntity()
-	  .add("shapes", { width: 60, height: 30, angle: 0})
-	  .add("bodies", { })
-	  .add("collisions", [ ])
-	  .add("sprites", { width: 60, height: 30, angle: 0, image: LOLPIXELS, color: 0x11f2f7f, opacity: 0.6})
-	  .add("positions", { x: Const.WORLD_WIDTH-50, y: Const.WORLD_HEIGHT/3, angle: 2})
-	  .getUuid();
-
-    const skull1 = level.newEntity()
-	  .add("sprites", { width: 110, height: 110, angle: 0, image: SKULL, color: 0xffffff, opacity: 0.4})
-	  .add("positions", { x: 500, y: 140, angle: 0})
-	  .getUuid();
-
-    const skull2 = level.newEntity()
-	  .add("sprites", { width: 110, height: 110, angle: 0, image: SKULL, color: 0xffffff, opacity: 0.4})
-	  .add("positions", { x: 500, y: 360, angle: 0})
-	  .getUuid();
-
     const amountOfMoney = level.newEntity()
-	  .add("variables", { value: 6000})
-	  .getUuid();
+    .add("variables", { value: 6000})
+    .getUuid();
+
+    const obstacleRed = level.newEntity()
+    .add("positions", { x: 155, y: 350, angle: 0})
+    .add("shapes", { verts: [[-50, -20], [50, -20], [0, 30]], width: 60, height: 80, angle: 0})
+    .add("bodies", { })
+    .add("collisions", [ ])
+    .add("sprites", { verts: [[-50, -20], [50, -20], [0, 30]], angle: 0, color: 0xff0000, opacity: 1})
+    .add("touchSensors", { seeking: ball, last: false, current: false, variable: amountOfMoney, operation: -1000})
+    .getUuid();
+
+    const obstacleGreen = level.newEntity()
+    .add("positions", { x: 455, y: 150, angle: Math.PI})
+    .add("shapes", { verts: [[-50, -20], [50, -20], [0, 30]], width: 60, height: 80, angle: 0})
+    .add("bodies", { })
+    .add("collisions", [ ])
+    .add("sprites", { verts: [[-50, -20], [50, -20], [0, 30]], angle: 0, color: 0x00ff00, opacity: 1})
+    .add("touchSensors", { seeking: ball, last: false, current: false, variable: amountOfMoney, operation: +1000})
+    .getUuid();
 
     const bottomZone = level.newEntity()
 	  .add("shapes", { width: Const.WORLD_WIDTH, height: 20, angle: 0})
