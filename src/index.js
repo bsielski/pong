@@ -16,8 +16,10 @@ import Bouncing from './systems/bouncing';
 import Stopping from './systems/stopping';
 import TouchSensor from './systems/touchSensor';
 import Victory from './systems/victory';
+import Defeat from './systems/defeat';
 import ShapeRenderer from './systems/shapeRenderer';
 import MainLoop from 'mainloop.js';
+import Levels from './levels';
 
 function run() {
 
@@ -45,15 +47,18 @@ function run() {
   const stopping = new Stopping();
   const touchSensor = new TouchSensor();
   const victory = new Victory();
+  const defeat = new Defeat();
   const renderer = new Renderer(renderer_options);
   const fpsCounter = new FpsCounter();
   const shapeRenderer = new ShapeRenderer();
   const ai = new AI();
 
   const mainLoop = MainLoop;
+  const levels = new Levels();
+
   const game = new Game(
-    mainLoop, renderer, collisionDetector, bouncing, stopping, touchSensor,
-    controller, movement, fpsCounter, ai, victory, accelerator, friction,
+    levels, mainLoop, renderer, collisionDetector, bouncing, stopping, touchSensor,
+    controller, movement, fpsCounter, ai, victory, defeat, accelerator, friction,
     rotator, springPivot, pivotLimiter, shapeRenderer);
 
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);

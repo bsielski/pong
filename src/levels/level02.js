@@ -157,12 +157,24 @@ function getLevel02() {
 	  .add("variables", { value: 12000})
 	  .getUuid();
 
+    const minimumMoney = level.newEntity()
+	  .add("variables", { value: 0})
+	  .getUuid();
+
     const have12k = level.newEntity()
 	  .add("conditions", { leftVariable: amountOfMoney, operator: ">=", rightVariable: pointsNeededByPlayer})
 	  .getUuid();
 
+    const haveMinimumMoney = level.newEntity()
+	  .add("conditions", { leftVariable: amountOfMoney, operator: "<=", rightVariable: minimumMoney})
+	  .getUuid();
+
     const victoryConditions = level.newEntity()
 	  .add("victoryConditions", [ have12k])
+	  .getUuid();
+
+    const defeatConditions = level.newEntity()
+	  .add("defeatConditions", [ haveMinimumMoney])
 	  .getUuid();
 
     return level.getComponents();

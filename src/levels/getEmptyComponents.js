@@ -19,6 +19,7 @@ function getEmptyComponents() {
     variables: {},
     conditions: {},
     victoryConditions: {},
+    defeatConditions: {},
     accelerators: {},
     rotators: {},
     orders: {},

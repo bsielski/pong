@@ -1,20 +1,12 @@
-import getLevel00titleScreen from './levels/level00titleScreen';
-import getLevel01intro from './levels/level01intro';
-import getLevel01 from './levels/level01';
-import getLevel02intro from './levels/level02intro';
-import getLevel02 from './levels/level02';
-import getLevel9999congratulationsScreen from './levels/level9999congratulationsScreen';
-
 class Game {
 
   constructor(
-    mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor,
-    controller, movement, fpsCounter, ai, victory, accelerator,
+    levels, mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor,
+    controller, movement, fpsCounter, ai, victory, defeat, accelerator,
     friction, rotator, springPivot, pivotLimiter, shapeRenderer
   )
   {
-    this.levels = [getLevel00titleScreen(), getLevel01intro(), getLevel01(), getLevel02intro(), getLevel02(), getLevel9999congratulationsScreen()];
-    this.currentLevelNumber = 0;
+    this.levels = levels;
 
     this.mainloop = mainloop;
     this.renderer = renderer;
@@ -25,6 +17,7 @@ class Game {
     this.stopping = stopping;
     this.touchSensor = touchSensor;
     this.victory = victory;
+    this.defeat = defeat;
     this.ai = ai;
     this.movement = movement;
     this.friction = friction;
@@ -35,7 +28,7 @@ class Game {
     this.shapeRenderer = shapeRenderer;
 
     this.loadLevel = this.loadLevel.bind(this);
-    this.loadLevel(this.levels[this.currentLevelNumber]);
+    this.loadLevel(this.levels.current());
     this.update = this.update.bind(this);
   }
 
@@ -56,6 +49,7 @@ class Game {
     this.rotator.loadLevel(level);
     this.ai.loadLevel(level);
     this.victory.loadLevel(level);
+    this.defeat.loadLevel(level);
   }
 
   update(delta) {
@@ -75,9 +69,11 @@ class Game {
     this.shapeRenderer.update();
 
     this.fpsCounter.update();
-    if (this.victory.update()) {
-      this.currentLevelNumber += 1;
-      this.loadLevel(this.levels[this.currentLevelNumber]);
+    if (this.defeat.update()) {
+      this.loadLevel(this.levels.lose().current());
+    }
+    else if (this.victory.update()) {
+      this.loadLevel(this.levels.win().current());
     }
   }
 

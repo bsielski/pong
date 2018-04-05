@@ -149,12 +149,24 @@ function getLevel01() {
   .add("variables",  { value: 5})
   .getUuid();
 
-  const have10points = level.newEntity()
+  const playerHas5points = level.newEntity()
   .add("conditions", { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
   .getUuid();
 
   const victoryConditions = level.newEntity()
-  .add("victoryConditions",  [ have10points])
+  .add("victoryConditions",  [ playerHas5points])
+  .getUuid();
+
+  const pointsNeededByEnemy = level.newEntity()
+  .add("variables",  { value: 5})
+  .getUuid();
+
+  const enemyHas5Points = level.newEntity()
+  .add("conditions", { leftVariable: enemyPoints, operator: ">=", rightVariable: pointsNeededByEnemy})
+  .getUuid();
+
+  const defeatConditions = level.newEntity()
+  .add("defeatConditions",  [ enemyHas5Points])
   .getUuid();
 
 
