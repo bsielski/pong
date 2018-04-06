@@ -14,7 +14,7 @@ function getLevel01lose() {
 	  .add("stopping", {})
 	  .add("collisions", [])
 	  .add("positions", {x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0})
-	  .add("movements", {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
+	  .add("movements", {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: true})
 	  .add("accelerators", { leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} })
 	  .add("orders", {confirm: false})
 	  .add("interpreters", { leftAccelerator: ["confirm"] })

@@ -8,6 +8,19 @@ function getLevel01() {
 
   const level = new LevelGenerator();
 
+  const time = level.newEntity() // fpsNumber
+  .add("variables",  { value: 0})
+  .getUuid();
+
+  // const timeText = level.newEntity() // fpsText
+  // .add("texts",     { size: 12, variable: time, color: 0xffffff, angle: 0, opacity: 0.6})
+  // .add("positions", { x: Const.WORLD_WIDTH/6, y: Const.WORLD_HEIGHT - 100, angle: 0})
+  // .getUuid();
+
+  const timer = level.newEntity() // fpsCounter
+  .add("timers", { variable: time})
+  .getUuid();
+
   level.newEntity()
   .add("positions",     { x: Const.PADDLE_1_POSITION.X, y: Const.PADDLE_1_POSITION.Y, angle: Math.PI})
   .add("shapes",        { width: Const.PADDLE_WIDTH-10, height: Const.PADDLE_HEIGHT, angle: 0})
@@ -15,7 +28,7 @@ function getLevel01() {
   .add("stopping",      { })
   .add("collisions",    [ ])
   .add("sprites",       { width: Const.PADDLE_WIDTH-10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0})
-  .add("movements",     { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED * 0.6, angle: 0, randomAngle: 0})
+  .add("movements",     { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED * 0.6, angle: 0, randomAngle: 0, enabled: true})
   .add("frictions",     { value: Const.PADDLE_FRICTION})
   .add("springPivots",  { power: 0.09})
   .add("pivotLimiters", { minAngle: -0.15, maxAngle: 0.15})
@@ -39,7 +52,7 @@ function getLevel01() {
   .add("stopping",      { })
   .add("collisions",    [ ])
   .add("sprites",       { width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0})
-  .add("movements",     { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
+  .add("movements",     { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: true})
   .add("frictions",     { value: Const.PADDLE_FRICTION})
   .add("springPivots",  { power: 0.09})
   .add("pivotLimiters", { minAngle: -0.15, maxAngle: 0.15})
@@ -62,7 +75,8 @@ function getLevel01() {
   .add("collisions", [ ])
   .add("sprites",    { width: Const.BALL_WIDTH, height: Const.BALL_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0})
   .add("positions",  { x: 300, y: 400, angle: 0})
-  .add("movements",  { minSpeed: 0.15, speed: 0.7, maxSpeed: 0.8, angle: 2, randomAngle: 1})
+  .add("movementConditions",  { leftVariable: time, operator: ">=", rightVariable: 1})
+  .add("movements",  { minSpeed: 0.15, speed: 0.7, maxSpeed: 0.8, angle: 2, randomAngle: 10, enabled: true})
   .add("balls",      { })
   .getUuid();
 

@@ -7,14 +7,13 @@ function getLevel01intro() {
 
     const level = new LevelGenerator();
 
-
     const playerPaddle = level.newEntity()
 	  .add("shapes", { width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0})
 	  .add("bodies", {})
 	  .add("stopping", {})
 	  .add("collisions", [])
 	  .add("positions", {x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0})
-	  .add("movements", {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
+	  .add("movements", {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: true})
 	  .add("accelerators", { leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} })
 	  .add("orders", {confirm: false})
 	  .add("interpreters", { leftAccelerator: ["confirm"] })

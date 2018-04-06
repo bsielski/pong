@@ -3,8 +3,10 @@ import Config from './config';
 import Game from './game';
 import Renderer from './systems/renderer';
 import FpsCounter from './systems/fpsCounter';
+import Timer from './systems/timer';
 import AI from './systems/ai';
 import Controller from './systems/controller';
+import MovementCondition from './systems/movementCondition';
 import Movement from './systems/movement';
 import Friction from './systems/friction';
 import SpringPivot from './systems/springPivot';
@@ -36,6 +38,7 @@ function run() {
     enter: {state: false, previousState: false}
   };
   const movement = new Movement();
+  const movementCondition = new MovementCondition();
   const friction = new Friction();
   const springPivot = new SpringPivot();
   const pivotLimiter = new PivotLimiter();
@@ -50,6 +53,7 @@ function run() {
   const defeat = new Defeat();
   const renderer = new Renderer(renderer_options);
   const fpsCounter = new FpsCounter();
+  const timer = new Timer();
   const shapeRenderer = new ShapeRenderer();
   const ai = new AI();
 
@@ -58,7 +62,7 @@ function run() {
 
   const game = new Game(
     levels, mainLoop, renderer, collisionDetector, bouncing, stopping, touchSensor,
-    controller, movement, fpsCounter, ai, victory, defeat, accelerator, friction,
+    controller, movementCondition, movement, fpsCounter, timer, ai, victory, defeat, accelerator, friction,
     rotator, springPivot, pivotLimiter, shapeRenderer);
 
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
