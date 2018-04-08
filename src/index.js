@@ -14,6 +14,9 @@ import PivotLimiter from './systems/pivotLimiter';
 import Accelerator from './systems/accelerator';
 import Rotator from './systems/rotator';
 import CollisionDetector from './systems/collisionDetector';
+import Condition from './systems/condition';
+import LogicalAnd from './systems/logicalAnd';
+import LogicalOr from './systems/logicalOr';
 import Bouncing from './systems/bouncing';
 import Stopping from './systems/stopping';
 import TouchSensor from './systems/touchSensor';
@@ -45,6 +48,9 @@ function run() {
   const accelerator = new Accelerator();
   const rotator = new Rotator();
   const controller = new Controller(keyState);
+  const condition = new Condition();
+  const logicalAnd = new LogicalAnd();
+  const logicalOr = new LogicalOr();
   const collisionDetector = new CollisionDetector();
   const bouncing = new Bouncing();
   const stopping = new Stopping();
@@ -63,7 +69,7 @@ function run() {
   const game = new Game(
     levels, mainLoop, renderer, collisionDetector, bouncing, stopping, touchSensor,
     controller, movementCondition, movement, fpsCounter, timer, ai, victory, defeat, accelerator, friction,
-    rotator, springPivot, pivotLimiter, shapeRenderer);
+    rotator, springPivot, pivotLimiter, shapeRenderer, condition, logicalAnd, logicalOr);
 
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
   mainLoop.setUpdate(game.update);

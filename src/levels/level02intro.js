@@ -7,14 +7,13 @@ function getLevel02intro() {
 
     const level = new LevelGenerator();
 
-
     const playerPaddle = level.newEntity()
 	  .add("shapes", { width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0})
 	  .add("bodies", { })
 	  .add("stopping", { })
 	  .add("collisions", [ ])
 	  .add("positions", { x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0})
-	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: true})
+	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
 	  .add("accelerators", {  leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} })
 	  .add("orders", { confirm: false})
 	  .add("interpreters", {  leftAccelerator: ["confirm"] })
@@ -35,12 +34,13 @@ function getLevel02intro() {
 	  .add("variables", { value: 1})
 	  .getUuid();
 
-    const have10points = level.newEntity()
+    const have1points = level.newEntity()
 	  .add("conditions", { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
+    .add("variables",  { value: null})
 	  .getUuid();
 
     const victoryConditions = level.newEntity()
-	  .add("victoryConditions", [ have10points])
+	  .add("victories", {variable: have1points})
 	  .getUuid();
 
     const levelTitle = level.newEntity()

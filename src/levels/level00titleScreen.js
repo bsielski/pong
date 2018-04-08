@@ -8,6 +8,17 @@ function getLevel00titleScreen() {
 
   const level = new LevelGenerator();
 
+  const playerPoints = level.newEntity().add("variables", { value: 0}).getUuid();
+  const pointsNeededByPlayer = level.newEntity().add("variables", { value: 1}).getUuid();
+
+  const have1point = level.newEntity()
+  .add("conditions", { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const victoryConditionsId = level.newEntity()
+  .add("victories", {variable: have1point})
+  .getUuid();
 
   const paddle = level.newEntity()
   .add("shapes",       { width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0})
@@ -15,14 +26,10 @@ function getLevel00titleScreen() {
   .add("stopping",     { })
   .add("collisions",   [ ])
   .add("positions",    { x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0})
-  .add("movements",    { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: true})
+  .add("movements",    { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
   .add("accelerators", {  leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} })
   .add("orders",       { confirm: false})
   .add("interpreters", { leftAccelerator: ["confirm"] })
-  .getUuid();
-
-  const playerPoints = level.newEntity()
-  .add("variables", { value: 0})
   .getUuid();
 
   level.newEntity()
@@ -31,17 +38,7 @@ function getLevel00titleScreen() {
   .add("positions",    { x: 155 /*Const.WORLD_WIDTH/4*/, y: Const.WORLD_HEIGHT - 25, angle: 0})
   .add("touchSensors", { seeking: paddle, last: false, current: false, variable: playerPoints, operation: +1})
 
-  const pointsNeededByPlayer = level.newEntity()
-  .add("variables", { value: 1})
-  .getUuid();
-
-  const have10points = level.newEntity()
-  .add("conditions", { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
-  .getUuid();
-
-  const victoryConditionsId = level.newEntity()
-  .add("victoryConditions", [have10points])
-  .getUuid();
+//////////////////////////////////////
 
   const gameTitle = level.newEntity()
   .add("variables", { value: "The Stupid Pong"})

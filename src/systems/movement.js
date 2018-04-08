@@ -10,11 +10,13 @@ class Movement {
   loadLevel(components) {
     this.movement_components = components.movements;
     this.position_components = components.positions;
+    this.variable_components = components.variables;
   }
 
   update(delta) {
     Object.keys(this.movement_components).forEach(id => {
-      if (this.movement_components[id].enabled === true) {
+
+      if (!this.movement_components[id].enabled || this.variable_components[this.movement_components[id].enabled].value === true) {
         if (this.movement_components[id].speed < this.movement_components[id].minSpeed) {
           this.movement_components[id].speed = this.movement_components[id].minSpeed
         }

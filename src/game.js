@@ -3,12 +3,18 @@ class Game {
   constructor(
     levels, mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor,
     controller, movementCondition, movement, fpsCounter, timer, ai, victory, defeat, accelerator,
-    friction, rotator, springPivot, pivotLimiter, shapeRenderer
+    friction, rotator, springPivot, pivotLimiter, shapeRenderer, condition, logicalAnd,
+    logicalOr
   )
   {
     this.levels = levels;
 
     this.mainloop = mainloop;
+    this.condition = condition;
+    this.logicalAnd = logicalAnd;
+    this.logicalOr = logicalOr;
+    this.defeat = defeat;
+    this.victory = victory;
     this.renderer = renderer;
     this.controller = controller;
     this.fpsCounter = fpsCounter;
@@ -17,8 +23,6 @@ class Game {
     this.bouncing = bouncing;
     this.stopping = stopping;
     this.touchSensor = touchSensor;
-    this.victory = victory;
-    this.defeat = defeat;
     this.ai = ai;
     this.movement = movement;
     this.movementCondition = movementCondition;
@@ -35,6 +39,11 @@ class Game {
   }
 
   loadLevel(level) {
+    this.condition.loadLevel(level);
+    this.logicalAnd.loadLevel(level);
+    this.logicalOr.loadLevel(level);
+    this.defeat.loadLevel(level);
+    this.victory.loadLevel(level);
     this.touchSensor.loadLevel(level);
     this.stopping.loadLevel(level);
     this.renderer.loadLevel(level);
@@ -52,8 +61,6 @@ class Game {
     this.accelerator.loadLevel(level);
     this.rotator.loadLevel(level);
     this.ai.loadLevel(level);
-    this.victory.loadLevel(level);
-    this.defeat.loadLevel(level);
   }
 
   update(delta) {
@@ -64,7 +71,6 @@ class Game {
     this.pivotLimiter.update(delta);
     this.springPivot.update(delta);
     this.timer.update(delta);
-    this.movementCondition.update();
     this.movement.update(delta);
 
     this.friction.update(delta);
@@ -73,6 +79,9 @@ class Game {
     this.stopping.update();
     this.touchSensor.update();
     this.shapeRenderer.update();
+    this.condition.update();
+    this.logicalAnd.update();
+    this.logicalOr.update();
 
     this.fpsCounter.update();
     if (this.defeat.update()) {

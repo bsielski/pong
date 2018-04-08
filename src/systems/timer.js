@@ -12,7 +12,9 @@ class Timer {
 
   update(delta) {
     Object.keys(this.timer_components).forEach(id => {
-      this.variable_components[this.timer_components[id].variable].value += (delta / 1000);
+      if (!this.timer_components[id].enabled || this.variable_components[this.timer_components[id].enabled].value === true) {
+        this.variable_components[id].value += (delta / 1000);
+      }
     });
   }
 

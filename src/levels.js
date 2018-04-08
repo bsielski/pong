@@ -63,10 +63,11 @@ class Levels {
         "win": "level_02_intro",
       },
 
-
     };
-    this.currentLevel = this.levels["title_screen"]();
-    this.currentLevelName = "title_screen";
+    this.currentLevel = this.levels["level_02_intro"]();
+    this.currentLevelName = "level_02_intro";
+    // this.currentLevel = this.levels["title_screen"]();
+    // this.currentLevelName = "title_screen";
     this.current = this.current.bind(this);
     this.win = this.win.bind(this);
     this.lose = this.lose.bind(this);
@@ -78,9 +79,7 @@ class Levels {
   }
 
   win() {
-    console.log("AAAAAAAAAAAA", this.levelMap[this.currentLevelName]);
     this.currentLevelName = this.levelMap[this.currentLevelName].win;
-    console.log("BBBBB", this.levelMap[this.currentLevelName]);
     this.currentLevel = this.levels[this.currentLevelName]();
     return this;
   }

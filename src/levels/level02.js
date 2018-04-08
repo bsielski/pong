@@ -8,17 +8,74 @@ function getLevel02() {
 
     const level = new LevelGenerator();
 
-    const time = level.newEntity() // fpsNumber
+    const zero = level.newEntity().add("variables", { value: 0}).getUuid();
+    const amountOfMoney = level.newEntity().add("variables", { value: 6000}).getUuid();
+    const pointsNeededByPlayer = level.newEntity().add("variables", { value: 12000}).getUuid();
+    const minimumMoney = level.newEntity().add("variables", { value: 0}).getUuid();
+    const startDelayForBall = level.newEntity().add("variables",  { value: 1}).getUuid();
+    const delayForEndLevel = level.newEntity().add("variables",  { value: 1}).getUuid();
+
+    const have12k = level.newEntity()
+	  .add("conditions", { leftVariable: amountOfMoney, operator: ">=", rightVariable: pointsNeededByPlayer})
+    .add("variables",  { value: null})
+	  .getUuid();
+
+    const haveMinimumMoney = level.newEntity()
+	  .add("conditions", { leftVariable: amountOfMoney, operator: "<=", rightVariable: minimumMoney})
+    .add("variables",  { value: null})
+    .getUuid();
+
+    const enoughPoints = level.newEntity()
+    .add("logicalOrs", [ have12k, haveMinimumMoney ])
+    .add("variables",  { value: null})
+    .getUuid();
+
+    const startTimer = level.newEntity()
+    .add("timers", {})
     .add("variables",  { value: 0})
     .getUuid();
 
-    // const timeText = level.newEntity() // fpsText
-    // .add("texts",     { size: 12, variable: time, color: 0xffffff, angle: 0, opacity: 0.6})
-    // .add("positions", { x: Const.WORLD_WIDTH/6, y: Const.WORLD_HEIGHT - 100, angle: 0})
-    // .getUuid();
+    const endTimer = level.newEntity()
+    .add("timers", {enabled: enoughPoints})
+    .add("variables",  { value: 0})
+    .getUuid();
 
-    const timer = level.newEntity() // fpsCounter
-    .add("timers", { variable: time})
+    const endTimePassed = level.newEntity()
+    .add("conditions", { leftVariable: endTimer, operator: ">=", rightVariable: delayForEndLevel})
+    .add("variables",  { value: null})
+    .getUuid();
+
+    const winAndDelay = level.newEntity()
+    .add("logicalAnds", [ have12k, endTimePassed ])
+    .add("variables",  { value: null})
+    .getUuid();
+
+    const loseAndDelay = level.newEntity()
+    .add("logicalAnds", [ haveMinimumMoney, endTimePassed ])
+    .add("variables",  { value: null})
+    .getUuid();
+
+    const victoryConditions = level.newEntity()
+	  .add("victories", { variable: winAndDelay})
+	  .getUuid();
+
+    const defeatConditions = level.newEntity()
+    .add("defeats",  { variable: loseAndDelay})
+    .getUuid();
+
+    const ballCanStartMove = level.newEntity()
+    .add("conditions", { leftVariable: startTimer, operator: ">=", rightVariable: startDelayForBall})
+    .add("variables",  { value: null})
+    .getUuid();
+
+    const ballCanStillMove = level.newEntity()
+    .add("conditions", { leftVariable: endTimer, operator: "<=", rightVariable: zero})
+    .add("variables",  { value: null})
+    .getUuid();
+
+    const ballCanMove = level.newEntity()
+    .add("logicalAnds", [ ballCanStartMove, ballCanStillMove ])
+    .add("variables",  { value: null})
     .getUuid();
 
     const enemyPaddle = level.newEntity()
@@ -28,7 +85,7 @@ function getLevel02() {
 	  .add("stopping", { })
 	  .add("collisions", [ ])
 	  .add("sprites", { width: Const.PADDLE_WIDTH-10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0})
-	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED * 0.4, angle: 0, randomAngle: 0, enabled: true})
+	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED * 0.4, angle: 0, randomAngle: 0, enabled: ballCanMove})
 	  .add("frictions", { value: Const.PADDLE_FRICTION})
 	  .add("springPivots", { power: 0.09})
 	  .add("pivotLimiters", { minAngle: -0.25, maxAngle: 0.25})
@@ -50,7 +107,7 @@ function getLevel02() {
 	  .add("collisions", [ ])
 	  .add("sprites", { width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0})
 	  .add("positions", { x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0})
-	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: true})
+	  .add("movements", { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: ballCanMove})
 	  .add("frictions", { value: Const.PADDLE_FRICTION})
 	  .add("springPivots", { power: 0.09})
 	  .add("pivotLimiters", { minAngle: -0.25, maxAngle: 0.25})
@@ -71,8 +128,8 @@ function getLevel02() {
 	  .add("collisions", [ ])
 	  .add("sprites", { width: Const.BALL_WIDTH + 10, height: Const.BALL_HEIGHT + 10, angle: 0, image: BTC_BALL, color: 0xffffff, opacity: 1.0})
 	  .add("positions", { x: 300, y: 400, angle: 0})
-    .add("movementConditions",  { leftVariable: time, operator: ">=", rightVariable: 1})
-	  .add("movements", { minSpeed: 0.25, speed: 0.4, maxSpeed: 0.55, angle: 2, randomAngle: 10, enabled: true})
+    // .add("movementConditions",  { leftVariable: startTime, operator: ">=", rightVariable: 1})
+	  .add("movements", { minSpeed: 0.25, speed: 0.4, maxSpeed: 0.55, angle: 2, randomAngle: 10, enabled: ballCanMove})
 	  .add("balls", { })
 	  .getUuid();
 
@@ -126,10 +183,6 @@ function getLevel02() {
 	  .add("fpsCounters", { variable: fpsNumber})
 	  .getUuid();
 
-    const amountOfMoney = level.newEntity()
-    .add("variables", { value: 6000})
-    .getUuid();
-
     const obstacleRed = level.newEntity()
     .add("positions", { x: 155, y: 350, angle: 0})
     .add("shapes",    { verts: [[-50, -20], [50, -20], [0, 30]], width: 60, height: 80, angle: 0})
@@ -165,30 +218,6 @@ function getLevel02() {
 	  .add("collisions", [ ])
 	  .add("positions",  { x: Const.WORLD_WIDTH/2, y: 25, angle: 0})
 	  .add("touchSensors", { seeking: ball, last: false, current: false, variable: amountOfMoney, operation: +1000})
-	  .getUuid();
-
-    const pointsNeededByPlayer = level.newEntity()
-	  .add("variables", { value: 12000})
-	  .getUuid();
-
-    const minimumMoney = level.newEntity()
-	  .add("variables", { value: 0})
-	  .getUuid();
-
-    const have12k = level.newEntity()
-	  .add("conditions", { leftVariable: amountOfMoney, operator: ">=", rightVariable: pointsNeededByPlayer})
-	  .getUuid();
-
-    const haveMinimumMoney = level.newEntity()
-	  .add("conditions", { leftVariable: amountOfMoney, operator: "<=", rightVariable: minimumMoney})
-	  .getUuid();
-
-    const victoryConditions = level.newEntity()
-	  .add("victoryConditions", [ have12k])
-	  .getUuid();
-
-    const defeatConditions = level.newEntity()
-	  .add("defeatConditions", [ haveMinimumMoney])
 	  .getUuid();
 
     return level.getComponents();

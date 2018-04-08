@@ -8,18 +8,86 @@ function getLevel01() {
 
   const level = new LevelGenerator();
 
-  const time = level.newEntity() // fpsNumber
+  const zero = level.newEntity().add("variables", { value: 0}).getUuid();
+  const playerPoints = level.newEntity().add("variables", { value: 0}).getUuid();
+  const enemyPoints = level.newEntity().add("variables", { value: 0}).getUuid();
+  const pointsNeededByPlayer = level.newEntity().add("variables",  { value: 5}).getUuid();
+  const pointsNeededByEnemy = level.newEntity().add("variables",  { value: 5}).getUuid();
+  const startDelayForBall = level.newEntity().add("variables",  { value: 1}).getUuid();
+  const delayForEndLevel = level.newEntity().add("variables",  { value: 1}).getUuid();
+
+  const playerHas5points = level.newEntity()
+  .add("conditions", { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const enemyHas5Points = level.newEntity()
+  .add("conditions", { leftVariable: enemyPoints, operator: ">=", rightVariable: pointsNeededByEnemy})
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const enoughPoints = level.newEntity()
+  .add("logicalOrs", [ playerHas5points, enemyHas5Points ])
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const startTimer = level.newEntity()
+  .add("timers", {})
   .add("variables",  { value: 0})
   .getUuid();
 
-  // const timeText = level.newEntity() // fpsText
-  // .add("texts",     { size: 12, variable: time, color: 0xffffff, angle: 0, opacity: 0.6})
+  const endTimer = level.newEntity()
+  .add("timers", {enabled: enoughPoints})
+  .add("variables",  { value: 0})
+  .getUuid();
+
+  const endTimePassed = level.newEntity()
+  .add("conditions", { leftVariable: endTimer, operator: ">=", rightVariable: delayForEndLevel})
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const winAndDelay = level.newEntity()
+  .add("logicalAnds", [ playerHas5points, endTimePassed ])
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const loseAndDelay = level.newEntity()
+  .add("logicalAnds", [ enemyHas5Points, endTimePassed ])
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const victoryConditions = level.newEntity()
+  .add("victories",  { variable: winAndDelay})
+  .getUuid();
+
+  const defeatConditions = level.newEntity()
+  .add("defeats",  { variable: loseAndDelay})
+  .getUuid();
+
+  const ballCanStartMove = level.newEntity()
+  .add("conditions", { leftVariable: startTimer, operator: ">=", rightVariable: startDelayForBall})
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const ballCanStillMove = level.newEntity()
+  .add("conditions", { leftVariable: endTimer, operator: "<=", rightVariable: zero})
+  .add("variables",  { value: null})
+  .getUuid();
+
+  const ballCanMove = level.newEntity()
+  .add("logicalAnds", [ ballCanStartMove, ballCanStillMove ])
+  .add("variables",  { value: null})
+  .getUuid();
+
+  // const startTimeText = level.newEntity()
+  // .add("texts",     { size: 12, variable: startTimer, color: 0xffffff, angle: 0, opacity: 0.6})
   // .add("positions", { x: Const.WORLD_WIDTH/6, y: Const.WORLD_HEIGHT - 100, angle: 0})
   // .getUuid();
-
-  const timer = level.newEntity() // fpsCounter
-  .add("timers", { variable: time})
-  .getUuid();
+  //
+  // const endTimeText = level.newEntity()
+  // .add("texts",     { size: 12, variable: endTimer, color: 0xffaaaa, angle: 0, opacity: 0.6})
+  // .add("positions", { x: Const.WORLD_WIDTH/6, y: Const.WORLD_HEIGHT - 60, angle: 0})
+  // .getUuid();
 
   level.newEntity()
   .add("positions",     { x: Const.PADDLE_1_POSITION.X, y: Const.PADDLE_1_POSITION.Y, angle: Math.PI})
@@ -28,7 +96,7 @@ function getLevel01() {
   .add("stopping",      { })
   .add("collisions",    [ ])
   .add("sprites",       { width: Const.PADDLE_WIDTH-10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xff7777, opacity: 1.0})
-  .add("movements",     { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED * 0.6, angle: 0, randomAngle: 0, enabled: true})
+  .add("movements",     { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED * 0.6, angle: 0, randomAngle: 0, enabled: ballCanMove})
   .add("frictions",     { value: Const.PADDLE_FRICTION})
   .add("springPivots",  { power: 0.09})
   .add("pivotLimiters", { minAngle: -0.15, maxAngle: 0.15})
@@ -52,7 +120,7 @@ function getLevel01() {
   .add("stopping",      { })
   .add("collisions",    [ ])
   .add("sprites",       { width: Const.PADDLE_WIDTH+10, height: Const.PADDLE_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffff77, opacity: 1.0})
-  .add("movements",     { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: true})
+  .add("movements",     { minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: ballCanMove})
   .add("frictions",     { value: Const.PADDLE_FRICTION})
   .add("springPivots",  { power: 0.09})
   .add("pivotLimiters", { minAngle: -0.15, maxAngle: 0.15})
@@ -75,8 +143,7 @@ function getLevel01() {
   .add("collisions", [ ])
   .add("sprites",    { width: Const.BALL_WIDTH, height: Const.BALL_HEIGHT, angle: 0, image: LOLPIXELS, color: 0xffffff, opacity: 1.0})
   .add("positions",  { x: 300, y: 400, angle: 0})
-  .add("movementConditions",  { leftVariable: time, operator: ">=", rightVariable: 1})
-  .add("movements",  { minSpeed: 0.15, speed: 0.7, maxSpeed: 0.8, angle: 2, randomAngle: 10, enabled: true})
+  .add("movements",  { minSpeed: 0.15, speed: 0.7, maxSpeed: 0.8, angle: 2, randomAngle: 10, enabled: ballCanMove})
   .add("balls",      { })
   .getUuid();
 
@@ -126,10 +193,6 @@ function getLevel01() {
   .add("fpsCounters", { variable: fpsNumber})
   .getUuid();
 
-  const enemyPoints = level.newEntity() // enemyPoints
-  .add("variables", { value: 0})
-  .getUuid();
-
   const bottomZone = level.newEntity() // bottomZone
   .add("shapes",       { width: Const.WORLD_WIDTH, height: 20, angle: 0})
   .add("collisions",   [ ])
@@ -140,10 +203,6 @@ function getLevel01() {
   const topCounter = level.newEntity() // topCounter
   .add("positions",  { x: 60, y: 220, angle: 0})
   .add("texts",      { size: 26, variable: enemyPoints, color: 0xff7777, angle: 0, opacity: 0.6})
-  .getUuid();
-
-  const playerPoints = level.newEntity() // playerPoints
-  .add("variables", { value: 0})
   .getUuid();
 
   const topZone = level.newEntity() // topZone
@@ -157,32 +216,6 @@ function getLevel01() {
   .add("positions", { x: 60, y: 280, angle: 0})
   .add("texts",     { size: 26, variable: playerPoints, color: 0xffff77, angle: 0, opacity: 0.6})
   .getUuid();
-
-
-  const pointsNeededByPlayer = level.newEntity()
-  .add("variables",  { value: 5})
-  .getUuid();
-
-  const playerHas5points = level.newEntity()
-  .add("conditions", { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
-  .getUuid();
-
-  const victoryConditions = level.newEntity()
-  .add("victoryConditions",  [ playerHas5points])
-  .getUuid();
-
-  const pointsNeededByEnemy = level.newEntity()
-  .add("variables",  { value: 5})
-  .getUuid();
-
-  const enemyHas5Points = level.newEntity()
-  .add("conditions", { leftVariable: enemyPoints, operator: ">=", rightVariable: pointsNeededByEnemy})
-  .getUuid();
-
-  const defeatConditions = level.newEntity()
-  .add("defeatConditions",  [ enemyHas5Points])
-  .getUuid();
-
 
   return level.getComponents();
 }

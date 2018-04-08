@@ -14,7 +14,7 @@ function getLevel01lose() {
 	  .add("stopping", {})
 	  .add("collisions", [])
 	  .add("positions", {x: Const.PADDLE_2_POSITION.X, y: Const.PADDLE_2_POSITION.Y, angle: 0})
-	  .add("movements", {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0, enabled: true})
+	  .add("movements", {minSpeed: 0, speed: 0, maxSpeed: Const.PADDLE_MAX_SPEED, angle: 0, randomAngle: 0})
 	  .add("accelerators", { leftAccelerator: {angle: Math.PI, acceleration: Const.PADDLE_ACCELERATION} })
 	  .add("orders", {confirm: false})
 	  .add("interpreters", { leftAccelerator: ["confirm"] })
@@ -37,10 +37,11 @@ function getLevel01lose() {
 
     const have10points = level.newEntity()
 	  .add("conditions",  { leftVariable: playerPoints, operator: ">=", rightVariable: pointsNeededByPlayer})
+    .add("variables",  { value: null})
 	  .getUuid();
 
     const victoryConditions = level.newEntity()
-	  .add("victoryConditions",  [ have10points])
+	  .add("victories",  { variable: have10points})
 	  .getUuid();
 
     const levelTitle = level.newEntity()
