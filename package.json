@@ -1,5 +1,5 @@
 {
-  "name": "pongbtc",
+  "name": "pong",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Strtg/pongbtc.git"
+    "url": "git+https://github.com/bsielski/pong.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Strtg/pongbtc/issues"
+    "url": "https://github.com/bsielski/pong/issues"
   },
-  "homepage": "https://github.com/Strtg/pongbtc#readme",
+  "homepage": "https://github.com/Strtg/pong",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

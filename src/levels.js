@@ -64,10 +64,10 @@ class Levels {
       },
 
     };
-    this.currentLevel = this.levels["level_02_intro"]();
-    this.currentLevelName = "level_02_intro";
-    // this.currentLevel = this.levels["title_screen"]();
-    // this.currentLevelName = "title_screen";
+    // this.currentLevel = this.levels["level_02_intro"]();
+    // this.currentLevelName = "level_02_intro";
+    this.currentLevel = this.levels["title_screen"]();
+    this.currentLevelName = "title_screen";
     this.current = this.current.bind(this);
     this.win = this.win.bind(this);
     this.lose = this.lose.bind(this);
