@@ -184,20 +184,20 @@ function getLevel02() {
 	  .getUuid();
 
     const obstacleRed = level.newEntity()
-    .add("positions", { x: 155, y: 350, angle: 0})
-    .add("shapes",    { verts: [[-50, -20], [50, -20], [0, 30]], width: 60, height: 80, angle: 0})
+    .add("positions", { x: 145, y: 350, angle: 0})
+    .add("shapes",    { verts: [[ -40, -20], [40, -20], [0, 15]], width: 60, height: 80, angle: 0})
     .add("bodies",    { })
     .add("collisions", [ ])
-    .add("sprites",   { verts: [[-50, -20], [50, -20], [0, 30]], angle: 0, color: 0xff0000, opacity: 1})
+    .add("sprites",   { verts: [[-40, -20], [40, -20], [0, 15]], angle: 0, color: 0xff0000, opacity: 1})
     .add("touchSensors", { seeking: ball, last: false, current: false, variable: amountOfMoney, operation: -1000})
     .getUuid();
 
     const obstacleGreen = level.newEntity()
-    .add("positions",  { x: 455, y: 150, angle: Math.PI})
-    .add("shapes",     { verts: [[-50, -20], [50, -20], [0, 30]], width: 60, height: 80, angle: 0})
+    .add("positions",  { x: 445, y: 150, angle: Math.PI})
+    .add("shapes",     { verts: [[-60, -20], [50, -20], [0, 30]], width: 60, height: 80, angle: 0})
     .add("bodies",     { })
     .add("collisions", [ ])
-    .add("sprites",    { verts: [[-50, -20], [50, -20], [0, 30]], angle: 0, color: 0x00ff00, opacity: 1})
+    .add("sprites",    { verts: [[-60, -20], [50, -20], [0, 30]], angle: 0, color: 0x00ff00, opacity: 1})
     .add("touchSensors", { seeking: ball, last: false, current: false, variable: amountOfMoney, operation: +1000})
     .getUuid();
 
