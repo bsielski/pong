@@ -54,7 +54,7 @@ function getLevel01intro() {
 
     const levelManual = level.newEntity()
 	  .add("variables",  { value: "You are on the bottom of the screen,\n\
-on the opposite side of the screen is you enemy (the AI).\n\n\
+on the opposite side of the screen is your enemy (the AI).\n\n\
 Whoever scores 5 points first wins.\n\nKeys:\nLeft arrow - go left\nRight arrow - go right\
 \n\nGood luck."})
 	  .getUuid();
