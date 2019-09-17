@@ -51,7 +51,7 @@ class Game {
     this.fpsCounter.loadLevel(level);
     this.timer.loadLevel(level);
     this.collisionDetector.loadLevel(level);
-    // this.shapeRenderer.loadLevel(level);
+    this.shapeRenderer.loadLevel(level);
     this.bouncing.loadLevel(level);
     this.movementCondition.loadLevel(level);
     this.movement.loadLevel(level);
@@ -78,7 +78,7 @@ class Game {
     this.bouncing.update();
     this.stopping.update();
     this.touchSensor.update();
-    // this.shapeRenderer.update();
+    this.shapeRenderer.update();
     this.condition.update();
     this.logicalAnd.update();
     this.logicalOr.update();

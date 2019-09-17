@@ -23,11 +23,12 @@ import TouchSensor from './systems/touchSensor';
 import Victory from './systems/victory';
 import Defeat from './systems/defeat';
 import ShapeRenderer from './systems/shapeRenderer';
+import NullShapeRenderer from './systems/nullShapeRenderer';
 import MainLoop from 'mainloop.js';
 import Levels from './levels';
 
 function run() {
-
+    
   const renderer_options = {
     width: Config.WORLD_WIDTH,
     height: Config.WORLD_HEIGHT,
@@ -60,7 +61,10 @@ function run() {
   const renderer = new Renderer(renderer_options);
   const fpsCounter = new FpsCounter();
   const timer = new Timer();
-  const shapeRenderer = new ShapeRenderer();
+  let shapeRenderer = new NullShapeRenderer();
+  if (process.env.NODE_ENV == "development") {
+    shapeRenderer = new ShapeRenderer();
+  }
   const ai = new AI();
 
   const mainLoop = MainLoop;
@@ -69,7 +73,7 @@ function run() {
   const game = new Game(
     levels, mainLoop, renderer, collisionDetector, bouncing, stopping, touchSensor,
     controller, movementCondition, movement, fpsCounter, timer, ai, victory, defeat, accelerator, friction,
-    rotator, springPivot, pivotLimiter, shapeRenderer, condition, logicalAnd, logicalOr);
+     rotator, springPivot, pivotLimiter, shapeRenderer, condition, logicalAnd, logicalOr);
 
   mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
   mainLoop.setUpdate(game.update);
