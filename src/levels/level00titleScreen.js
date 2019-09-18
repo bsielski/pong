@@ -41,7 +41,7 @@ function getLevel00titleScreen() {
 //////////////////////////////////////
 
   const gameTitle = level.newEntity()
-  .add("variables", { value: "The Stupid Pong"})
+  .add("variables", { value: "A Ponglike Game"})
   .getUuid();
 
   const gameTitleTextId = level.newEntity()
