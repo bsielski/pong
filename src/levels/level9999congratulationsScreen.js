@@ -39,7 +39,7 @@ function getLevel9999congratulationsScreen() {
   .add("touchSensors", { seeking: paddle, last: false, current: false, variable: playerPoints, operation: +1})
 
   const gameTitle = level.newEntity()
-  .add("variables", { value: "Game Over"})
+  .add("variables", { value: "You Won!"})
   .getUuid();
 
   const gameTitleTextId = level.newEntity()
@@ -48,7 +48,7 @@ function getLevel9999congratulationsScreen() {
   .getUuid();
 
   const gameSubTitle = level.newEntity()
-  .add("variables", { value: "You won!"})
+  .add("variables", { value: "Game Over"})
   .getUuid();
 
   const gameSubTitleTextId = level.newEntity()
