@@ -71,7 +71,7 @@ function run() {
   const levels = new Levels();
 
   const game = new Game(
-    levels, mainLoop, renderer, collisionDetector, bouncing, stopping, touchSensor,
+    levels, renderer, collisionDetector, bouncing, stopping, touchSensor,
     controller, movementCondition, movement, fpsCounter, timer, ai, victory, defeat, accelerator, friction,
      rotator, springPivot, pivotLimiter, shapeRenderer, condition, logicalAnd, logicalOr);
 

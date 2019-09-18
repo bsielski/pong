@@ -1,7 +1,7 @@
 class Game {
 
   constructor(
-    levels, mainloop, renderer, collisionDetector, bouncing, stopping, touchSensor,
+    levels, renderer, collisionDetector, bouncing, stopping, touchSensor,
     controller, movementCondition, movement, fpsCounter, timer, ai, victory, defeat, accelerator,
     friction, rotator, springPivot, pivotLimiter, shapeRenderer, condition, logicalAnd,
     logicalOr
@@ -9,7 +9,6 @@ class Game {
   {
     this.levels = levels;
 
-    this.mainloop = mainloop;
     this.condition = condition;
     this.logicalAnd = logicalAnd;
     this.logicalOr = logicalOr;
