@@ -67,7 +67,6 @@ function run() {
   }
   const ai = new AI();
 
-  const mainLoop = MainLoop;
   const levels = new Levels();
 
   const game = new Game(
@@ -75,10 +74,10 @@ function run() {
     controller, movementCondition, movement, fpsCounter, timer, ai, victory, defeat, accelerator, friction,
      rotator, springPivot, pivotLimiter, shapeRenderer, condition, logicalAnd, logicalOr);
 
-  mainLoop.setMaxAllowedFPS(Config.MAX_FPS);
-  mainLoop.setUpdate(game.update);
-  mainLoop.setDraw(renderer.render);
-  mainLoop.start();
+  MainLoop.setMaxAllowedFPS(Config.MAX_FPS);
+  MainLoop.setUpdate(game.update);
+  MainLoop.setDraw(renderer.render);
+  MainLoop.start();
 }
 
 window.addEventListener('load', run);
