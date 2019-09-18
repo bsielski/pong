@@ -28,7 +28,7 @@ import MainLoop from 'mainloop.js';
 import Levels from './levels';
 
 function run() {
-    
+
   const renderer_options = {
     width: Config.WORLD_WIDTH,
     height: Config.WORLD_HEIGHT,
