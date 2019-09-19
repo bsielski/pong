@@ -1,0 +1,26 @@
+[
+    {
+	"componentType": "shape",
+	"width": 150,
+	"height": 20,
+	"angle": 0
+    },
+    {
+	"componentType": "collisions",
+	"collisions": []
+    },
+    {
+	"componentType": "position",
+	"x": 155,
+	"y": 475,
+	"angle": 0
+    },
+    {
+	"componentType": "touchSensor",
+	"seeking": "paddle",
+	"last": false,
+	"current": false,
+	"variable": "playerPoints",
+	"operation": 1
+    }
+]

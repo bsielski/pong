@@ -1,0 +1,16 @@
+[
+    {
+	"componentType": "text",
+	"size": 32,
+	"variable": "levelTitle",
+	"color": "0xffffff",
+	"angle": 0,
+	"opacity": 0.6
+    },
+    {
+	"componentType": "position",
+	"x": 300,
+	"y": 40,
+	"angle": 0
+    }
+]

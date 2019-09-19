@@ -1,0 +1,49 @@
+[
+    {
+	"componentType": "shape",
+	"width": 131,
+	"height": 25,
+	"angle": 0
+    },
+    {
+	"componentType": "body"
+    },
+    {
+	"componentType": "stopping"
+    },
+    {
+	"componentType": "collisions",
+	"collisions": []
+    },
+    {
+	"componentType": "position",
+	"x": 300,
+	"y": 460,
+	"angle": 0
+    },
+    {
+	"componentType": "movement",
+	"minSpeed": 0,
+	"speed": 0,
+	"maxSpeed": 0.7,
+	"angle": 0,
+	"randomAngle": 0
+    },
+    {
+	"componentType": "accelerator",
+	"leftAccelerator": {
+	    "angle": 3.141592653589793,
+	    "acceleration": 0.15
+	}
+    },
+    {
+	"componentType": "order",
+	"confirm": false
+    },
+    {
+	"componentType": "interpreter",
+	"leftAccelerator": [
+	    "confirm"
+	]
+    }
+]

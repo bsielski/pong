@@ -1,0 +1,16 @@
+[
+    {
+	"componentType": "text",
+	"size": 20,
+	"variable": "levelManual",
+	"color": "0xffffff",
+	"angle": 0,
+	"opacity": 0.6
+    },
+    {
+	"componentType": "position",
+	"x": 300,
+	"y": 210,
+	"angle": 0
+    }
+]
