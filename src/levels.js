@@ -40,7 +40,8 @@ class Levels {
 
 	    "level_01_intro": {
 		"name": "01 intro",
-		"win": "level_01",
+		// "win": "level_01",
+		"win": "game_over",
 	    },
 
 	    "level_01": {
