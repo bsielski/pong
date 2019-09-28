@@ -1,0 +1,178 @@
+{
+    "clickEnterMessage": [
+	{
+	    "componentType": "variables",
+	    "value": "Press Enter to continue"
+	}
+    ],
+    "gameSubtitleText": [
+	{
+	    "componentType": "texts",
+	    "size": 20,
+	    "variable": "levelManual",
+	    "color": "0xffffff",
+	    "angle": 0,
+	    "opacity": 0.6
+	},
+	{
+	    "componentType": "positions",
+	    "x": 300,
+	    "y": 210,
+	    "angle": 0
+	}
+    ],
+    "gameTitleText": [
+	{
+	    "componentType": "texts",
+	    "size": 32,
+	    "variable": "levelTitle",
+	    "color": "0xffffff",
+	    "angle": 0,
+	    "opacity": 0.6
+	},
+	{
+	    "componentType": "positions",
+	    "x": 300,
+	    "y": 40,
+	    "angle": 0
+	}
+    ],
+    "have1points": [
+	{
+	    "componentType": "conditions",
+	    "leftVariable": "playerPoints",
+	    "operator": ">=",
+	    "rightVariable": "pointsNeededByPlayer"
+	},
+	{
+	    "componentType": "variables",
+	    "value": false
+	}
+    ],
+    "leftZone": [
+	{
+	    "componentType": "shapes",
+	    "width": 150,
+	    "height": 20,
+	    "angle": 0
+	},
+	{
+	    "componentType": "collisions",
+	    "collisions": []
+	},
+	{
+	    "componentType": "positions",
+	    "x": 155,
+	    "y": 475,
+	    "angle": 0
+	},
+	{
+	    "componentType": "touchSensors",
+	    "seeking": "playerPaddle",
+	    "last": false,
+	    "current": false,
+	    "variable": "playerPoints",
+	    "operation": 1
+	}
+    ],
+    "levelManual": [
+	{
+	    "componentType": "variables",
+	    "value": "You want to make money by trade Bitcoins.\nBut it is not easy.\n\nIf the ball hits red object the price is -1000.\nGreen objects rise price by 1000.\n\nYou will win if the price hits $12k and loose if it hits $0.\n\nGood luck."
+	}
+    ],
+    "levelTitle": [
+	{
+	    "componentType": "variables",
+	    "value": "Level 2: Bitcoin trader"
+	}
+    ],
+    "manualMessageText": [
+	{
+	    "componentType": "texts",
+	    "size": 17,
+	    "variable": "clickEnterMessage",
+	    "color": "0xffffff",
+	    "angle": 0,
+	    "opacity": 0.6
+	},
+	{
+	    "componentType": "positions",
+	    "x": 300,
+	    "y": 390,
+	    "angle": 0
+	}
+    ],
+    "playerPaddle": [
+	{
+	    "componentType": "shapes",
+	    "width": 131,
+	    "height": 25,
+	    "angle": 0
+	},
+	{
+	    "componentType": "bodies"
+	},
+	{
+	    "componentType": "stopping"
+	},
+	{
+	    "componentType": "collisions",
+	    "collisions": []
+	},
+	{
+	    "componentType": "positions",
+	    "x": 300,
+	    "y": 460,
+	    "angle": 0
+	},
+	{
+	    "componentType": "movements",
+	    "minSpeed": 0,
+	    "speed": 0,
+	    "maxSpeed": 0.7,
+	    "angle": 0,
+	    "randomAngle": 0
+	},
+	{
+	    "componentType": "accelerators",
+	    "leftAccelerator": {
+		"angle": 3.141592653589793,
+		"acceleration": 0.15
+	    }
+	},
+	{
+	    "componentType": "orders",
+	    "confirm": false
+	},
+	{
+	    "componentType": "interpreters",
+	    "leftAccelerator": [
+		"confirm"
+	    ]
+	}
+    ],
+    "playerPoints": [
+	{
+	    "componentType": "variables",
+	    "value": 0
+	}
+    ],
+    "pointsNeededByPlayer": [
+	{
+	    "componentType": "variables",
+	    "value": 1
+	}
+    ], 
+    "exitLevel": [
+	{
+	    "componentType": "exitLevel",
+	    "options": [
+		{
+		    "variable": "have1points",
+		    "command": "win"
+		}
+	    ]
+	}
+    ]
+}
