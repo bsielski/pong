@@ -1,622 +1,622 @@
 {
     "zero": [
-	{
-	    "componentType": "variables",
-	    "value": 0
-	}
+        {
+            "componentType": "variables",
+            "value": 0
+        }
     ],
     "amountOfMoney": [
-	{
-	    "componentType": "variables",
-	    "value": 6000
-	}
+        {
+            "componentType": "variables",
+            "value": 6000
+        }
     ],
     "pointsNeededByPlayer": [
-	{
-	    "componentType": "variables",
-	    "value": 12000
-	}
+        {
+            "componentType": "variables",
+            "value": 12000
+        }
     ],
     "minimumMoney": [
-	{
-	    "componentType": "variables",
-	    "value": 0
-	}
+        {
+            "componentType": "variables",
+            "value": 0
+        }
     ],
     "startDelayForBall": [
-	{
-	    "componentType": "variables",
-	    "value": 1
-	}
+        {
+            "componentType": "variables",
+            "value": 1
+        }
     ],
     "delayForEndLevel": [
-	{
-	    "componentType": "variables",
-	    "value": 1
-	}
+        {
+            "componentType": "variables",
+            "value": 1
+        }
     ],
     "have12k": [
-	{
-	    "componentType": "conditions",
-	    "leftVariable": "amountOfMoney",
-	    "operator": ">=",
-	    "rightVariable": "pointsNeededByPlayer"
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "conditions",
+            "leftVariable": "amountOfMoney",
+            "operator": ">=",
+            "rightVariable": "pointsNeededByPlayer"
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "haveMinimumMoney": [
-	{
-	    "componentType": "conditions",
-	    "leftVariable": "amountOfMoney",
-	    "operator": "<=",
-	    "rightVariable": "minimumMoney"
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "conditions",
+            "leftVariable": "amountOfMoney",
+            "operator": "<=",
+            "rightVariable": "minimumMoney"
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "enoughPoints": [
-	{
-	    "componentType": "logicalOrs",
-	    "operands": ["have12k", "haveMinimumMoney"]
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "logicalOrs",
+            "operands": ["have12k", "haveMinimumMoney"]
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "startTimer": [
-	{
-	    "componentType": "timers"
-	},
-	{
-	    "componentType": "variables",
-	    "value": 0
-	}
+        {
+            "componentType": "timers"
+        },
+        {
+            "componentType": "variables",
+            "value": 0
+        }
     ],
     "endTimer": [
-	{
-	    "componentType": "timers",
-	    "enabled": "enoughPoints"
-	},
-	{
-	    "componentType": "variables",
-	    "value": 0
-	}
+        {
+            "componentType": "timers",
+            "enabled": "enoughPoints"
+        },
+        {
+            "componentType": "variables",
+            "value": 0
+        }
     ],
     "endTimePassed": [
-	{
-	    "componentType": "conditions",
-	    "leftVariable": "endTimer",
-	    "operator": ">=",
-	    "rightVariable": "delayForEndLevel"
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "conditions",
+            "leftVariable": "endTimer",
+            "operator": ">=",
+            "rightVariable": "delayForEndLevel"
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "winAndDelay": [
-	{
-	    "componentType": "logicalAnds",
-	    "operands": ["have12k", "endTimePassed"]
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "logicalAnds",
+            "operands": ["have12k", "endTimePassed"]
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "loseAndDelay": [
-	{
-	    "componentType": "logicalAnds",
-	    "operands": ["haveMinimumMoney", "endTimePassed"]
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "logicalAnds",
+            "operands": ["haveMinimumMoney", "endTimePassed"]
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "exitLevel": [
-	{
-	    "componentType": "exitLevel",
-	    "options": [
-		{
-		    "variable": "winAndDelay",
-		    "command": "win"
-		},
-		{
-		    "variable": "loseAndDelay",
-		    "command": "lose"
-		}
-	    ]
-	}
+        {
+            "componentType": "exitLevel",
+            "options": [
+                {
+                    "variable": "winAndDelay",
+                    "command": "win"
+                },
+                {
+                    "variable": "loseAndDelay",
+                    "command": "lose"
+                }
+            ]
+        }
     ],
     "defeatConditions": [
-	{
-	    "componentType": "defeats",
-	    "variable": "loseAndDelay"
-	}
+        {
+            "componentType": "defeats",
+            "variable": "loseAndDelay"
+        }
     ],
     "ballCanStartMove": [
-	{
-	    "componentType": "conditions",
-	    "leftVariable": "startTimer",
-	    "operator": ">=",
-	    "rightVariable": "startDelayForBall"
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "conditions",
+            "leftVariable": "startTimer",
+            "operator": ">=",
+            "rightVariable": "startDelayForBall"
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "ballCanStillMove": [
-	{
-	    "componentType": "conditions",
-	    "leftVariable": "endTimer",
-	    "operator": "<=",
-	    "rightVariable": "zero"
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "conditions",
+            "leftVariable": "endTimer",
+            "operator": "<=",
+            "rightVariable": "zero"
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "ballCanMove": [
-	{
-	    "componentType": "logicalAnds",
-	    "operands": ["ballCanStartMove", "ballCanStillMove"]
-	},
-	{
-	    "componentType": "variables",
-	    "value": null
-	}
+        {
+            "componentType": "logicalAnds",
+            "operands": ["ballCanStartMove", "ballCanStillMove"]
+        },
+        {
+            "componentType": "variables",
+            "value": null
+        }
     ],
     "aiPaddle": [
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 40,
-	    "angle": 3.141592653589793
-	},
-	{
-	    "componentType": "shapes",
-	    "width": 111,
-	    "height": 25,
-	    "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "stopping"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": [ ]
-	},
-	{
-	    "componentType": "sprites",
-	    "width": 111,
-	    "height": 25,
-	    "angle": 0,
-	    "image": "LOLPIXELS",
-	    "color": "0xff7777",
-	    "opacity": 1.0
-	},
-	{
-	    "componentType": "movements",
-	    "minSpeed": 0,
-	    "speed": 0,
-	    "maxSpeed": 0.42,
-	    "angle": 0,
-	    "randomAngle": 0,
-	    "enabled": "ballCanMove"
-	},
-	{
-	    "componentType": "frictions",
-	    "value": 0.006
-	},
-	{
-	    "componentType": "springPivots",
-	    "power": 0.09
-	},
-	{
-	    "componentType": "pivotLimiters",
-	    "minAngle": -0.25,
-	    "maxAngle": 0.25
-	},
-	{
-	    "componentType": "accelerators",
-	    "leftAccelerator":  { "angle": 3.141592653589793, "acceleration": 0.15 },
-	    "rightAccelerator": { "angle": 0, "acceleration": 0.15 }
-	},
-	{
-	    "componentType": "rotators",
-	    "rightRotator": {"speed": 0.3, "direction": 1},
-	    "leftRotator":  {"speed": 0.3, "direction": -1}
-	},
-	{
-	    "componentType": "orders",
-	    "playerPaddleLeft": false,
-	    "playerPaddleRight": false,
-	    "confirm": false
-	},
-	{
-	    "componentType": "interpreters",
-	    "leftAccelerator":  ["playerPaddleLeft", "confirm"],
-	    "rightAccelerator": ["playerPaddleRight"],
-	    "leftRotator": ["playerPaddleLeft", "confirm" ],
-	    "rightRotator": ["playerPaddleRight"]
-	},
-	{
-	    "componentType": "ai"
-	}
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 40,
+            "angle": 3.141592653589793
+        },
+        {
+            "componentType": "shapes",
+            "width": 111,
+            "height": 25,
+            "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "stopping"
+        },
+        {
+            "componentType": "collisions",
+            "collisions": [ ]
+        },
+        {
+            "componentType": "sprites",
+            "width": 111,
+            "height": 25,
+            "angle": 0,
+            "image": "LOLPIXELS",
+            "color": "0xff7777",
+            "opacity": 1.0
+        },
+        {
+            "componentType": "movements",
+            "minSpeed": 0,
+            "speed": 0,
+            "maxSpeed": 0.42,
+            "angle": 0,
+            "randomAngle": 0,
+            "enabled": "ballCanMove"
+        },
+        {
+            "componentType": "frictions",
+            "value": 0.006
+        },
+        {
+            "componentType": "springPivots",
+            "power": 0.09
+        },
+        {
+            "componentType": "pivotLimiters",
+            "minAngle": -0.25,
+            "maxAngle": 0.25
+        },
+        {
+            "componentType": "accelerators",
+            "leftAccelerator":  { "angle": 3.141592653589793, "acceleration": 0.15 },
+            "rightAccelerator": { "angle": 0, "acceleration": 0.15 }
+        },
+        {
+            "componentType": "rotators",
+            "rightRotator": {"speed": 0.3, "direction": 1},
+            "leftRotator":  {"speed": 0.3, "direction": -1}
+        },
+        {
+            "componentType": "orders",
+            "playerPaddleLeft": false,
+            "playerPaddleRight": false,
+            "confirm": false
+        },
+        {
+            "componentType": "interpreters",
+            "leftAccelerator":  ["playerPaddleLeft", "confirm"],
+            "rightAccelerator": ["playerPaddleRight"],
+            "leftRotator": ["playerPaddleLeft", "confirm" ],
+            "rightRotator": ["playerPaddleRight"]
+        },
+        {
+            "componentType": "ai"
+        }
     ],
     "playerPaddle": [
-	{
-	    "componentType": "positions",
-	    "x": 300, "y": 460, "angle": 0
-	},
-	{
-	    "componentType": "shapes",
-            "width": 131, "height": 25, "angle": 0
-	},
-	{
-	    "componentType": "bodies"
+        {
+            "componentType": "positions",
+            "x": 300, "y": 460, "angle": 0
         },
-	{
-	    "componentType": "stopping"
-	},
-	{
-	    "componentType": "collisions",
-	    "collision": [ ]
-	},
-	{
-	    "componentType": "sprites",
+        {
+            "componentType": "shapes",
+            "width": 131, "height": 25, "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "stopping"
+        },
+        {
+            "componentType": "collisions",
+            "collision": [ ]
+        },
+        {
+            "componentType": "sprites",
             "width": 131, "height": 25, "angle": 0,
-	    "image": "LOLPIXELS",
-	    "color": "0xffff77",
-	    "opacity": 1.0
-	},
-	{
-	    "componentType": "movements",
-	    "minSpeed": 0,
-	    "speed": 0,
-	    "maxSpeed": 0.7,
-	    "angle": 0,
-	    "randomAngle": 0,
-	    "enabled": "ballCanMove"
-	},
-	{
-	    "componentType": "frictions",
-	    "value": 0.006
-	},
-	{
-	    "componentType": "springPivots",
-	    "power": 0.09
-	},
-	{
-	    "componentType": "pivotLimiters",
-	    "minAngle": -0.15, "maxAngle": 0.15
-	},
-	{
-	    "componentType": "accelerators",
-	    "leftAccelerator": {"angle": 3.141592653589793, "acceleration": 0.15},
-	    "rightAccelerator": {"angle": 0, "acceleration": 0.15}
-	},
-	{
-	    "componentType": "rotators",
-	    "rightRotator": {"speed": 0.3, "direction": 1},
-	    "leftRotator": {"speed": 0.3, "direction": -1}
-	},
-	{
-	    "componentType": "orders",
+            "image": "LOLPIXELS",
+            "color": "0xffff77",
+            "opacity": 1.0
+        },
+        {
+            "componentType": "movements",
+            "minSpeed": 0,
+            "speed": 0,
+            "maxSpeed": 0.7,
+            "angle": 0,
+            "randomAngle": 0,
+            "enabled": "ballCanMove"
+        },
+        {
+            "componentType": "frictions",
+            "value": 0.006
+        },
+        {
+            "componentType": "springPivots",
+            "power": 0.09
+        },
+        {
+            "componentType": "pivotLimiters",
+            "minAngle": -0.15, "maxAngle": 0.15
+        },
+        {
+            "componentType": "accelerators",
+            "leftAccelerator": {"angle": 3.141592653589793, "acceleration": 0.15},
+            "rightAccelerator": {"angle": 0, "acceleration": 0.15}
+        },
+        {
+            "componentType": "rotators",
+            "rightRotator": {"speed": 0.3, "direction": 1},
+            "leftRotator": {"speed": 0.3, "direction": -1}
+        },
+        {
+            "componentType": "orders",
             "playerPaddleLeft": false,
-	    "playerPaddleRight": false,
-	    "confirm": false
-	},
-	{
-	    "componentType": "interpreters",
-	    "leftAccelerator": ["playerPaddleLeft", "confirm"],
-	    "rightAccelerator": ["playerPaddleRight"],
-	    "leftRotator": ["playerPaddleLeft", "confirm"],
-	    "rightRotator": ["playerPaddleRight"]
-	}
+            "playerPaddleRight": false,
+            "confirm": false
+        },
+        {
+            "componentType": "interpreters",
+            "leftAccelerator": ["playerPaddleLeft", "confirm"],
+            "rightAccelerator": ["playerPaddleRight"],
+            "leftRotator": ["playerPaddleLeft", "confirm"],
+            "rightRotator": ["playerPaddleRight"]
+        }
     ],
     "ball": [
-	{
-	    "componentType": "shapes",
-	    "width": 29,
-	    "height": 29,
-	    "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "bouncing"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": [ ]
-	},
-	{
-	    "componentType": "sprites",
-	    "width": 29,
-	    "height": 29,
-	    "angle": 0,
-	    "image": "BTC_BALL",
-	    "color": "0xffffff",
-	    "opacity": 1.0
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300, "y": 400, "angle": 0
-	},
-	{
-	    "componentType": "movements",
-	    "minSpeed": 0.25,
-	    "speed": 0.4,
-	    "maxSpeed": 0.55,
-	    "angle": 2,
-	    "randomAngle": 10,
-	    "enabled": "ballCanMove"
-	},
-	{
-	    "componentType": "balls"
-	}
+        {
+            "componentType": "shapes",
+            "width": 29,
+            "height": 29,
+            "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "bouncing"
+        },
+        {
+            "componentType": "collisions",
+            "collisions": [ ]
+        },
+        {
+            "componentType": "sprites",
+            "width": 29,
+            "height": 29,
+            "angle": 0,
+            "image": "BTC_BALL",
+            "color": "0xffffff",
+            "opacity": 1.0
+        },
+        {
+            "componentType": "positions",
+            "x": 300, "y": 400, "angle": 0
+        },
+        {
+            "componentType": "movements",
+            "minSpeed": 0.25,
+            "speed": 0.4,
+            "maxSpeed": 0.55,
+            "angle": 2,
+            "randomAngle": 10,
+            "enabled": "ballCanMove"
+        },
+        {
+            "componentType": "balls"
+        }
     ],
     "westWall": [
-	{
-	    "componentType": "shapes",
-	    "width": 40, "height": 500, "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": [ ]
-	},
-	{
-	    "componentType": "sprites",
-	    "width": 40, "height": 500, "angle": 0,
-	    "image": "LOLPIXELS", "color": "0xffffff", "opacity": 1.0
-	},
-	{
-	    "componentType": "positions",
-	    "x": 0, "y": 250, "angle": 0
-	}
+        {
+            "componentType": "shapes",
+            "width": 40, "height": 500, "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "collisions",
+            "collisions": [ ]
+        },
+        {
+            "componentType": "sprites",
+            "width": 40, "height": 500, "angle": 0,
+            "image": "LOLPIXELS", "color": "0xffffff", "opacity": 1.0
+        },
+        {
+            "componentType": "positions",
+            "x": 0, "y": 250, "angle": 0
+        }
     ],
     "eastWall": [
-	{
-	    "componentType": "positions",
-	    "x": 600, "y": 250, "angle": 0
-	},
-	{
-	    "componentType": "shapes",
-	    "width": 40, "height": 500, "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": [ ]
-	},
-	{
-	    "componentType": "sprites",
-	    "width": 40, "height": 500, "angle": 0,
-	    "image": "LOLPIXELS", "color": "0xffffff", "opacity": 1.0
-	}
+        {
+            "componentType": "positions",
+            "x": 600, "y": 250, "angle": 0
+        },
+        {
+            "componentType": "shapes",
+            "width": 40, "height": 500, "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "collisions",
+            "collisions": [ ]
+        },
+        {
+            "componentType": "sprites",
+            "width": 40, "height": 500, "angle": 0,
+            "image": "LOLPIXELS", "color": "0xffffff", "opacity": 1.0
+        }
 
     ],
     "northWall": [
-	{
-	    "componentType": "shapes",
-	    "width": 600, "height": 40, "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions":[ ]
-	},
-	{
-	    "componentType": "sprites",
-	    "width": 600, "height": 40, "angle": 0,
-	    "image": "LOLPIXELS", "color": "0x00ff00", "opacity": 1.0
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300, "y": 0, "angle": 0
-	}
+        {
+            "componentType": "shapes",
+            "width": 600, "height": 40, "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "collisions",
+            "collisions":[ ]
+        },
+        {
+            "componentType": "sprites",
+            "width": 600, "height": 40, "angle": 0,
+            "image": "LOLPIXELS", "color": "0x00ff00", "opacity": 1.0
+        },
+        {
+            "componentType": "positions",
+            "x": 300, "y": 0, "angle": 0
+        }
     ],
     "southWall": [
-	{
-	    "componentType": "shapes",
-	    "width": 600, "height": 40, "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": [ ]
-	},
-	{
-	    "componentType": "sprites",
-	    "width": 600, "height": 40, "angle": 0,
-	    "image": "LOLPIXELS", "color": "0xff0000", "opacity": 1.0
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300, "y": 500, "angle": 0
-	}
+        {
+            "componentType": "shapes",
+            "width": 600, "height": 40, "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "collisions",
+            "collisions": [ ]
+        },
+        {
+            "componentType": "sprites",
+            "width": 600, "height": 40, "angle": 0,
+            "image": "LOLPIXELS", "color": "0xff0000", "opacity": 1.0
+        },
+        {
+            "componentType": "positions",
+            "x": 300, "y": 500, "angle": 0
+        }
     ],
     "net": [
-	{
-	    "componentType": "sprites",
-	    "width": 600, "height": 10, "angle": 0,
-	    "image": "LOLPIXELS", "color": "0xffffff", "opacity": 0.2
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300, "y": 250, "angle": 0
-	}
+        {
+            "componentType": "sprites",
+            "width": 600, "height": 10, "angle": 0,
+            "image": "LOLPIXELS", "color": "0xffffff", "opacity": 0.2
+        },
+        {
+            "componentType": "positions",
+            "x": 300, "y": 250, "angle": 0
+        }
     ],
     "fpsNumber": [
-	{
-	    "componentType": "variables",
-	    "value": 0
-	}
+        {
+            "componentType": "variables",
+            "value": 0
+        }
     ],
     "fpsText": [
-	{
-	    "componentType": "texts",
-	    "size": 12,
-	    "variable": "fpsNumber", 
-	    "color": "0xffffff", "angle": 0, "opacity": 0.6
-	},
-	{
-	    "componentType": "positions",
-	    "x": 100, "y": 250, "angle": 0
-	}
+        {
+            "componentType": "texts",
+            "size": 12,
+            "variable": "fpsNumber", 
+            "color": "0xffffff", "angle": 0, "opacity": 0.6
+        },
+        {
+            "componentType": "positions",
+            "x": 100, "y": 250, "angle": 0
+        }
     ],
     "fpsCounter": [
-	{
-	    "componentType": "fpsCounters",
-	    "variable": "fpsNumber"
-	}
+        {
+            "componentType": "fpsCounters",
+            "variable": "fpsNumber"
+        }
     ],
     "bottomZone": [
-	{
-	    "componentType": "shapes",
-	    "width": 600, "height": 20, "angle": 0
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": [ ]
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300, "y": 475, "angle": 0
-	},
-	{
-	    "componentType": "touchSensors",
-	    "seeking": "ball",
-	    "last": false,
-	    "current": false,
-	    "variable": "amountOfMoney",
-	    "operation": -1000
-	}
+        {
+            "componentType": "shapes",
+            "width": 600, "height": 20, "angle": 0
+        },
+        {
+            "componentType": "collisions",
+            "collisions": [ ]
+        },
+        {
+            "componentType": "positions",
+            "x": 300, "y": 475, "angle": 0
+        },
+        {
+            "componentType": "touchSensors",
+            "seeking": "ball",
+            "last": false,
+            "current": false,
+            "variable": "amountOfMoney",
+            "operation": -1000
+        }
     ],
     "moneyCounter": [
-	{
-	    "componentType": "positions",
-	    "x": 60, "y": 220, "angle": 0
-	},
-	{
-	    "componentType": "texts",
-	    "size": 26,
-	    "variable": "amountOfMoney",
-	    "color": "0xff7777",
-	    "angle": 0,
-	    "opacity": 0.6
-	}
+        {
+            "componentType": "positions",
+            "x": 60, "y": 220, "angle": 0
+        },
+        {
+            "componentType": "texts",
+            "size": 26,
+            "variable": "amountOfMoney",
+            "color": "0xff7777",
+            "angle": 0,
+            "opacity": 0.6
+        }
     ],
     "topZone": [
-	{
-	    "componentType": "shapes",
-	    "width": 600,
-	    "height": 20,
-	    "angle": 0
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": [ ]
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300, "y": 25, "angle": 0
-	},
-	{
-	    "componentType": "touchSensors", 
-	    "seeking": "ball",
-	    "last": false,
-	    "current": false,
-	    "variable": "amountOfMoney",
-	    "operation": 1000
-	}
+        {
+            "componentType": "shapes",
+            "width": 600,
+            "height": 20,
+            "angle": 0
+        },
+        {
+            "componentType": "collisions",
+            "collisions": [ ]
+        },
+        {
+            "componentType": "positions",
+            "x": 300, "y": 25, "angle": 0
+        },
+        {
+            "componentType": "touchSensors", 
+            "seeking": "ball",
+            "last": false,
+            "current": false,
+            "variable": "amountOfMoney",
+            "operation": 1000
+        }
     ],
     "obstacleRed": [
-	{
-	    "componentType": "shapes",
-	    "verts": [[ -40, -20], [40, -20], [0, 15]],
-	    "width": 60, "height": 80, "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions":[ ]
-	},
-	{
-	    "componentType": "sprites",
-	    "verts": [[ -40, -20], [40, -20], [0, 15]],
-	    "angle": 0,
-	    "color": "0xff0000", "opacity": 1
-	    
-	},
-	{
-	    "componentType": "positions",
-	    "x": 145, "y": 350, "angle": 0
-	},
-	{
-	    "componentType": "touchSensors", 
-	    "seeking": "ball",
-	    "last": false,
-	    "current": false,
-	    "variable": "amountOfMoney",
-	    "operation": -1000
-	}
+        {
+            "componentType": "shapes",
+            "verts": [[ -40, -20], [40, -20], [0, 15]],
+            "width": 60, "height": 80, "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "collisions",
+            "collisions":[ ]
+        },
+        {
+            "componentType": "sprites",
+            "verts": [[ -40, -20], [40, -20], [0, 15]],
+            "angle": 0,
+            "color": "0xff0000", "opacity": 1
+            
+        },
+        {
+            "componentType": "positions",
+            "x": 145, "y": 350, "angle": 0
+        },
+        {
+            "componentType": "touchSensors", 
+            "seeking": "ball",
+            "last": false,
+            "current": false,
+            "variable": "amountOfMoney",
+            "operation": -1000
+        }
     ],
     "obstacleGreen": [
-	{
-	    "componentType": "shapes",
-	    "verts": [[ -60, -20], [50, -20], [0, 30]],
-	    "width": 60, "height": 80, "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions":[ ]
-	},
-	{
-	    "componentType": "sprites",
-	    "verts": [[ -60, -20], [50, -20], [0, 30]],
-	    "angle": 0,
-	    "color": "0x00ff00", "opacity": 1
-	},
-	{
-	    "componentType": "positions",
-	    "x": 445, "y": 150, "angle": 3.141592653589793
-	},
-	{
-	    "componentType": "touchSensors", 
-	    "seeking": "ball",
-	    "last": false,
-	    "current": false,
-	    "variable": "amountOfMoney",
-	    "operation": 1000
-	}
+        {
+            "componentType": "shapes",
+            "verts": [[ -60, -20], [50, -20], [0, 30]],
+            "width": 60, "height": 80, "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "collisions",
+            "collisions":[ ]
+        },
+        {
+            "componentType": "sprites",
+            "verts": [[ -60, -20], [50, -20], [0, 30]],
+            "angle": 0,
+            "color": "0x00ff00", "opacity": 1
+        },
+        {
+            "componentType": "positions",
+            "x": 445, "y": 150, "angle": 3.141592653589793
+        },
+        {
+            "componentType": "touchSensors", 
+            "seeking": "ball",
+            "last": false,
+            "current": false,
+            "variable": "amountOfMoney",
+            "operation": 1000
+        }
     ]
 }

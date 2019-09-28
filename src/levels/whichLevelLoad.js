@@ -7,20 +7,20 @@ function secondToLast(array) {
 
 function whichLevelLoad(levelMap) {
     return function (gameState) {
-	const currentLevelName = last(gameState.global.levelTrace);
-	const command = gameState.global.exitLevelCommand;
-	if (command == "backToPreviousLevel") {
-	    return {
-		command: command,
-		newLevelName: secondToLast(gameState.global.levelTrace)
-	    };
-	}
-	else {
-	    return {
-		command: command,
-		newLevelName: levelMap[currentLevelName][command]
-	    };
-	}
+        const currentLevelName = last(gameState.global.levelTrace);
+        const command = gameState.global.exitLevelCommand;
+        if (command == "backToPreviousLevel") {
+            return {
+                command: command,
+                newLevelName: secondToLast(gameState.global.levelTrace)
+            };
+        }
+        else {
+            return {
+                command: command,
+                newLevelName: levelMap[currentLevelName][command]
+            };
+        }
     };
 }
 

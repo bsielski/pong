@@ -3,12 +3,12 @@ import Config from '../config';
 
 function removeDeletedShapes(shape_components, system, shapes) {
     Object.keys(shapes).forEach(function(id) {
-	if (shape_components[id]) {
-	}
-	else {
-	    system.remove(shapes[id]);
-	    delete shapes[id];
-	}
+        if (shape_components[id]) {
+        }
+        else {
+            system.remove(shapes[id]);
+            delete shapes[id];
+        }
     });
 }
 
@@ -32,31 +32,31 @@ function updateShapeRenderer() {
     const context = canvas.getContext('2d');
 
     function render() {
-	context.fillStyle = '#000000';
-	context.strokeStyle = '#FFFFFF';
-	context.fillRect(0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
-	context.beginPath();
-	system.draw(context);
-	context.stroke();
+        context.fillStyle = '#000000';
+        context.strokeStyle = '#FFFFFF';
+        context.fillRect(0, 0, Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
+        context.beginPath();
+        system.draw(context);
+        context.stroke();
     }
 
     return function(gameState) {
-	const shape_components = gameState.currentLevel.shapes;
-	const position_components = gameState.currentLevel.positions;
+        const shape_components = gameState.currentLevel.shapes;
+        const position_components = gameState.currentLevel.positions;
 
-	removeDeletedShapes(shape_components, system, shapes);
+        removeDeletedShapes(shape_components, system, shapes);
 
-	Object.keys(shape_components).forEach(id => {
-	    if (shapes[id]) {
-		shapes[id].x = position_components[id].x;
-		shapes[id].y = position_components[id].y;
-		shapes[id].angle = position_components[id].angle + shape_components[id].angle;
-	    }
-	    else {
-		addShapeToSystem(shape_components, position_components, system, shapes, id);
- 	    }
-	});
-	render();
+        Object.keys(shape_components).forEach(id => {
+            if (shapes[id]) {
+                shapes[id].x = position_components[id].x;
+                shapes[id].y = position_components[id].y;
+                shapes[id].angle = position_components[id].angle + shape_components[id].angle;
+            }
+            else {
+                addShapeToSystem(shape_components, position_components, system, shapes, id);
+            }
+        });
+        render();
     }
 }
 

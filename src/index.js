@@ -41,46 +41,46 @@ function run() {
     const gameState = JSON.parse(JSON.stringify(InitGameState));
 
     const renderer_options = {
-	width: Config.WORLD_WIDTH,
-	height: Config.WORLD_HEIGHT,
-	backgroundColor: Config.BG_COLOR,
-	antialias: false,
-	autoStart: false
+        width: Config.WORLD_WIDTH,
+        height: Config.WORLD_HEIGHT,
+        backgroundColor: Config.BG_COLOR,
+        antialias: false,
+        autoStart: false
     };
 
     let updateShapeRenderer = UpdateNullShapeRenderer;
     if (process.env.NODE_ENV == "development") {
-    	updateShapeRenderer = UpdateShapeRenderer();
+        updateShapeRenderer = UpdateShapeRenderer();
     }
 
     const updateRenderer = UpdateRenderer(gameState, renderer_options);
 
     const systems = [
-	UpdateController(KeyBinding),
-	UpdateAIs,
-	UpdateAccelerators,
-	UpdateRotators,
-	UpdatePivotLimiters,
-	UpdateSpringPivots,
-	UpdateTimers,
-	UpdateMovements,
-	UpdateFrictions,
-	UpdateCollisionDetectors(),
-	UpdateBouncings,
-	UpdateStops,
-	UpdateTouchSensors,
-	UpdateConditions,
-	UpdateLogicalAnds,
-	UpdateLogicalOrs,
-	UpdateFpsCounters,
-	UpdateExitLevel,
-	updateShapeRenderer
+        UpdateController(KeyBinding),
+        UpdateAIs,
+        UpdateAccelerators,
+        UpdateRotators,
+        UpdatePivotLimiters,
+        UpdateSpringPivots,
+        UpdateTimers,
+        UpdateMovements,
+        UpdateFrictions,
+        UpdateCollisionDetectors(),
+        UpdateBouncings,
+        UpdateStops,
+        UpdateTouchSensors,
+        UpdateConditions,
+        UpdateLogicalAnds,
+        UpdateLogicalOrs,
+        UpdateFpsCounters,
+        UpdateExitLevel,
+        updateShapeRenderer
     ];
 
     const whichLevelLoad = WhichLevelLoad(LEVEL_MAP);
     const loadLevel = LoadLevel(whichLevelLoad, LevelFromFile, UpdateLevelTrace);
     const updateSystems = UpdateSystems(
-	systems
+        systems
     );
     const updateGame = UpdateGame(gameState, loadLevel, updateSystems);
 

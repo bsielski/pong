@@ -1,178 +1,178 @@
 {
     "clickEnterMessage": [
-	{
-	    "componentType": "variables",
-	    "value": "Press Enter to continue"
-	}
+        {
+            "componentType": "variables",
+            "value": "Press Enter to continue"
+        }
     ],
     "gameSubtitleText": [
-	{
-	    "componentType": "texts",
-	    "size": 20,
-	    "variable": "levelManual",
-	    "color": "0xffffff",
-	    "angle": 0,
-	    "opacity": 0.6
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 210,
-	    "angle": 0
-	}
+        {
+            "componentType": "texts",
+            "size": 20,
+            "variable": "levelManual",
+            "color": "0xffffff",
+            "angle": 0,
+            "opacity": 0.6
+        },
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 210,
+            "angle": 0
+        }
     ],
     "gameTitleText": [
-	{
-	    "componentType": "texts",
-	    "size": 32,
-	    "variable": "levelTitle",
-	    "color": "0xffffff",
-	    "angle": 0,
-	    "opacity": 0.6
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 40,
-	    "angle": 0
-	}
+        {
+            "componentType": "texts",
+            "size": 32,
+            "variable": "levelTitle",
+            "color": "0xffffff",
+            "angle": 0,
+            "opacity": 0.6
+        },
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 40,
+            "angle": 0
+        }
     ],
     "have1points": [
-	{
-	    "componentType": "conditions",
-	    "leftVariable": "playerPoints",
-	    "operator": ">=",
-	    "rightVariable": "pointsNeededByPlayer"
-	},
-	{
-	    "componentType": "variables",
-	    "value": false
-	}
+        {
+            "componentType": "conditions",
+            "leftVariable": "playerPoints",
+            "operator": ">=",
+            "rightVariable": "pointsNeededByPlayer"
+        },
+        {
+            "componentType": "variables",
+            "value": false
+        }
     ],
     "leftZone": [
-	{
-	    "componentType": "shapes",
-	    "width": 150,
-	    "height": 20,
-	    "angle": 0
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": []
-	},
-	{
-	    "componentType": "positions",
-	    "x": 155,
-	    "y": 475,
-	    "angle": 0
-	},
-	{
-	    "componentType": "touchSensors",
-	    "seeking": "playerPaddle",
-	    "last": false,
-	    "current": false,
-	    "variable": "playerPoints",
-	    "operation": 1
-	}
+        {
+            "componentType": "shapes",
+            "width": 150,
+            "height": 20,
+            "angle": 0
+        },
+        {
+            "componentType": "collisions",
+            "collisions": []
+        },
+        {
+            "componentType": "positions",
+            "x": 155,
+            "y": 475,
+            "angle": 0
+        },
+        {
+            "componentType": "touchSensors",
+            "seeking": "playerPaddle",
+            "last": false,
+            "current": false,
+            "variable": "playerPoints",
+            "operation": 1
+        }
     ],
     "levelManual": [
-	{
-	    "componentType": "variables",
-	    "value": "You are on the bottom of the screen,\non the opposite side of the screen is your enemy (the AI).\n\nWhoever scores 5 points first wins.\n\nKeys:\nLeft arrow - go left\nRight arrow - go right\n\nGood luck."
-	}
+        {
+            "componentType": "variables",
+            "value": "You are on the bottom of the screen,\non the opposite side of the screen is your enemy (the AI).\n\nWhoever scores 5 points first wins.\n\nKeys:\nLeft arrow - go left\nRight arrow - go right\n\nGood luck."
+        }
     ],
     "levelTitle": [
-	{
-	    "componentType": "variables",
-	    "value": "Level 1: Regular Pong"
-	}
+        {
+            "componentType": "variables",
+            "value": "Level 1: Regular Pong"
+        }
     ],
     "manualMessageText": [
-	{
-	    "componentType": "texts",
-	    "size": 17,
-	    "variable": "clickEnterMessage",
-	    "color": "0xffffff",
-	    "angle": 0,
-	    "opacity": 0.6
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 390,
-	    "angle": 0
-	}
+        {
+            "componentType": "texts",
+            "size": 17,
+            "variable": "clickEnterMessage",
+            "color": "0xffffff",
+            "angle": 0,
+            "opacity": 0.6
+        },
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 390,
+            "angle": 0
+        }
     ],
     "playerPaddle": [
-	{
-	    "componentType": "shapes",
-	    "width": 131,
-	    "height": 25,
-	    "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "stopping"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": []
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 460,
-	    "angle": 0
-	},
-	{
-	    "componentType": "movements",
-	    "minSpeed": 0,
-	    "speed": 0,
-	    "maxSpeed": 0.7,
-	    "angle": 0,
-	    "randomAngle": 0
-	},
-	{
-	    "componentType": "accelerators",
-	    "leftAccelerator": {
-		"angle": 3.141592653589793,
-		"acceleration": 0.15
-	    }
-	},
-	{
-	    "componentType": "orders",
-	    "confirm": false
-	},
-	{
-	    "componentType": "interpreters",
-	    "leftAccelerator": [
-		"confirm"
-	    ]
-	}
+        {
+            "componentType": "shapes",
+            "width": 131,
+            "height": 25,
+            "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "stopping"
+        },
+        {
+            "componentType": "collisions",
+            "collisions": []
+        },
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 460,
+            "angle": 0
+        },
+        {
+            "componentType": "movements",
+            "minSpeed": 0,
+            "speed": 0,
+            "maxSpeed": 0.7,
+            "angle": 0,
+            "randomAngle": 0
+        },
+        {
+            "componentType": "accelerators",
+            "leftAccelerator": {
+                "angle": 3.141592653589793,
+                "acceleration": 0.15
+            }
+        },
+        {
+            "componentType": "orders",
+            "confirm": false
+        },
+        {
+            "componentType": "interpreters",
+            "leftAccelerator": [
+                "confirm"
+            ]
+        }
     ],
     "playerPoints": [
-	{
-	    "componentType": "variables",
-	    "value": 0
-	}
+        {
+            "componentType": "variables",
+            "value": 0
+        }
     ],
     "pointsNeededByPlayer": [
-	{
-	    "componentType": "variables",
-	    "value": 1
-	}
+        {
+            "componentType": "variables",
+            "value": 1
+        }
     ], 
     "exitLevel": [
-	{
-	    "componentType": "exitLevel",
-	    "options": [
-		{
-		    "variable": "have1points",
-		    "command": "win"
-		}
-	    ]
-	}
+        {
+            "componentType": "exitLevel",
+            "options": [
+                {
+                    "variable": "have1points",
+                    "command": "win"
+                }
+            ]
+        }
     ]
 }

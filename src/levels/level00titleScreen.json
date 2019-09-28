@@ -1,178 +1,178 @@
 {
     "gameSubtitle": [
-	{
-	    "componentType": "variables",
-	    "value": "The Game!"
-	}
+        {
+            "componentType": "variables",
+            "value": "The Game!"
+        }
     ],
     "gameSubtitleTextId": [
-	{
-	    "componentType": "texts",
-	    "size": 35,
-	    "variable": "gameSubtitle",
-	    "color": "0xffffff",
-	    "angle": 0,
-	    "opacity": 0.6
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 195,
-	    "angle": 0
-	}
+        {
+            "componentType": "texts",
+            "size": 35,
+            "variable": "gameSubtitle",
+            "color": "0xffffff",
+            "angle": 0,
+            "opacity": 0.6
+        },
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 195,
+            "angle": 0
+        }
     ],
     "gameTitle": [
-	{
-	    "componentType": "variables",
-	    "value": "A Ponglike Game!"
-	}
+        {
+            "componentType": "variables",
+            "value": "A Ponglike Game!"
+        }
     ],
     "gameTitleTextId": [
-	{
-	    "componentType": "texts",
-	    "size": 52,
-	    "variable": "gameTitle",
-	    "color": "0xffffff",
-	    "angle": 0,
-	    "opacity": 0.6
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 125,
-	    "angle": 0
-	}
+        {
+            "componentType": "texts",
+            "size": 52,
+            "variable": "gameTitle",
+            "color": "0xffffff",
+            "angle": 0,
+            "opacity": 0.6
+        },
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 125,
+            "angle": 0
+        }
     ],
     "have1point": [
-	{
-	    "componentType": "conditions",
-	    "leftVariable": "playerPoints",
-	    "operator": ">=",
-	    "rightVariable": "pointsNeededByPlayer"
-	},
-	{
-	    "componentType": "variables",
-	    "value": false
-	}
+        {
+            "componentType": "conditions",
+            "leftVariable": "playerPoints",
+            "operator": ">=",
+            "rightVariable": "pointsNeededByPlayer"
+        },
+        {
+            "componentType": "variables",
+            "value": false
+        }
     ],
     "manualMessage": [
-	{
-	    "componentType": "variables",
-	    "value": "Press Enter to continue!"
-	}
+        {
+            "componentType": "variables",
+            "value": "Press Enter to continue!"
+        }
     ],
     "manualMessageTextId": [
-	{
-	    "componentType": "texts",
-	    "size": 17,
-	    "variable": "manualMessage",
-	    "color": "0xffffff",
-	    "angle": 0,
-	    "opacity": 0.6
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 390,
-	    "angle": 0
-	}
+        {
+            "componentType": "texts",
+            "size": 17,
+            "variable": "manualMessage",
+            "color": "0xffffff",
+            "angle": 0,
+            "opacity": 0.6
+        },
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 390,
+            "angle": 0
+        }
     ],
     "paddle": [
-	{
-	    "componentType": "shapes",
-	    "width": 131,
-	    "height": 25,
-	    "angle": 0
-	},
-	{
-	    "componentType": "bodies"
-	},
-	{
-	    "componentType": "stopping"
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": []
-	},
-	{
-	    "componentType": "positions",
-	    "x": 300,
-	    "y": 460,
-	    "angle": 0
-	},
-	{
-	    "componentType": "movements",
-	    "minSpeed": 0,
-	    "speed": 0,
-	    "maxSpeed": 0.7,
-	    "angle": 0,
-	    "randomAngle": 0
-	},
-	{
-	    "componentType": "accelerators",
-	    "leftAccelerator": {
-		"angle": 3.141592653589793,
-		"acceleration": 0.15
-	    }
-	},
-	{
-	    "componentType": "orders",
-	    "confirm": false
-	},
-	{
-	    "componentType": "interpreters",
-	    "leftAccelerator": [
-		"confirm"
-	    ]
-	}
+        {
+            "componentType": "shapes",
+            "width": 131,
+            "height": 25,
+            "angle": 0
+        },
+        {
+            "componentType": "bodies"
+        },
+        {
+            "componentType": "stopping"
+        },
+        {
+            "componentType": "collisions",
+            "collisions": []
+        },
+        {
+            "componentType": "positions",
+            "x": 300,
+            "y": 460,
+            "angle": 0
+        },
+        {
+            "componentType": "movements",
+            "minSpeed": 0,
+            "speed": 0,
+            "maxSpeed": 0.7,
+            "angle": 0,
+            "randomAngle": 0
+        },
+        {
+            "componentType": "accelerators",
+            "leftAccelerator": {
+                "angle": 3.141592653589793,
+                "acceleration": 0.15
+            }
+        },
+        {
+            "componentType": "orders",
+            "confirm": false
+        },
+        {
+            "componentType": "interpreters",
+            "leftAccelerator": [
+                "confirm"
+            ]
+        }
     ],
     "playerPoints": [
-	{
-	    "componentType": "variables",
-	    "value": 0
-	}
+        {
+            "componentType": "variables",
+            "value": 0
+        }
     ],
     "pointsNeededByPlayer": [
-	{
-	    "componentType": "variables",
-	    "value": 1
-	}
+        {
+            "componentType": "variables",
+            "value": 1
+        }
     ],
     "sensor": [
-	{
-	    "componentType": "shapes",
-	    "width": 150,
-	    "height": 20,
-	    "angle": 0
-	},
-	{
-	    "componentType": "collisions",
-	    "collisions": []
-	},
-	{
-	    "componentType": "positions",
-	    "x": 155,
-	    "y": 475,
-	    "angle": 0
-	},
-	{
-	    "componentType": "touchSensors",
-	    "seeking": "paddle",
-	    "last": false,
-	    "current": false,
-	    "variable": "playerPoints",
-	    "operation": 1
-	}
+        {
+            "componentType": "shapes",
+            "width": 150,
+            "height": 20,
+            "angle": 0
+        },
+        {
+            "componentType": "collisions",
+            "collisions": []
+        },
+        {
+            "componentType": "positions",
+            "x": 155,
+            "y": 475,
+            "angle": 0
+        },
+        {
+            "componentType": "touchSensors",
+            "seeking": "paddle",
+            "last": false,
+            "current": false,
+            "variable": "playerPoints",
+            "operation": 1
+        }
     ],
     "exitLevel": [
-	{
-	    "componentType": "exitLevel",
-	    "options": [
-		{
-		    "variable": "have1point",
-		    "command": "win"
-		}
-	    ]
-	}
+        {
+            "componentType": "exitLevel",
+            "options": [
+                {
+                    "variable": "have1point",
+                    "command": "win"
+                }
+            ]
+        }
     ]
 }

@@ -8,13 +8,13 @@ function updateStops(gameState) {
 
     Object.keys(stopping_components).forEach(id => {
 
-	collision_components[id].collisions.forEach(collision => {
+        collision_components[id].collisions.forEach(collision => {
 
             if (body_components[collision.bId] && !bouncing_components[collision.bId]) {
-		position_components[id].x -= collision.overlapV[0];
-		position_components[id].y -= collision.overlapV[1];
+                position_components[id].x -= collision.overlapV[0];
+                position_components[id].y -= collision.overlapV[1];
             }
-	});
+        });
     });    
 }
 
