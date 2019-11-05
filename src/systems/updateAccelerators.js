@@ -2,11 +2,11 @@ import Victor from 'victor';
 
 function updateAccelerators(gameState) {
 
-    const accelerator_components = gameState.currentLevel.accelerators;
-    const interpreter_components = gameState.currentLevel.interpreters;
+    const accelerator_components = gameState.currentLevel.accelerator;
+    const interpreter_components = gameState.currentLevel.interpreter;
     const order_components = gameState.currentLevel.orders;
-    const movement_components = gameState.currentLevel.movements;
-    const position_components = gameState.currentLevel.positions;
+    const movement_components = gameState.currentLevel.movement;
+    const position_components = gameState.currentLevel.position;
 
     Object.keys(accelerator_components).forEach(id => {
         const accelerators = accelerator_components[id];

@@ -1,7 +1,7 @@
 function updateConditions(gameState) {
 
-    const condition_components = gameState.currentLevel.conditions;
-    const variable_components = gameState.currentLevel.variables;
+    const condition_components = gameState.currentLevel.condition;
+    const variable_components = gameState.currentLevel.variable;
 
     function checkCondition(left, operator, right) {
         function greaterThan(left, right) {return left > right;}
@@ -18,6 +18,7 @@ function updateConditions(gameState) {
         const condition = condition_components[id];
         const leftValue = variable_components[condition.leftVariable].value;
         const rightValue = variable_components[condition.rightVariable].value;
+        
         if (checkCondition(leftValue, condition.operator, rightValue)) {
             variable_components[id].value = true;
         }
@@ -25,6 +26,7 @@ function updateConditions(gameState) {
             variable_components[id].value = false;
         }
     });
+
 }
 
 export default updateConditions;

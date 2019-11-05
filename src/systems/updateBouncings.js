@@ -9,11 +9,11 @@ function updateBouncings(gameState) {
         return new Victor(newX, newY);
     }
 
-    const bouncing_components = gameState.currentLevel.bouncing;
+    const bouncing_components = gameState.currentLevel.bounce;
     const collision_components = gameState.currentLevel.collisions;
-    const body_components = gameState.currentLevel.bodies;
-    const position_components = gameState.currentLevel.positions;
-    const movement_components = gameState.currentLevel.movements;
+    const body_components = gameState.currentLevel.body;
+    const position_components = gameState.currentLevel.position;
+    const movement_components = gameState.currentLevel.movement;
 
     Object.keys(bouncing_components).forEach(id => {
         let bouncingBody = bouncing_components[id];
@@ -21,7 +21,7 @@ function updateBouncings(gameState) {
         let bouncingBody_angle = movement_components[id].angle;
         let bouncingBody_vector = new Victor(bouncingBody_speed, 0).rotate(bouncingBody_angle);
 
-        collision_components[id].collisions.forEach(collision => {
+        collision_components[id].forEach(collision => {
             if (body_components[collision.bId]) {
 
                 const normal = Victor.fromArray(collision.overlapV).normalize();

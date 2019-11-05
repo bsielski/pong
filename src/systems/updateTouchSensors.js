@@ -1,19 +1,30 @@
 function updateTouchSensors(gameState) {
 
-    const touchSensor_components = gameState.currentLevel.touchSensors;
-    const variable_components = gameState.currentLevel.variables;
+    const touchSensor_components = gameState.currentLevel.touchSensor;
+    const variable_components = gameState.currentLevel.variable;
     const collision_components = gameState.currentLevel.collisions;
+
+    const seekingIn = {
+        "in": "in",
+        "out": "entered",
+        "exited": "entered",
+        "entered": "in"
+    };
+    const seekingOut = {
+        "in": "exited",
+        "out": "out",
+        "exited": "out",
+        "entered": "exited"
+    };
 
     Object.keys(touchSensor_components).forEach(id => {
         const sensor = touchSensor_components[id];
-        sensor.last = sensor.current;
-        sensor.current = false;
-        collision_components[id].collisions.forEach(collision => {
+        const state = variable_components[sensor.state];
+        const stateIfDetected = seekingIn[state.value];
+        state.value = seekingOut[state.value]
+        collision_components[id].forEach(collision => {
             if (sensor.seeking === collision.bId) {
-                sensor.current = true;
-                if (sensor.last === false && sensor.current === true) {
-                    variable_components[sensor.variable].value += sensor.operation;
-                }
+                state.value = stateIfDetected;
             }
         });
     });

@@ -32,8 +32,8 @@ function updateCollisionDetectors() {
 
     return function(gameState) {
 
-        const shape_components = gameState.currentLevel.shapes;
-        const position_components = gameState.currentLevel.positions;
+        const shape_components = gameState.currentLevel.shape;
+        const position_components = gameState.currentLevel.position;
         const collisions_components = gameState.currentLevel.collisions;
 
         removeDeletedShapes(shape_components, system, shapes);
@@ -52,11 +52,11 @@ function updateCollisionDetectors() {
         system.update();
         Object.keys(collisions_components).forEach(id => {
             let body = shapes[id];
-            collisions_components[id].collisions = [];
+            collisions_components[id] = [];
             let potentials = body.potentials();
             potentials.forEach(obstacle => {
                 if (body.collides(obstacle, result)) {
-                    collisions_components[id].collisions.push(
+                    collisions_components[id].push(
                         {
                             bId: result.b.id,
                             aInB: result.a_in_b,

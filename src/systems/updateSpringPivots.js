@@ -1,7 +1,7 @@
 function updateSpringPivots(gameState) {
 
-    const shape_components = gameState.currentLevel.shapes;
-    const springPivot_components = gameState.currentLevel.springPivots;
+    const shape_components = gameState.currentLevel.shape;
+    const springPivot_components = gameState.currentLevel.springPivot;
 
     Object.keys(springPivot_components).forEach(id => {
       let springPower = springPivot_components[id].power;

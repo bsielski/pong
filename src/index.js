@@ -3,19 +3,20 @@ import Config from './config';
 
 import MainLoop from 'mainloop.js';
 
-import InitGameState from './initGameState.js';
+import getInitGameState from './level-loading/getInitGameState.js';
 
 import KeyBinding from './keyBinding';
-import LEVEL_MAP from './levels/levelMap';
-import LevelFromFile from './levels/levelFromFile';
-import LoadLevel from './levels/loadLevel';
-import UpdateLevelTrace from './levels/updateLevelTrace';
-import WhichLevelLoad from './levels/whichLevelLoad';
+import LEVEL_MAP from './level-loading/levelMap';
+import LevelFromFile from './level-loading/levelFromFile';
+import LoadLevel from './level-loading/loadLevel';
+import UpdateLevelTrace from './level-loading/updateLevelTrace';
+import WhichLevelLoad from './level-loading/whichLevelLoad';
 
 import UpdateFpsCounters from './systems/updateFpsCounters';
 
 import UpdatePivotLimiters from './systems/updatePivotLimiters';
 import UpdateSpringPivots from './systems/updateSpringPivots';
+import UpdateOperations from './systems/updateOperations';
 import UpdateConditions from './systems/updateConditions';
 import UpdateLogicalAnds from './systems/updateLogicalAnds';
 import UpdateLogicalOrs from './systems/updateLogicalOrs';
@@ -38,13 +39,13 @@ import UpdateSystems from './systems/updateSystems';
 import UpdateGame from './updateGame';
 
 function run() {
-    const gameState = JSON.parse(JSON.stringify(InitGameState));
+    const gameState = getInitGameState();
 
     const renderer_options = {
         width: Config.WORLD_WIDTH,
         height: Config.WORLD_HEIGHT,
         backgroundColor: Config.BG_COLOR,
-        antialias: false,
+        antialias: true,//false,
         autoStart: false
     };
 
@@ -62,7 +63,6 @@ function run() {
         UpdateRotators,
         UpdatePivotLimiters,
         UpdateSpringPivots,
-        UpdateTimers,
         UpdateMovements,
         UpdateFrictions,
         UpdateCollisionDetectors(),
@@ -72,6 +72,8 @@ function run() {
         UpdateConditions,
         UpdateLogicalAnds,
         UpdateLogicalOrs,
+        UpdateOperations,
+        UpdateTimers,
         UpdateFpsCounters,
         UpdateExitLevel,
         updateShapeRenderer
@@ -79,9 +81,7 @@ function run() {
 
     const whichLevelLoad = WhichLevelLoad(LEVEL_MAP);
     const loadLevel = LoadLevel(whichLevelLoad, LevelFromFile, UpdateLevelTrace);
-    const updateSystems = UpdateSystems(
-        systems
-    );
+    const updateSystems = UpdateSystems(systems);
     const updateGame = UpdateGame(gameState, loadLevel, updateSystems);
 
     MainLoop.setMaxAllowedFPS(Config.MAX_FPS);

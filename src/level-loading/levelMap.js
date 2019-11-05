@@ -1,9 +1,10 @@
 const LEVEL_MAP = {
     "void": {
         "start": "level00titleScreen",
+        //"start": "level02",
     },
     "level00titleScreen": {
-        "win": "level03intro",
+        "win": "level01intro",
     },
     "level01intro": {
         "win": "level01",
@@ -13,7 +14,7 @@ const LEVEL_MAP = {
         "lose": "level01lose"
     },
     "level01lose": {
-        "win": "level01"
+        "win": "level01intro"
     },
     "level02intro": {
         "win": "level02",
@@ -23,7 +24,7 @@ const LEVEL_MAP = {
         "lose": "level02lose"
     },
     "level02lose": {
-        "win": "level02"
+        "win": "level02intro"
     },
     "level03intro": {
         "win": "level03",
@@ -33,7 +34,7 @@ const LEVEL_MAP = {
         "lose": "level03lose"
     },
     "level03lose": {
-        "win": "level03"
+        "win": "level03intro"
     },
     "level9999congratulationsScreen": {
         "win": "level00titleScreen",

@@ -1,8 +1,8 @@
 import MainLoop from 'mainloop.js';
 
 function updateFpsCounters(gameState) {
-    const fpsCounter_components = gameState.currentLevel.fpsCounters;
-    const variable_components = gameState.currentLevel.variables;
+    const fpsCounter_components = gameState.currentLevel.fpsCounter;
+    const variable_components = gameState.currentLevel.variable;
 
     Object.keys(fpsCounter_components).forEach(id => {
       const fpsNumber = Math.round(MainLoop.getFPS());

@@ -3,9 +3,10 @@ function last(array) {
 }
 
 function updateExitLevel(gameState) {
-    const componentId = last(gameState.global.levelTrace) + "-exitLevel";
-    const passedCondition = gameState.currentLevel.exitLevel[componentId].options.find(function(condition) {
-        return gameState.currentLevel.variables[condition.variable].value === true;
+    const componentId = last(gameState.global.levelTrace) + "-levelExits";
+    const levelExitComponents = gameState.currentLevel.levelExits;
+    const passedCondition = gameState.currentLevel.levelExits[componentId].find(function(condition) {
+        return gameState.currentLevel.variable[condition.variable].value === true;
     });
     if (passedCondition) {
         gameState.global.exitLevelCommand = passedCondition.command;

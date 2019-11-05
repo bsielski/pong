@@ -1,5 +1,5 @@
 const Config = {
-  MAX_FPS: 60,
+  MAX_FPS: 40,
   PADDLE_SPEED: 0.45,
   BG_COLOR: 0x001100,
   WORLD_WIDTH: 600,

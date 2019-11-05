@@ -1,14 +1,14 @@
 function updateLogicalAnds(gameState) {
 
-    const logicalAnd_components = gameState.currentLevel.logicalAnds;
-    const variable_components = gameState.currentLevel.variables;
+    const logicalAnd_components = gameState.currentLevel.logicalAnd;
+    const variable_components = gameState.currentLevel.variable;
 
     function isTrue(id, index, array) {
         return variable_components[id].value === true;
     }
 
     Object.keys(logicalAnd_components).forEach(id => {
-        if (logicalAnd_components[id].operands.every(isTrue)) {
+        if (logicalAnd_components[id].every(isTrue)) {
             variable_components[id].value = true;
         }
         else {

@@ -1,9 +1,9 @@
 function updateAIs(gameState) {
 
-    const ball_components = gameState.currentLevel.balls;
+    const ball_components = gameState.currentLevel.ball;
     const ai_components = gameState.currentLevel.ai;
-    const position_components = gameState.currentLevel.positions;
-    const movement_components = gameState.currentLevel.movements;
+    const position_components = gameState.currentLevel.position;
+    const movement_components = gameState.currentLevel.movement;
     const order_components = gameState.currentLevel.orders;
     const direction = 0;
 

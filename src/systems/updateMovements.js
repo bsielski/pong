@@ -2,9 +2,9 @@ import Victor from 'victor';
 
 function updateMovements(gameState, delta) {
 
-    const movement_components = gameState.currentLevel.movements;
-    const position_components = gameState.currentLevel.positions;
-    const variable_components = gameState.currentLevel.variables;
+    const movement_components = gameState.currentLevel.movement;
+    const position_components = gameState.currentLevel.position;
+    const variable_components = gameState.currentLevel.variable;
 
     Object.keys(movement_components).forEach(id => {
         if (!movement_components[id].enabled || variable_components[movement_components[id].enabled].value === true) {

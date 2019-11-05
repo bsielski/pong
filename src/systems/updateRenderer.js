@@ -1,7 +1,7 @@
 import {Sprite, Application, Texture, Graphics, Point, TextStyle, Text} from 'pixi.js';
 
-import lolpixels from '../levels/images/lolpixels.png';
-import btcball from '../levels/images/btcball.png';
+import lolpixels from '../level-data/images/lolpixels.png';
+import btcball from '../level-data/images/btcball.png';
 
 const IMAGES = {
     LOLPIXELS: lolpixels,
@@ -11,7 +11,7 @@ const IMAGES = {
 function addSpriteToStage(sprite_components, position_components, shape_components, app, sprites, id) {
     let sprite;
     if (sprite_components[id].image) {
-        sprite = new Sprite(Texture.fromImage(
+        sprite = new Sprite(Texture.from(
             // sprite_components[id].image
             IMAGES[sprite_components[id].image]
             //LOLPIXELS
@@ -45,6 +45,9 @@ function addSpriteToStage(sprite_components, position_components, shape_componen
 
     sprite.x = position_components[id].x;
     sprite.y = position_components[id].y;
+    if (position_components[id].z) {
+        sprite.zIndex = position_components[id].z;
+    }
     sprite.alpha = sprite_components[id].opacity;
     sprite.rotation = position_components[id].angle + sprite_components[id].angle;
     if (shape_components[id]) { sprite.rotation += shape_components[id].angle }
@@ -52,6 +55,8 @@ function addSpriteToStage(sprite_components, position_components, shape_componen
     sprite.id = id;
     sprites[id] = sprite;
     app.stage.addChild(sprite);
+    //app.stage.sortChildren;
+
 }
 
 function addTextToStage(text_components, position_components, variable_components, app, texts, id) {
@@ -83,7 +88,11 @@ function addTextToStage(text_components, position_components, variable_component
     text.anchor = new Point(0.5, 0.5);
     text.id = id;
     texts[id] = text;
+    if (position_components[id].z) {
+        text.zIndex = position_components[id].z;
+    }
     app.stage.addChild(text);
+    //app.stage.sortChildren;
 }
 
 function removeDeletedChildren(sprite_components, text_components, app, sprites, texts) {
@@ -112,13 +121,13 @@ function updateRenderer(gameState, rendererOptions) {
     const texts = {};
     const app = new Application(rendererOptions);
     document.getElementById("game_container").appendChild(app.view);
-
+    app.stage.sortableChildren = true;
     return function() {
-        const sprite_components = gameState.currentLevel.sprites;
-        const text_components = gameState.currentLevel.texts;
-        const position_components = gameState.currentLevel.positions;
-        const variable_components = gameState.currentLevel.variables;
-        const shape_components = gameState.currentLevel.shapes;
+        const sprite_components = gameState.currentLevel.sprite;
+        const text_components = gameState.currentLevel.text;
+        const position_components = gameState.currentLevel.position;
+        const variable_components = gameState.currentLevel.variable;
+        const shape_components = gameState.currentLevel.shape;
         removeDeletedChildren(sprite_components, text_components, app, sprites, texts);
         Object.keys(text_components).forEach(id => {
             if (texts[id]) {

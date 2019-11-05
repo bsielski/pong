@@ -2,10 +2,10 @@ import Victor from 'victor';
 
 function updateRotators(gameState) {
 
-    const rotator_components = gameState.currentLevel.rotators;
-    const interpreter_components = gameState.currentLevel.interpreters;
+    const rotator_components = gameState.currentLevel.rotator;
+    const interpreter_components = gameState.currentLevel.interpreter;
     const order_components = gameState.currentLevel.orders;
-    const shape_components = gameState.currentLevel.shapes;
+    const shape_components = gameState.currentLevel.shape;
 
     Object.keys(rotator_components).forEach(id => {
         const rotators = rotator_components[id];

@@ -41,8 +41,8 @@ function updateShapeRenderer() {
     }
 
     return function(gameState) {
-        const shape_components = gameState.currentLevel.shapes;
-        const position_components = gameState.currentLevel.positions;
+        const shape_components = gameState.currentLevel.shape;
+        const position_components = gameState.currentLevel.position;
 
         removeDeletedShapes(shape_components, system, shapes);
 
